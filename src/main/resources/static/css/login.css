@@ -1,0 +1,95 @@
+.image {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.image_icon {
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background: url(../images/1.jpg) no-repeat;
+    background-size: 100%;
+}
+.image span:nth-child(2) {
+    height: 0.666667rem;
+    width: 300px;
+    font-size: 35px;
+    line-height: 35px;
+    margin-top: 35px;
+    text-align: center;
+}
+.tel,
+.messege {
+    position: relative;
+    height: 80px;
+    margin: 0 auto;
+    font-size: 35px;
+    text-align: center;
+}
+.tel input,
+.messege input {
+    width: 300px;
+    height: 25px;
+}
+.messege input {
+    margin-left: 135px;
+}
+.tel_icon {
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    height: 50px;
+    width: 50px;
+    background: url(../images/user.png) no-repeat;
+    background-size: 100%;
+}
+.messege_icon {
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    width: 50px;
+    height: 50px;
+    background: url(../images/passwd.png) no-repeat;
+    background-size: 100%;
+}
+.yanzhengma {
+    /* display: block; */
+    /* float: right; */
+    /* right: 50%; */
+    /* margin-right: 50%; */
+    /* margin-left: 300px; */
+    width: 150px;
+    height: 50px;
+    margin-left: 40px;
+    font-size: 25px;
+    line-height: 50px;
+    color: #28a0ed;
+    cursor: pointer;
+}
+.tishi {
+    /* position: relative; */
+    text-align: center;
+    display: block;
+    font-size: 30px;
+    color: red;
+    margin-left: 70px;
+}
+.login {
+    position: relative;
+    height: 80px;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    background-color: #28a0ed;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 30px;
+    color: #fff;
+    margin-top: 50px;
+}

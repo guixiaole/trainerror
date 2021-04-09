@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxl.trainerror.mapper.QuanChengMapper">
+
+    <!--    public Account getAcct(Long id); -->
+    <sql id="quanchengkey">
+        <trim suffixOverrides=",">
+
+            <if test="fileId!=null">
+                file_id,
+            </if>
+            <if test="xuHao!=null ">
+               xu_hao,
+            </if>
+            <if test="event!=null and event!=''">
+                event,
+            </if>
+            <if test="dateTime!=null">
+                date_time,
+            </if>
+            <if test="gongLiBiao!=null and gongLiBiao!=''">
+                gong_li_biao,
+            </if>
+            <if test="other!=null and other!=''">
+                other,
+            </if>
+            <if test="distance!=null ">
+                distance,
+            </if>
+            <if test="signalMachine!=null and signalMachine!=''">
+                signal_machine,
+            </if>
+            <if test="xinHao!=null and xinHao!=''">
+                xin_hao,
+            </if>
+            <if test="speed!=null ">
+                speed,
+            </if>
+            <if test="restrictSpeed!=null">
+                restrict_speed,
+            </if>
+            <if test="lingWei!=null and lingWei!=''">
+                ling_wei,
+            </if>
+            <if test="qianYin!=null and qianYin!=''">
+                qian_yin,
+            </if>
+            <if test="qianHou!=null and qianHou!=''">
+                qian_hou,
+            </if>
+            <if test="guanYa!=null ">
+                guan_ya,
+            </if>
+            <if test="gangYa!=null">
+                gang_ya,
+            </if>
+            <if test="zhuanSuDianLiu!=null">
+                zhuan_su_dian_liu,
+            </if>
+            <if test="junGang1!=null ">
+                jun_gang1,
+            </if>
+            <if test="junGang2!=null ">
+                jun_gang2,
+            </if>
+
+        </trim>
+    </sql>
+    <sql id="quanchengvalues">
+        <trim suffixOverrides=",">
+            <if test="fileId!=null">
+                #{fileId},
+            </if>
+            <if test="xuHao!=null">
+                #{xuHao},
+            </if>
+            <if test="event!=null and event!=''">
+                #{event},
+            </if>
+            <if test="dateTime!=null">
+                #{dateTime},
+            </if>
+            <if test="gongLiBiao!=null and gongLiBiao!=''">
+                #{gongLiBiao},
+            </if>
+            <if test="other!=null and other!=''">
+                #{other},
+            </if>
+            <if test="distance!=null ">
+                #{distance},
+            </if>
+            <if test="signalMachine!=null and signalMachine!=''">
+                #{signalMachine},
+            </if>
+            <if test="xinHao!=null and xinHao!=''">
+                #{xinHao},
+            </if>
+            <if test="speed!=null ">
+                #{speed},
+            </if>
+            <if test="restrictSpeed!=null ">
+                #{restrictSpeed},
+            </if>
+            <if test="lingWei!=null and lingWei!=''">
+                #{lingWei},
+            </if>
+            <if test="qianYin!=null and qianYin!=''">
+                #{qianYin},
+            </if>
+            <if test="qianHou!=null and qianHou!=''">
+                #{qianHou},
+            </if>
+            <if test="guanYa!=null">
+                #{guanYa},
+            </if>
+            <if test="gangYa!=null ">
+                #{gangYa},
+            </if>
+            <if test="zhuanSuDianLiu!=null ">
+                #{zhuanSuDianLiu},
+            </if>
+            <if test="junGang1!=null">
+                #{junGang1},
+            </if>
+            <if test="junGang2!=null ">
+                #{junGang2},
+            </if>
+
+        </trim>
+    </sql>
+  <insert id="insertQuanCheng" useGeneratedKeys="true" keyProperty="id">
+        insert into quan_cheng (<include refid="quanchengkey" />)
+        values (<include refid="quanchengvalues" />)
+  </insert>
+
+</mapper>

@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.nav {
+  background-color: #e0e0e0;
+  height: 150px;
+  width: 100%;
+}
+.info {
+  width: 35%;
+  height: 100%;
+  float: left;
+  /* background-color: aqua; */
+}
+.left_info {
+  margin-top: 10px;
+  display: block;
+  float: left;
+  font-size: 12px;
+  height: 20px;
+  width: 12%;
+  line-height: 16px;
+  margin-left: 2%;
+}
+.right_info {
+  margin-top: 10px;
+  display: block;
+  float: left;
+  font-size: 12px;
+  height: 20px;
+  line-height: 16px;
+  width: 17%;
+  background-color: #ffffff;
+  margin-left: 2%;
+}
+.xiangdian {
+  float: left;
+  width: 65%;
+  height: 100%;
+  /* background-color: blue; */
+}
+.file_info {
+  width: 100%;
+  height: 30%;
+  font-size: 32px;
+  color: #38f;
+  text-align: center;
+}
+.error_wubu {
+  width: 50%;
+  float: left;
+}
+.error_td {
+  display: flex;
+  margin-top: 5px;
+  margin-top: 10px;
+}
+.error_td span,
+.error_td1 span {
+  flex: 1;
+  height: 30px;
+  border: 1px solid #000;
+  text-align: center;
+  font-size: 12px;
+  align-content: center;
+  line-height: 30px;
+}
+.quxian {
+  width: 50%;
+  float: left;
+}
+.all_xiangdian {
+  width: 60%;
+  margin-left: 20px;
+  float: left;
+}
+.error_td1 {
+  display: flex;
+  margin-top: 5px;
+  margin-top: 10px;
+  width: 100%;
+}
+.recorder_quxian,
+.recorder_fanhui {
+  float: left;
+  width: 16%;
+  height: 75px;
+  /* background-color: #38f; */
+  text-align: center;
+  line-height: 80px;
+  margin-top: 10px;
+  margin-left: 5px;
+  border: 1px solid #000;
+}

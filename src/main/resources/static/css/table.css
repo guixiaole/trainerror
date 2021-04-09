@@ -1,0 +1,252 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.nav {
+  display: block;
+  /* height: 30px; */
+  width: 100%;
+  background-color: #e1e1e1;
+  /* margin-bottom: 5px; */
+}
+.info_soft {
+  width: 100%;
+  background-color: #e1e1e1;
+  font-size: 20px;
+}
+.info_soft span {
+  display: block;
+  float: left;
+  /* height: 30px; */
+  /* width: 150px; */
+  /* border-right: 1px solid #38f; */
+  background-color: #e1e1e1;
+  /* border: 1px solid #e1e1e1; */
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 30px;
+  margin-left: 30px;
+  padding-right: 10px;
+  text-align: center;
+}
+.nav span {
+  /* margin-top: 5px; */
+  display: block;
+  float: left;
+  height: 30px;
+  width: 150px;
+  /* border-right: 1px solid #38f; */
+  background-color: #e1e1e1;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 30px;
+  /* margin-left: 30px; */
+  padding-right: 10px;
+  text-align: center;
+}
+a {
+  color: #000;
+}
+a:hover {
+  color: #38f;
+}
+.midselect {
+  display: block;
+}
+.midselect {
+  /* height: 50px; */
+  width: 100%;
+  /* margin-top: 5px; */
+  border-top: 1px solid gray;
+  background-color: #e1e1e1;
+}
+.midselect span {
+  display: block;
+  float: left;
+  height: 30px;
+
+  /* border-right: 1px solid #38f; */
+  background-color: #e1e1e1;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  font-size: 20px;
+  line-height: 30px;
+  /* margin-left: 30px; */
+  padding-right: 10px;
+  text-align: center;
+}
+.table-box {
+  margin-top: 0px;
+  width: 100%;
+}
+
+/* 滚动条宽度 */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+/* 滚动条颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: #27314d;
+}
+
+table {
+  float: left;
+  width: 1000px;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  margin-right: 0px;
+}
+
+table caption {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 50px;
+}
+
+table th,
+table td {
+  height: 50px;
+  text-align: center;
+  border: 1px solid gray;
+}
+
+table thead {
+  color: white;
+  background-color: #38f;
+}
+
+table tbody {
+  display: block;
+  width: calc(100%); /*这里的8px是滚动条的宽度*/
+  height: 500px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table tfoot {
+  background-color: #71ea71;
+}
+
+table thead tr,
+table tbody tr,
+table tfoot tr {
+  box-sizing: border-box;
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+
+table tbody tr:nth-of-type(odd) {
+  background: #eee;
+}
+
+table tbody tr:nth-of-type(even) {
+  background: #fff;
+}
+
+table tbody tr td {
+  border-bottom: none;
+}
+.rightbox {
+  float: right;
+  height: 450px;
+  width: 25%;
+  /* background-color: blue; */
+  margin-left: 0px;
+  border: 1px solid #38f;
+}
+.clearfix:after {
+  content: '020';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clearfix {
+  /* 触发 hasLayout */
+  zoom: 1;
+}
+
+.baocuo {
+  height: 150px;
+  /* background-color: blue; */
+  border-bottom: 1px solid #38f;
+}
+.baocuo_title {
+  font-size: 24px;
+  color: #38f;
+  text-align: center;
+  margin-left: 50px;
+}
+.btn_select {
+  height: 70px;
+}
+.btn_select button {
+  width: 20%;
+  margin-left: 10px;
+  height: 30px;
+  border-radius: 10px;
+}
+.undo {
+  display: block;
+  height: 30px;
+  width: 30px;
+  background: url(../images/undo.png) no-repeat;
+  background-size: 100%;
+  float: left;
+  margin-left: 20px;
+}
+.select_redo {
+  display: block;
+  float: left;
+  height: 30px;
+  width: 50px;
+  line-height: 30px;
+  margin-left: 80px;
+}
+.file_select {
+  height: 150px;
+  /* background-color: blue; */
+  border-bottom: 1px solid #38f;
+}
+.file_span {
+  display: block;
+  font-size: 24px;
+  color: #38f;
+  text-align: center;
+}
+input {
+  width: 50px;
+}
+.input_select {
+  float: left;
+  margin-top: 20px;
+}
+.btn_confirm {
+  margin-top: 20px;
+  margin-left: 50px;
+  width: 50px;
+  border-radius: 3px;
+}
+.history_select {
+  margin-top: 20px;
+  height: 150px;
+}
+.history_select input {
+  width: 70%;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+.btn_history {
+  display: block;
+  float: right;
+  margin-left: 20px;
+  height: 30px;
+  width: 50px;
+  border-color: #38f;
+  border-radius: 5px;
+}

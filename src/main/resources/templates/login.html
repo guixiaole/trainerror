@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no,initial-scale=1.0,
+     maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css" />
+    <title>登录</title>
+</head>
+<body>
+<div class="image">
+    <span class="image_icon"></span>
+    <span>安普拉提员工登录</span>
+</div>
+<div class="tel">
+    <span class="tel_icon"></span>
+    <form th:action="@{/login}" method="post" onsubmit="return vailate()">
+        <input type="tel" class="user" placeholder="请输入用户名" />
+</div>
+<div class="tel">
+    <span class="messege_icon"></span>
+    <form action="/loginUser" method="post" onsubmit="return vailate()">
+        <input type="tel" class="user" placeholder="请输入密码" />
+</div>
+
+<span class="tishi" ></span>
+<input type="submit" class="login" th:text="${msg}" ></input>
+
+<script>
+
+    var tishi = document.getElementsByClassName('tishi')[0]
+
+    function vailate() {
+        var user = document.getElementsByClassName('user')[0]
+        var testcode = document.getElementsByClassName('testcode')[0]
+        // console.log(user)
+        console.log(testcode.value)
+        if (
+            user.value == null
+        ) {
+            tishi.innerText = '请输入正确的用户名'
+            return false
+
+        } else if (testcode.value == null || testcode.value.length != 6) {
+            return false
+        } else {
+            return true
+        }
+    }
+</script>
+</body>
+</html>

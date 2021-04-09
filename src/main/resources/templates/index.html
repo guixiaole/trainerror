@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../css/table.css" />
+    <title>train</title>
+  </head>
+
+  <body>
+    <div class="info_soft clearfix">
+      <span>整备数据分析系统（2021年3月20版）</span>
+    </div>
+    <div class="nav clearfix">
+      <a href="#"><span>系统设置</span></a>
+      <a href="#"><span>显示时间</span></a>
+      <a href="#"><span>机统6与报错</span></a>
+      <a href="#"><span>在线升级</span></a>
+      <a href="#"><span>显示界面设置</span></a>
+      <a href="#"><span>使用说明书</span></a>
+    </div>
+    <!-- 中间各种操作 -->
+    <div class="midselect clearfix">
+      <a href="#"><span>普通</span></a>
+      <a href="#"><span>全程记录</span></a>
+      <a href="#"><span>曲线记录</span></a>
+      <a href="#"><span>提示与指导</span></a>
+      <a href="#"><span>显示界面设置</span></a>
+      <a href="#"><span class="select_span">1</span></a>
+      <a href="#"><span class="select_span">2</span></a>
+      <a href="#"><span class="select_span">3</span></a>
+      <a href="#"><span class="select_span">4</span></a>
+      <a href="#"><span class="select_span">5</span></a>
+      <a href="#"><span>预报活</span></a>
+      <a href="#"><span>新文件显示</span></a>
+    </div>
+    <!-- 存放表格 -->
+    <div class="table-box">
+      <table cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>整备点</th>
+            <th>文件起时</th>
+            <th>车次</th>
+            <th>机型</th>
+            <th>车号</th>
+            <th>司机名</th>
+            <th>副司机名</th>
+            <th>文件状态</th>
+            <th>版本状态</th>
+            <th>作业分</th>
+            <th>上传时间</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="fileinfo,state :${fileInfos}">
+            <td>[[${state.index}]]</td>
+            <td>[[${fileinfo.zhuangBeiDian}]]</td>
+            <td>[[${fileinfo.fileStartTime}]]</td>
+            <td>[[${fileinfo.cheCi}]]</td>
+            <td>[[${fileinfo.jiXing}]]</td>
+            <td>[[${fileinfo.cheHao}]]</td>
+            <td>[[${fileinfo.siJiName}]]</td>
+            <td>[[${fileinfo.fuSiJiName}]]</td>
+            <td>[[${fileinfo.fileState}]]</td>
+            <td></td>
+            <td>[[${fileinfo.testScore}]]</td>
+            <td>[[${fileinfo.uploadTime}]]</td>
+          </tr>
+        </tbody>
+        <!-- 
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              【table，thead，tbody，tfoot】 colspan：合并行， rowspan：合并列
+            </td>
+          </tr>
+        </tfoot> -->
+      </table>
+      <div class="rightbox">
+        <div class="baocuo">
+          <span class="baocuo_title">报错与质量情况分析</span>
+          <div class="btn_select">
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+          </div>
+          <div class="select_bao">
+            <span class="undo"></span>
+            <span class="select_redo">重做</span>
+            <span class="select_redo">报活</span>
+          </div>
+        </div>
+        <div class="file_select">
+          <span class="file_span">文件查询</span>
+          <form action="#">
+            <div class="input_select">
+              <span>司机号：</span><input type="text" />
+            </div>
+            <div class="input_select">
+              <span>机型：</span><input type="text" />
+            </div>
+            <div class="input_select">
+              <span>车次：</span><input type="text" />
+            </div>
+            <div class="input_select">
+              <span>司机名：</span><input type="text" />
+            </div>
+            <div class="input_select">
+              <span>车号：</span><input type="text" />
+            </div>
+            <button class="btn_confirm">确认</button>
+          </form>
+        </div>
+        <div class="history_select">
+          <input type="text" />
+          <input type="text" />
+          <input type="text" />
+          <input type="text" />
+          <button class="btn_history">查询</button>
+        </div>
+      </div>
+    </div>
+  <script>
+    // var time1 = new Date().format("yyyy-MM-dd");
+    // var time2 = new Date().format("yyyy-MM-dd hh:mm:ss");
+    // var time3 = new Date().format("yyyy-MM-dd HH:mm:ss");
+    // var time4 = new Date().format("yyyy-MM-dd HH:mm:ss S");
+  </script>
+  </body>
+</html>
