@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="../css/table.css" />
+    <link rel="stylesheet" th:href="@{/css/table.css}" />
     <title>train</title>
   </head>
 
@@ -42,7 +42,7 @@
           <tr>
             <th>序号</th>
             <th>整备点</th>
-            <th>文件起时</th>
+            <th style="width: 100px">文件起时</th>
             <th>车次</th>
             <th>机型</th>
             <th>车号</th>
@@ -51,15 +51,15 @@
             <th>文件状态</th>
             <th>版本状态</th>
             <th>作业分</th>
-            <th>上传时间</th>
+            <th style="width: 100px">上传时间</th>
           </tr>
         </thead>
 
-        <tbody>
-          <tr th:each="fileinfo,state :${fileInfos}">
+        <tbody >
+          <tr th:each="fileinfo,state :${fileInfos}" onclick="qucheng(this.id)" th:id="${fileinfo.id}">
             <td>[[${state.index}]]</td>
             <td>[[${fileinfo.zhuangBeiDian}]]</td>
-            <td>[[${fileinfo.fileStartTime}]]</td>
+            <td class="uploadformat">[[${fileinfo.fileStartTime}]]</td>
             <td>[[${fileinfo.cheCi}]]</td>
             <td>[[${fileinfo.jiXing}]]</td>
             <td>[[${fileinfo.cheHao}]]</td>
@@ -68,7 +68,7 @@
             <td>[[${fileinfo.fileState}]]</td>
             <td></td>
             <td>[[${fileinfo.testScore}]]</td>
-            <td>[[${fileinfo.uploadTime}]]</td>
+            <td class="timeformat">[[${fileinfo.uploadTime}]]</td>
           </tr>
         </tbody>
         <!-- 
@@ -129,11 +129,70 @@
         </div>
       </div>
     </div>
-  <script>
-    // var time1 = new Date().format("yyyy-MM-dd");
-    // var time2 = new Date().format("yyyy-MM-dd hh:mm:ss");
-    // var time3 = new Date().format("yyyy-MM-dd HH:mm:ss");
-    // var time4 = new Date().format("yyyy-MM-dd HH:mm:ss S");
-  </script>
+    <script>
+      function quancheng(id) {
+       window.location="../quancheng?id="+id;
+      }
+      var timeformat = document.getElementsByClassName('timeformat')
+      for (let i = 0; i < timeformat.length; i++) {
+        let time = timeformat[i].innerText
+        if (time != null && time.length != 0) {
+          var d = new Date(time + ' GMT+8')
+          console.log(d)
+          let month =
+                  d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
+          let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+          let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+          console.log(d.getHours())
+          let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+          let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+          let times =
+                  d.getFullYear() +
+                  '-' +
+                  month +
+                  '-' +
+                  day +
+                  ' ' +
+                  hours +
+                  ':' +
+                  min +
+                  ':' +
+                  sec
+          timeformat[i].innerHTML = times
+        }
+
+        timeformat[i].style.width = '100px'
+      }
+      var uploadformat = document.getElementsByClassName('uploadformat')
+      for (let i = 0; i < uploadformat.length; i++) {
+        let time = uploadformat[i].innerText
+        if (time != null && time.length != 0) {
+          var d = new Date(time + ' GMT+8')
+          console.log(d)
+          let month =
+                  d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
+          let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+          let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+          console.log(d.getHours())
+          let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+          let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+          let times =
+                  d.getFullYear() +
+                  '-' +
+                  month +
+                  '-' +
+                  day +
+                  ' ' +
+                  hours +
+                  ':' +
+                  min +
+                  ':' +
+                  sec
+          uploadformat[i].innerHTML = times
+        }
+
+        uploadformat[i].style.width = '100px'
+      }
+    </script>
   </body>
 </html>

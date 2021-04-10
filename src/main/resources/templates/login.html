@@ -14,17 +14,17 @@
 <body>
 <div class="image">
     <span class="image_icon"></span>
-    <span>安普拉提员工登录</span>
+    <span>登录</span>
 </div>
 <div class="tel">
     <span class="tel_icon"></span>
-    <form th:action="@{/login}" method="post" onsubmit="return vailate()">
-        <input type="tel" class="user" placeholder="请输入用户名" />
+    <form th:action="@{/loginUser}" method="post" onsubmit="return vailate()">
+        <input type="text" class="user" placeholder="请输入用户名" name="userid" />
 </div>
 <div class="tel">
     <span class="messege_icon"></span>
     <form action="/loginUser" method="post" onsubmit="return vailate()">
-        <input type="tel" class="user" placeholder="请输入密码" />
+        <input type="password" class="user" name="password"  placeholder="请输入密码" />
 </div>
 
 <span class="tishi" ></span>

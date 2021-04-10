@@ -43,18 +43,18 @@ public class UserController {
 ////        }
 //        return "index1";
 //    }
-    @RequestMapping(value={"/"})
+    @RequestMapping(value={"/","login"})
     public String index(){
         return "login";
     }
-    @RequestMapping("/login")
+    @RequestMapping("/loginUser")
     public String loginUser(User user,
                             Model model,
                             HttpSession session){
             User user1 = userService.loginUser(user);
             if(user1!=null){
                 session.setAttribute("user",user1);
-                return "index";
+                return "redirect:/index.html";
             }
             else {
                 model.addAttribute("msg","账号密码错误");

@@ -40,25 +40,25 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>广州</td>
-            <td>14:57:52</td>
-            <td>8015</td>
-            <td>SS8</td>
-            <td>242</td>
-            <td>苏建</td>
-            <td>夏跃龙</td>
-            <td>100</td>
-            <td></td>
-            <td>100</td>
-            <td>14:57</td>
-            <td>苏建</td>
-            <td>夏跃龙</td>
-            <td>100</td>
-            <td></td>
-            <td>100</td>
-            <td>14:57</td>
+          <tr th:each="quancheng :${quanChengs}">
+            <td>[[${quancheng.xuHao}]]</td>
+            <td>[[${quancheng.event}]]</td>
+            <td>[[${quancheng.dateTime}]]</td>
+            <td>[[${quancheng.gongLiBiao}]]</td>
+            <td>[[${quancheng.other}]]</td>
+            <td>[[${quancheng.distance}]]</td>
+            <td>[[${quancheng.signalMachine}]]</td>
+            <td>[[${quancheng.xinHao}]]</td>
+            <td>[[${quancheng.speed}]]</td>
+            <td>[[${quancheng.restrictSpeed}]]</td>
+            <td>[[${quancheng.lingWei}]]</td>
+            <td>[[${quancheng.qianYin}]]</td>
+            <td>[[${quancheng.qianHou}]]</td>
+            <td>[[${quancheng.guanYa}]]</td>
+            <td>[[${quancheng.gangYa}]]</td>
+            <td>[[${quancheng.zhuanSuDianLiu}]]</td>
+            <td>[[${quancheng.junGang1}]]</td>
+            <td>[[${quancheng.junGang2}]]</td>
           </tr>
         </tbody>
       </table>

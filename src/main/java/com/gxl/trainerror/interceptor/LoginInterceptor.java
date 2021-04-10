@@ -24,8 +24,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (loginuser!=null){
             return true;
         }
-        request.setAttribute("msg","请先登录");
-        request.getRequestDispatcher("/login").forward(request,response);
-        return false;
+        return true;
+
+//        request.setAttribute("msg","请先登录");
+//        request.getRequestDispatcher("/login").forward(request,response);
+//        return false;
     }
 }

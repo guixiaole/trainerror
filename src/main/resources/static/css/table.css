@@ -94,7 +94,7 @@ a:hover {
 
 table {
   float: left;
-  width: 1000px;
+  width: 74%;
   border-spacing: 0px;
   border-collapse: collapse;
   margin-right: 0px;
@@ -138,7 +138,9 @@ table tfoot tr {
   display: table;
   width: 100%;
 }
-
+table tbody tr:last-child td {
+  border-bottom: 1px solid gray;
+}
 table tbody tr:nth-of-type(odd) {
   background: #eee;
 }

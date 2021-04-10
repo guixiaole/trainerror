@@ -21,6 +21,11 @@ public class FileInfoServiceImpl implements FileInfoService {
     }
 
     @Override
+    public Integer updateIsSaveFileInfo(FileInfo fileInfo) {
+        return fileInfoMapper.updateIsSaveFileInfo(fileInfo);
+    }
+
+    @Override
     public FileInfo selectFileInfoByName(String fileName) {
         return fileInfoMapper.selectFileInfoByName(fileName);
     }
@@ -28,5 +33,10 @@ public class FileInfoServiceImpl implements FileInfoService {
     @Override
     public List<FileInfo> selectAllFileInfo(Date date) {
         return fileInfoMapper.selectAllFile(date);
+    }
+
+    @Override
+    public FileInfo selectFileInfoById(Integer id) {
+        return fileInfoMapper.selectFileInfoByid(id);
     }
 }

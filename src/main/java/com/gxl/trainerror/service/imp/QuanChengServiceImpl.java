@@ -1,28 +1,35 @@
 package com.gxl.trainerror.service.imp;
 
+import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.mapper.FileInfoMapper;
 import com.gxl.trainerror.mapper.QuanChengMapper;
 import com.gxl.trainerror.service.QuanChengService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.reflect.FieldInfo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class QuanChengServiceImpl implements QuanChengService {
     @Autowired
     private QuanChengMapper quanChengMapper;
+    @Autowired
+    private FileInfoMapper fileInfoMapper;
     @Override
     public Integer insertQuanCheng(ArrayList<String>[] lists,
                                    Integer fileId) throws ParseException {
         SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        if (lists.length==18){
+        FileInfo fieldInfo=fileInfoMapper.selectFileInfoByid(fileId);
+        //代表没有进行储存的。
+        if (lists.length==18 && fieldInfo.getIsSave()==0){
             for (int i =0;i<lists[0].size();i++) {
-
                     Integer xuhao;
                     Date date1;
                     Integer distance;
@@ -142,5 +149,10 @@ public class QuanChengServiceImpl implements QuanChengService {
             }
 }
         return 1;
+    }
+
+    @Override
+    public List<QuanCheng> selectByFileAscXuhao(Integer id) {
+        return quanChengMapper.selectByFileAscXuhao(id);
     }
 }
