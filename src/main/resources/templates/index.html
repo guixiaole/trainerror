@@ -9,6 +9,38 @@
   </head>
 
   <body>
+  <div
+          class="video_div"
+          style="
+        display: block;
+        position: absolute;
+        right: 0px;
+        top: 50px;
+        height: 420px;
+        width: 600px;
+      "
+  >
+      <span
+              style="
+          background: url(../images/x.png) no-repeat;
+          background-size: 100%;
+          display: block;
+          width: 40px;
+          height: 40px;
+          position: relative;
+          float: right;
+        "
+              onclick="close_video()"
+      ></span>
+    <video
+            src="../images/剧情2.mp4"
+            controls="controls"
+            height="400px"
+            width="600px"
+            class="step_video"
+            id="video_play"
+    ></video>
+  </div>
     <div class="info_soft clearfix">
       <span>整备数据分析系统（2021年3月20版）</span>
     </div>
@@ -146,6 +178,23 @@
       </div>
     </div>
     <script>
+      var elevideo = document.getElementById('video_play')
+      elevideo.addEventListener(
+              'ended',
+              function () {
+                //结束
+                var video_div = document.getElementsByClassName('video_div')[0]
+                video_div.style.display = 'none'
+                // console.log('播放结束')
+              },
+              false
+      )
+      function close_video() {
+        var video_div = document.getElementsByClassName('video_div')[0]
+        video_div.style.display = 'none'
+        elevideo.pause()
+      }
+
       function quancheng(id) {
        window.location="../quancheng?id="+id;
       }
