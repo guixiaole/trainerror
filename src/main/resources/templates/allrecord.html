@@ -19,10 +19,10 @@
         <thead>
           <tr>
             <th>序号</th>
-            <th>事件</th>
-            <th>时间</th>
-            <th>公里标</th>
-            <th>其它</th>
+            <th style="width: 100px">事件</th>
+            <th style="width: 100px">时间</th>
+            <th style="width: 100px">公里标</th>
+            <th style="width: 100px">其它</th>
             <th>距离</th>
             <th>信号机</th>
             <th>信号</th>
@@ -40,12 +40,12 @@
         </thead>
 
         <tbody>
-          <tr th:each="quancheng :${quanChengs}">
+          <tr th:each="quancheng,indexState :${quanChengs}">
             <td>[[${quancheng.xuHao}]]</td>
-            <td>[[${quancheng.event}]]</td>
-            <td>[[${quancheng.dateTime}]]</td>
-            <td>[[${quancheng.gongLiBiao}]]</td>
-            <td>[[${quancheng.other}]]</td>
+            <td style="width: 100px">[[${quancheng.event}]]</td>
+            <td class="timeformat" style="width: 100px">[[${times[indexState.index]}]]</td>
+            <td style="width: 100px">[[${quancheng.gongLiBiao}]]</td>
+            <td style="width: 100px">[[${quancheng.other}]]</td>
             <td>[[${quancheng.distance}]]</td>
             <td>[[${quancheng.signalMachine}]]</td>
             <td>[[${quancheng.xinHao}]]</td>
@@ -151,4 +151,36 @@
       </div>
     </div>
   </body>
+<script>
+  // var timeformat = document.getElementsByClassName('timeformat')
+  // for (let i = 0; i < timeformat.length; i++) {
+  //   let time = timeformat[i].innerText
+  //   if (time != null && time.length != 0) {
+  //     var d = new Date(time + ' GMT+8')
+  //     console.log(d)
+  //     let month =
+  //             d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
+  //     let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+  //     let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+  //     console.log(d.getHours())
+  //     let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+  //     let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+  //     let times =
+  //             d.getFullYear() +
+  //             '-' +
+  //             month +
+  //             '-' +
+  //             day +
+  //             ' ' +
+  //             hours +
+  //             ':' +
+  //             min +
+  //             ':' +
+  //             sec
+  //     timeformat[i].innerHTML = times
+  //   }
+  //
+  //   timeformat[i].style.width = '100px'
+  // }
+</script>
 </html>

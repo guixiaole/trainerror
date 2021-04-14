@@ -8,8 +8,10 @@ import com.gxl.trainerror.service.QuanChengService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.FieldInfo;
 
+import javax.annotation.PostConstruct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,12 +24,16 @@ public class QuanChengServiceImpl implements QuanChengService {
     private QuanChengMapper quanChengMapper;
     @Autowired
     private FileInfoMapper fileInfoMapper;
+
     @Override
+    @Transactional
     public Integer insertQuanCheng(ArrayList<String>[] lists,
                                    Integer fileId) throws ParseException {
         SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         FileInfo fieldInfo=fileInfoMapper.selectFileInfoByid(fileId);
         //代表没有进行储存的。
+        Integer flag =1;
+        Integer flagCheci =1;
         if (lists.length==18 && fieldInfo.getIsSave()==0){
             for (int i =0;i<lists[0].size();i++) {
                     Integer xuhao;
@@ -48,7 +54,13 @@ public class QuanChengServiceImpl implements QuanChengService {
                     if (lists[2].get(i).equals(""))
                         date1 = null;
                     else
+                    {
                         date1 = sdf.parse(lists[2].get(i));
+                        if(flag==1){
+                            fieldInfo.setFileStartTime(date1);
+                            flag=0;
+                        }
+                    }
                     if (lists[5].get(i).equals(""))
                         distance = null;
                     else
@@ -92,8 +104,23 @@ public class QuanChengServiceImpl implements QuanChengService {
                     String file12;
                     if (lists[1].get(i).equals(""))
                         file1 = null;
-                    else
+                    else{
                         file1 = lists[1].get(i);
+                        if (file1.equals("车次")){
+                            fieldInfo.setCheCi(lists[4].get(i));
+                        }
+                        //机型没有找到,版本号也没有修改
+                        if (file1.equals("机车号")){
+                            fieldInfo.setCheHao(lists[4].get(i));
+                        }
+                        if (file1.equals("司机号1")){
+                            fieldInfo.setSiJiName(lists[4].get(i));
+                        }
+                        if (file1.equals("司机号2")){
+                            fieldInfo.setFuSiJiName(lists[4].get(i));
+                        }
+                    }
+
                     if (lists[3].get(i).equals(""))
                         file3 = null;
                     else
@@ -147,6 +174,7 @@ public class QuanChengServiceImpl implements QuanChengService {
                     quanChengMapper.insertQuanCheng(quanCheng);
 
             }
+            fileInfoMapper.updateWhenInsertQuancheg(fieldInfo);
 }
         return 1;
     }

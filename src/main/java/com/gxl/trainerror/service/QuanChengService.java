@@ -8,9 +8,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
+//@Transactional
 public interface QuanChengService {
     //将获取的list放入service中，然后进行存储。不用在controller中储存业务。
+
     public  Integer insertQuanCheng(ArrayList<String>[] lists,Integer fileId) throws ParseException;
     public List<QuanCheng> selectByFileAscXuhao(Integer id);
 }

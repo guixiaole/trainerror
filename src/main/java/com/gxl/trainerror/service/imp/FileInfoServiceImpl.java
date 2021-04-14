@@ -39,4 +39,11 @@ public class FileInfoServiceImpl implements FileInfoService {
     public FileInfo selectFileInfoById(Integer id) {
         return fileInfoMapper.selectFileInfoByid(id);
     }
+    /*
+    首页需要查找全部的文件信息
+     */
+    @Override
+    public List<FileInfo> selectIndexFileInfo(FileInfo fileInfo) {
+        return fileInfoMapper.selectIndexFileInfo(fileInfo);
+    }
 }

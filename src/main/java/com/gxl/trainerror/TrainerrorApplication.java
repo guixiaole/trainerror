@@ -1,6 +1,6 @@
 package com.gxl.trainerror;
 
-import com.gxl.trainerror.commpent.FileCreateController;
+
 import com.gxl.trainerror.util.FileCreateMonitor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +21,18 @@ public class TrainerrorApplication {
 //
     public static void main(String[] args)  {
         SpringApplication.run(TrainerrorApplication.class, args);
-        FileCreateMonitor m=null;
-        try {
-            m = new FileCreateMonitor(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        m.monitor("D:\\input",new FileCreateController());
-        try {
-            m.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        FileCreateMonitor m=null;
+//        try {
+//            m = new FileCreateMonitor(1000);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        m.monitor("D:\\input",new FileCreateController());
+//        try {
+//            m.start();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

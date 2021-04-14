@@ -11,4 +11,6 @@ public interface FileInfoService {
     public FileInfo selectFileInfoByName(String fileName);
     public List<FileInfo> selectAllFileInfo(Date date);
     public FileInfo selectFileInfoById(Integer id);
+    //首页里查找需要的文件
+    public List<FileInfo> selectIndexFileInfo(FileInfo fileInfo);
 }
