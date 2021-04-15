@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface StepAnalysisMapper {
-    @Select("select * from step_analysis")
+    @Select("select * from step_analysis where file_id = #{fileId}")
     public StepAnalysis selectByFileId(Integer fileId);
     public Integer updateAnyStep(StepAnalysis stepAnalysis);
+
 }

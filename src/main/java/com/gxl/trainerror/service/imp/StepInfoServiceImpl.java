@@ -14,4 +14,14 @@ public class StepInfoServiceImpl implements StepInfoService {
     public Integer insertStartEnd(StepInfo stepInfo) {
         return stepInfoMapper.insertStepInfo(stepInfo);
     }
+
+    @Override
+    public StepInfo selectById(Integer id) {
+        return stepInfoMapper.selectById(id);
+    }
+
+    @Override
+    public Integer updateXiangDianId(StepInfo stepInfo) {
+        return stepInfoMapper.updateXiangDian(stepInfo);
+    }
 }

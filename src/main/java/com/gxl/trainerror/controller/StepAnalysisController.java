@@ -4,6 +4,7 @@ import com.gxl.trainerror.bean.*;
 import com.gxl.trainerror.service.QuanChengService;
 import com.gxl.trainerror.service.StepAnalysisService;
 import com.gxl.trainerror.service.StepInfoService;
+import com.gxl.trainerror.service.XiangDianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,17 +25,22 @@ public class StepAnalysisController {
     private StepInfoService stepInfoService;
     @Autowired
     private StepAnalysisService stepAnalysisService;
+    @Autowired
+    private XiangDianService xiangDianService;
     @ResponseBody
     @RequestMapping("/insertStep")
     public String insertStep(@RequestParam("id")Integer id,
                              @RequestParam("step")Integer step,
                              @RequestParam("start")Integer start,
-                             @RequestParam("end")Integer end,
-                             @RequestParam("info")String info){
+                             @RequestParam("end")Integer end){
+        /*
+        将五步闸信息进行插入
+         */
         StepInfo stepInfo =new StepInfo();
         stepInfo.setStartXiangDian(start);
         stepInfo.setEndXiangDian(end);
         //插入五步闸的位置
+        String jsonConde;
         if(stepInfoService.insertStartEnd(stepInfo)>0){
             StepAnalysis stepAnalysis = stepAnalysisService.selectByFileID(id);
             if (step==1){
@@ -49,9 +55,47 @@ public class StepAnalysisController {
                 stepAnalysis.setFiveStep(step);
             }
             stepAnalysisService.updateAnyStep(stepAnalysis);
+            jsonConde="{\"code\":\"插入成功\"}";
+            return jsonConde;
         }
-
-        return null;
+        jsonConde="{\"code\":\"标记五步闸失败\"}";
+        return jsonConde;
+    }
+    @ResponseBody
+    @RequestMapping("/insertXiangDian")
+    public String insertXiangDian(@RequestParam("id")Integer id,
+                                  @RequestParam("xiangdian")String xiangdianInfo,
+                                  @RequestParam("step")Integer step){
+        /*
+        将项点信息插入进去
+         */
+        StepAnalysis stepAnalysis = stepAnalysisService.selectByFileID(id);
+        Integer step_id;
+        if (step==1)
+            step_id=stepAnalysis.getOneStep();
+        else if(step==2)
+            step_id=stepAnalysis.getTwoStep();
+        else if(step==3)
+            step_id=stepAnalysis.getThreeStep();
+        else if (step==4)
+            step_id=stepAnalysis.getFourStep();
+        else
+            step_id=stepAnalysis.getFiveStep();
+        XiangDian xiangDian = new XiangDian();
+        xiangDian.setInfo(xiangdianInfo);
+        xiangDian.setStep(step);
+        xiangDianService.insertXiangDian(xiangDian);
+        StepInfo stepInfo = new StepInfo();
+        stepInfo.setId(step_id);
+        String jsonConde;
+        if (xiangDian.getId()!=null){
+            stepInfo.setXiangDianID(xiangDian.getId());
+            stepInfoService.updateXiangDianId(stepInfo);
+            jsonConde="{\"code\":\"项点标记成功\"}";
+            return jsonConde;
+        }
+        jsonConde="{\"code\":\"项点标记失败。请重新标记\"}";
+        return jsonConde;
 
     }
     @RequestMapping("/loginDesign")
@@ -59,6 +103,8 @@ public class StepAnalysisController {
                             Model model,
                             HttpSession session){
         User user =(User) session.getAttribute("user");
+        if (user==null)
+            return "login";
         if (!user.getUserid().equals("gxl")){
             return "redirect:/index.html";
         }else {
