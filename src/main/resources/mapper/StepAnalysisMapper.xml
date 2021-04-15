@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxl.trainerror.mapper.StepAnalysisMapper">
+    <update id="updateAnyStep" parameterType="com.gxl.trainerror.mapper.StepAnalysisMapper" >
+        update  step_analysis set
+        <if test="oneStep!=null ">
+            one_step =#{oneStep},
+        </if>
+        <if test="twoStep!=null ">
+            two_step =#{twoStep},
+        </if>
+        <if test="threeStep!=null ">
+            three_step =#{threeStep},
+        </if>
+        <if test="fourStep!=null ">
+            four_step =#{fourStep},
+        </if>
+        <if test="fiveStep!=null ">
+            five_step =#{fiveStep},
+        </if>
+        id = #{id}
+        where id =#{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/allrecord.css}" />
+  <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+<div class="select_nav">
+  <button>五步闸分析</button>
+  <button>监控换装控制</button>
+  <button>整备调车安全</button>
+  <button>全程记录</button>
+</div>
+<div>
+  <table cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+      <th>序号</th>
+      <th style="width: 100px">事件</th>
+      <th style="width: 100px">时间</th>
+      <th style="width: 100px">公里标</th>
+      <th style="width: 100px">其它</th>
+      <th>距离</th>
+      <th>信号机</th>
+      <th>信号</th>
+      <th>速度</th>
+      <th>限速</th>
+      <th>零位</th>
+      <th>牵引</th>
+      <th>前后</th>
+      <th>管压</th>
+      <th>缸压</th>
+      <th>转速电流</th>
+      <th>均缸1</th>
+      <th>均缸2</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="quancheng,indexState :${quanChengs}" onclick="stepdesign(this.id)"  th:id="${quancheng.id}"  >
+      <td>[[${quancheng.xuHao}]]</td>
+      <td style="width: 100px">[[${quancheng.event}]]</td>
+      <td class="timeformat" style="width: 100px">[[${times[indexState.index]}]]</td>
+      <td style="width: 100px">[[${quancheng.gongLiBiao}]]</td>
+      <td style="width: 100px">[[${quancheng.other}]]</td>
+      <td>[[${quancheng.distance}]]</td>
+      <td>[[${quancheng.signalMachine}]]</td>
+      <td>[[${quancheng.xinHao}]]</td>
+      <td>[[${quancheng.speed}]]</td>
+      <td>[[${quancheng.restrictSpeed}]]</td>
+      <td>[[${quancheng.lingWei}]]</td>
+      <td>[[${quancheng.qianYin}]]</td>
+      <td>[[${quancheng.qianHou}]]</td>
+      <td>[[${quancheng.guanYa}]]</td>
+      <td>[[${quancheng.gangYa}]]</td>
+      <td>[[${quancheng.zhuanSuDianLiu}]]</td>
+      <td>[[${quancheng.junGang1}]]</td>
+      <td>[[${quancheng.junGang2}]]</td>
+    </tr>
+    </tbody>
+  </table>
+  <input id = "fileid" type="hidden" th:value="${fileid}" />
+  <div class="rightbox">
+    <div class="error_analyis">
+      <div class="file_info">项点分析指向</div>
+      <div class="error_td">
+        <span>I端</span>
+        <span onclick="design(1)">第一步</span>
+        <span onclick="design(2)">第二步</span>
+        <span onclick="design(3)">第三步</span>
+        <span onclick="design(4)">第四步</span>
+        <span onclick="design(5)">第五步</span>
+
+      </div>
+      <div class="error_td">
+        <span>I端</span>
+        <span onclick="design(1)">第一步</span>
+        <span onclick="design(2)">第二步</span>
+        <span onclick="design(3)">第三步</span>
+        <span onclick="design(4)">第四步</span>
+        <span onclick="design(5)">第五步</span>
+      </div>
+      <div class="quxian">
+        <div class="all_xiangdian">
+          <div class="error_td1">
+            <span>I端</span>
+            <span>第一步</span>
+            <span>第一步</span>
+            <span>第一步</span>
+            <span>第一步</span>
+          </div>
+          <div class="error_td1">
+            <span>I端</span>
+            <span>第一步</span>
+            <span>第一步</span>
+            <span>第一步</span>
+            <span>第一步</span>
+          </div>
+        </div>
+        <div class="recorder_quxian">曲线记录</div>
+      </div>
+    </div>
+    <div class="error_menthod">
+      <div class="file_info">标定对策</div>
+      <form th:action="@{/}">
+        <input type="text"></input>
+
+        <input type="submit"></input>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+  var fileid = document.getElementById("fileid")
+  var fileId = fileid.value;
+  let step = -1
+  function design(id){
+    step = id
+  }
+  let flag = 1
+  let start = -1
+  let end = -1
+  function  stepdesign(ids){
+    if (flag==1){
+      start = ids
+      flag = 0
+    }else {
+      end = ids;
+      flag = 1
+      if(step!=-1){
+        sendGet(fileId,step,start,end)
+      }
+    }
+  }
+  function sendGet(id,step,start,end) {
+    // alert(phone)
+    //用 ajax 写
+    $.ajax(
+            {
+              url: "/insertStep",
+              method: 'post',
+              dataType:"json",
+              // contentType: "application/json",
+              data:{"id": id,"step":step,"start":start,"end":end},
+              success: function (data) {
+                // console.log(data['code']);
+                // document.querySelector("#rescode").value = data['code'];
+               if (data['code']==1){
+                 alert("标注成功")
+               }else {
+                 alert("标注失败，请重新标注")
+               }
+              },
+              error: function (err) {
+                console.log("error")
+                alert(err);
+              }
+            });
+  }
+</script>
+</html>
