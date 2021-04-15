@@ -41,7 +41,7 @@
     </thead>
 
     <tbody>
-    <tr th:each="quancheng,indexState :${quanChengs}" onclick="stepdesign(this.id)"  th:id="${quancheng.id}"  >
+    <tr th:each="quancheng,indexState :${quanChengs}" onclick="stepdesign(this.id)"  th:id="${quancheng.xuHao}"  >
       <td>[[${quancheng.xuHao}]]</td>
       <td style="width: 100px">[[${quancheng.event}]]</td>
       <td class="timeformat" style="width: 100px">[[${times[indexState.index]}]]</td>
@@ -106,17 +106,25 @@
     </div>
     <div class="error_menthod">
       <div class="file_info">标定对策</div>
-      <form th:action="@{/}">
-        <input type="text"></input>
+      <div class="error_td">
+        <span>I端</span>
+        <span onclick="xiangdiandesign(1)">第一步</span>
+        <span onclick="xiangdiandesign(2)">第二步</span>
+        <span onclick="xiangdiandesign(3)">第三步</span>
+        <span onclick="xiangdiandesign(4)">第四步</span>
+        <span onclick="xiangdiandesign(5)">第五步</span>
+      </div>
+        <input type="text" id="xiangdian_input"></input>
 
-        <input type="submit"></input>
-      </form>
+        <input type="submit" onclick="xiangdian()"></input>
+
     </div>
   </div>
 </div>
 </body>
 <script>
   var fileid = document.getElementById("fileid")
+  var xiangdian_input = document.getElementById("xiangdian_input")
   var fileId = fileid.value;
   let step = -1
   function design(id){
@@ -137,6 +145,46 @@
       }
     }
   }
+  let xiangdian_step = -1
+  function xiangdiandesign(ids){
+    xiangdian_step=ids
+  }
+  function xiangdian(){
+    if (xiangdian_step==-1){
+      alert("请先确认是哪一步")
+    }else {
+      if (xiangdian_input.value==null){
+        alert("请输入项点消息")
+      }else {
+        xiangdianpost(fileid,xiangdian_input,xiangdian_step);
+        xiangdian_step=-1
+      }
+    }
+  }
+  function xiangdianpost(id,xiangdian,step){
+    $.ajax(
+            {
+              url: "/insertXiangDian",
+              method: 'post',
+              dataType:"json",
+              // contentType: "application/json",
+              data:{"id": id,"xiangdian":xiangdian,"step":step},
+              success: function (data) {
+                // console.log(data['code']);
+                // document.querySelector("#rescode").value = data['code'];
+                // if (data['code']==1){
+                //   alert("标注成功")
+                // }else {
+                //   alert("标注失败，请重新标注")
+                // }
+                alert(data['code'])
+              },
+              error: function (err) {
+                console.log("error")
+                alert(err);
+              }
+            });
+  }
   function sendGet(id,step,start,end) {
     // alert(phone)
     //用 ajax 写
@@ -150,11 +198,12 @@
               success: function (data) {
                 // console.log(data['code']);
                 // document.querySelector("#rescode").value = data['code'];
-               if (data['code']==1){
-                 alert("标注成功")
-               }else {
-                 alert("标注失败，请重新标注")
-               }
+               // if (data['code']==1){
+               //   alert("标注成功")
+               // }else {
+               //   alert("标注失败，请重新标注")
+               // }
+                alert(data['code'])
               },
               error: function (err) {
                 console.log("error")
