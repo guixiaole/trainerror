@@ -2,8 +2,10 @@ package com.gxl.trainerror.controller;
 
 import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.bean.StepAnalysis;
 import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
+import com.gxl.trainerror.service.StepAnalysisService;
 import com.gxl.trainerror.util.ExplaceSql;
 import org.apache.catalina.User;
 import org.apache.commons.io.FileUtils;
@@ -33,6 +35,8 @@ public class DLLCaptureController {
     private QuanChengService quanChengService;
     @Autowired
     private FileInfoService fileInfoService;
+    @Autowired
+    private StepAnalysisService stepAnalysisService;
     /*
     读取该文件下的所有文件，并且获得txt文件，然后将其移动到该天下面的文件夹下面去
      */
@@ -144,10 +148,16 @@ public class DLLCaptureController {
                                     fileInfo.setUploadTime(new Date());
                                     fileInfoService.insertFileInfoStart(fileInfo);
                                     id = fileInfo.getId();
+
                                     //进行插入操作
-                                    if (id >= 0)
-                                        //当主键插入进去的时候，再进行插入。
+                                    if (id >= 0){
+                                        StepAnalysis stepAnalysis =new StepAnalysis(id);
+                                        //插入五步闸的信息
+                                        stepAnalysisService.insertOnlyFileID(stepAnalysis);
                                         quanChengService.insertQuanCheng(lists, id);
+                                    }
+                                        //当主键插入进去的时候，再进行插入。
+
                                 }
                             }
                         }

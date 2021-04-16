@@ -19,4 +19,9 @@ public class StepAnalysisServiceImpl implements StepAnalysisService {
     public Integer updateAnyStep(StepAnalysis stepAnalysis) {
         return stepAnalysisMapper.updateAnyStep(stepAnalysis);
     }
+
+    @Override
+    public Integer insertOnlyFileID(StepAnalysis stepAnalysis) {
+        return stepAnalysisMapper.insertOnlyFileID(stepAnalysis);
+    }
 }
