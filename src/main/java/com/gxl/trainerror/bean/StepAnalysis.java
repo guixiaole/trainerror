@@ -21,4 +21,7 @@ public class StepAnalysis {
     private Integer threeStep;
     private Integer fourStep;
     private Integer fiveStep;
+    public StepAnalysis(Integer fileId){
+        this.fileId = fileId;
+    }
 }

@@ -7,5 +7,5 @@ public interface StepAnalysisService {
     //插入任何一个步骤
     public Integer updateAnyStep(StepAnalysis stepAnalysis);
     //根据id查找需要的信息
-
+    public Integer insertOnlyFileID(StepAnalysis stepAnalysis);
 }
