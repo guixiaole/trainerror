@@ -12,7 +12,7 @@
   <div
           class="video_div"
           style="
-        display: block;
+        display: none;
         position: absolute;
         right: 0px;
         top: 50px;
@@ -70,14 +70,15 @@
       <a href="#"><span>曲线记录</span></a>
       <a href="#"><span>提示与指导</span></a>
       <a href="#"><span>显示界面设置</span></a>
-      <a href="#"><span class="select_span">1</span></a>
-      <a href="#"><span class="select_span">2</span></a>
-      <a href="#"><span class="select_span">3</span></a>
-      <a href="#"><span class="select_span">4</span></a>
-      <a href="#"><span class="select_span">5</span></a>
+      <a href="#"><span class="select_span" id ="step1">1</span></a>
+      <a href="#"><span class="select_span" id ="step2">2</span></a>
+      <a href="#"><span class="select_span" id ="step3">3</span></a>
+      <a href="#"><span class="select_span" id ="step4">4</span></a>
+      <a href="#"><span class="select_span" id ="step5">5</span></a>
       <a href="#"><span>预报活</span></a>
       <a href="/index"><span>新文件显示</span></a>
     </div>
+<!--  <input type="hidden" id="stepanalysis" th:value="${stepAnalysis}" />-->
     <!-- 存放表格 -->
     <div class="table-box">
       <table cellpadding="0" cellspacing="0">
@@ -177,8 +178,46 @@
         </div>
       </div>
     </div>
-    <script>
-      var elevideo = document.getElementById('video_play')
+
+
+  <script type="text/javascript" th:inline="javascript">
+    var elevideo = document.getElementById('video_play')
+    var step1 = document.getElementById('step1')
+    var step2 = document.getElementById('step2')
+    var step3 = document.getElementById('step3')
+    var step4= document.getElementById('step4')
+    var step5 = document.getElementById('step5')
+      var stepanalysis = [[${stepAnalysis}]];
+    console.log(stepanalysis.oneStep)
+
+
+      let flag_step = 1
+      if (stepanalysis!=null){
+        if(stepanalysis.oneStep!=null){
+          step1.style.backgroundColor="#38f"
+          flag_step=0
+        }
+        if(stepanalysis.twoStep!=null){
+          step2.style.backgroundColor="#38f"
+          flag_step=0
+        }
+        if(stepanalysis.threeStep!=null){
+          step3.style.backgroundColor="#38f"
+          flag_step=0
+        }
+        if(stepanalysis.fourStep !=null){
+          step4.style.backgroundColor="#38f"
+          flag_step=0
+        }
+        if(stepanalysis.fiveStep!=null){
+          step5.style.backgroundColor="#38f"
+          flag_step=0
+        }
+        if (flag_step==0){
+          let video_div = document.getElementsByClassName('video_div')[0]
+          video_div.style.display = 'block'
+        }
+      }
       elevideo.addEventListener(
               'ended',
               function () {

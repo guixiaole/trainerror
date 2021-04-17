@@ -1,9 +1,9 @@
 package com.gxl.trainerror.controller;
 
-import com.gxl.trainerror.bean.ExcelFile;
-import com.gxl.trainerror.bean.FileInfo;
-import com.gxl.trainerror.bean.User;
+import com.gxl.trainerror.bean.*;
 import com.gxl.trainerror.service.FileInfoService;
+import com.gxl.trainerror.service.StepAnalysisService;
+import com.gxl.trainerror.service.StepInfoService;
 import com.gxl.trainerror.service.UserService;
 import com.gxl.trainerror.util.FindError;
 import com.gxl.trainerror.util.TimeCal;
@@ -25,6 +25,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private FileInfoService fileInfoService;
+    @Autowired
+    private StepInfoService stepInfoService;
+    @Autowired
+    private StepAnalysisService stepAnalysisService;
 
 //    @RequestMapping(value = {"/","/index"})
 //    public String index(HttpServletRequest request) throws IOException, ParseException {
@@ -69,6 +73,41 @@ public class UserController {
         Date date = TimeCal.backTime(5);
         List<FileInfo> fileInfos =  fileInfoService.selectAllFileInfo(date);
         model.addAttribute("fileInfos",fileInfos);
+        /*
+        第一个五步闸
+         */
+        if (fileInfos.size()>0){
+            FileInfo fileInfo = fileInfos.get(0);
+            StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(fileInfo.getId());
+            model.addAttribute("stepAnalysis",stepAnalysis);
+        }
+//        if (fileInfos.size()>0){
+//            //在size大于0的时候，根据五步闸来
+//            FileInfo fileInfo = fileInfos.get(0);
+//            Integer id = fileInfo.getId();
+//            StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(id);
+//            //没有用mybatis的缓存
+//            if (stepAnalysis.getOneStep()!=null){
+//                StepInfo one  = stepInfoService.selectById(stepAnalysis.getOneStep());
+//                model.addAttribute("one",one);
+//            }
+//            if (stepAnalysis.getTwoStep()!=null){
+//                StepInfo two  = stepInfoService.selectById(stepAnalysis.getTwoStep());
+//                model.addAttribute("two",two);
+//            }
+//            if (stepAnalysis.getThreeStep()!=null){
+//                StepInfo three  = stepInfoService.selectById(stepAnalysis.getThreeStep());
+//                model.addAttribute("three",three);
+//            }
+//            if (stepAnalysis.getFourStep()!=null){
+//                StepInfo four  = stepInfoService.selectById(stepAnalysis.getFourStep());
+//                model.addAttribute("four",four);
+//            }
+//            if (stepAnalysis.getFiveStep()!=null){
+//                StepInfo five  = stepInfoService.selectById(stepAnalysis.getFiveStep());
+//                model.addAttribute("five",five);
+//            }
+//        }
         return"index";
     }
 }
