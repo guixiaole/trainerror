@@ -2,6 +2,7 @@ package com.gxl.trainerror.controller;
 
 import com.gxl.trainerror.bean.QuanCheng;
 import com.gxl.trainerror.service.QuanChengService;
+import com.gxl.trainerror.service.StepAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import java.util.List;
 public class QuXianController {
     @Autowired
     private QuanChengService quanChengService;
+    @Autowired
+    private StepAnalysisService stepAnalysisService;
     @RequestMapping("/quxianIndex")
     public String quXianIndex(@RequestParam("id") Integer id, Model model){
         List<QuanCheng> quanCheng= quanChengService.selectByFileAscXuhao(id);
@@ -44,6 +47,7 @@ public class QuXianController {
                     speed.add(cheng.getSpeed());
                     zhuanSuDianLiu.add(cheng.getZhuanSuDianLiu());
                 }
+
 
             }
             timeLast = timeNow;
