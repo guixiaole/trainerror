@@ -4,7 +4,7 @@
 }
 .nav {
   background-color: #e0e0e0;
-  height: 150px;
+  height: 100px;
   width: 100%;
 }
 .info {
@@ -42,14 +42,15 @@
 }
 .file_info {
   width: 100%;
-  height: 30%;
-  font-size: 32px;
+  height: 16%;
+  font-size: 20px;
   color: #38f;
   text-align: center;
 }
 .error_wubu {
   width: 50%;
   float: left;
+  font-size: 16px;
 }
 .error_td {
   display: flex;
@@ -85,7 +86,7 @@
 .recorder_fanhui {
   float: left;
   width: 16%;
-  height: 75px;
+  height: 72px;
   /* background-color: #38f; */
   text-align: center;
   line-height: 80px;

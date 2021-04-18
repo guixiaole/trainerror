@@ -19,13 +19,18 @@ public class QuanChengController {
     public String getQuanCheng(Integer id, Model model){
         List<QuanCheng> quanChengs = quanChengService.selectByFileAscXuhao(id);
 //        System.out.println(quanChengs.size());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         model.addAttribute("quanChengs",quanChengs);
+        if (quanChengs.size()>0){
+            Integer fileid = quanChengs.get(0).getFileId();
+            model.addAttribute("fileid",fileid);
+        }
         List<String> Times = new ArrayList<>();
         for (QuanCheng quanCheng : quanChengs) {
            Times.add(sdf.format(quanCheng.getDateTime()));
         }
         model.addAttribute("times",Times);
+
         return "allrecord";
     }
 }

@@ -12,7 +12,7 @@
       <button>五步闸分析</button>
       <button>监控换装控制</button>
       <button>整备调车安全</button>
-      <button>全程记录</button>
+      <button onclick="quxian(this.id)" th:id="${fileid}">曲线记录</button>
     </div>
     <div>
       <table cellpadding="0" cellspacing="0">
@@ -152,35 +152,8 @@
     </div>
   </body>
 <script>
-  // var timeformat = document.getElementsByClassName('timeformat')
-  // for (let i = 0; i < timeformat.length; i++) {
-  //   let time = timeformat[i].innerText
-  //   if (time != null && time.length != 0) {
-  //     var d = new Date(time + ' GMT+8')
-  //     console.log(d)
-  //     let month =
-  //             d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
-  //     let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
-  //     let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
-  //     console.log(d.getHours())
-  //     let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-  //     let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-  //     let times =
-  //             d.getFullYear() +
-  //             '-' +
-  //             month +
-  //             '-' +
-  //             day +
-  //             ' ' +
-  //             hours +
-  //             ':' +
-  //             min +
-  //             ':' +
-  //             sec
-  //     timeformat[i].innerHTML = times
-  //   }
-  //
-  //   timeformat[i].style.width = '100px'
-  // }
+ function quxian(id){
+   window.location="../quxianIndex?id="+id;
+ }
 </script>
 </html>
