@@ -257,13 +257,24 @@
     function quancheng(id) {
       window.location="../quancheng?id="+id;
     }
+    var originName=''
+    var fileName = ''
+    var fileIdDownload = ''
     function quanchengxiazai(index) {
-        var show = document.getElementsByClassName('show_excel')[0]
-        show.style.display = 'block'
-        var spaninntext = document.getElementsByClassName('origin_file_name')[0]
-        spaninntext.innerText='my name is guile'
-        fileinfos[index].
-        console.log(fileinfos[0])
+      var show = document.getElementsByClassName('show_excel')[0]
+      show.style.display = 'block'
+      var spaninntext = document.getElementsByClassName('origin_file_name')[0]
+      originName= fileinfos[index].oldFileName
+      fileName = fileinfos[index].fileName
+      fileIdDownload = fileinfos[index].id
+      spaninntext.innerText = originName
+    }
+    function download_origin_file(){
+      window.location = '../oldNameDownload?filename='+originName+'&id='+fileIdDownload
+
+    }
+    function download_excle_file(){
+      window.location = '../oldNameDownload?filename='+fileName+'&id='+fileIdDownload
 
     }
     var timeformat = document.getElementsByClassName('timeformat')
