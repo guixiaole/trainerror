@@ -188,7 +188,7 @@ table tbody tr td {
   height: 70px;
 }
 .btn_select button {
-  width: 20%;
+  width: 40%;
   margin-left: 10px;
   height: 30px;
   border-radius: 10px;
@@ -313,4 +313,24 @@ input {
 .dropdown-content a:focus {
   color: #000;
   text-decoration: none;
+}
+#show_execl {
+  position: absolute;
+
+  top: 45%;
+  left: 45%;
+  line-height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  width: 400px;
+  height: 200px;
+  border: 1px solid #38f;
+  display: none;
+  background-color: #38f;
+  color: white;
+}
+#show_execl a,
+#show_execl span {
+  display: block;
+  color: white;
 }

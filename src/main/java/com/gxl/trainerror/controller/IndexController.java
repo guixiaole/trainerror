@@ -52,6 +52,7 @@ public class IndexController {
         if (fileInfos.size()>0){
             FileInfo fileInfo = fileInfos.get(0);
             StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(fileInfo.getId());
+            model.addAttribute("fileinfo0",fileInfos.get(0));
             model.addAttribute("stepAnalysis",stepAnalysis);
         }
 //        if (fileInfos.size()>0){

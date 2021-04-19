@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" th:href="@{/css/table.css}" />
+    <script th:src="@{js/index.js}" th:inline="javascript"></script>
     <title>train</title>
   </head>
 
@@ -12,11 +13,7 @@
   <div
           class="video_div"
           style="
-<<<<<<< HEAD
         display: none;
-=======
-        display: block;
->>>>>>> b8e7b24b4a9a48ca5fabfa7674a271235d9e4a2b
         position: absolute;
         right: 0px;
         top: 50px;
@@ -62,7 +59,13 @@
           <a href="/showTimeIndex?time=30">显示一个月内</a>
         </div>
       </div>
-      <div class="nav_div"><span>机统6与报错</span></div>
+      <div class="dropdown">
+        <span class="nav_div">机统6与报错</span>
+        <div class="dropdown-content">
+          <a href="#">人工提报机统6</a>
+          <a href="#">智能报活</a>
+        </div>
+      </div>
       <div class="nav_div"><span>在线升级</span></div>
       <div class="nav_div"><span>显示界面设置</span></div>
       <div class="nav_div"><span>使用说明书</span></div>
@@ -70,8 +73,8 @@
     <!-- 中间各种操作 -->
     <div class="midselect clearfix">
       <a href="#"><span>普通</span></a>
-      <a href="#"><span>全程记录</span></a>
-      <a href="#"><span>曲线记录</span></a>
+      <a href="#" onclick="getquancheng()"><span>全程记录</span></a>
+      <a href="#" onclick="getquxian()"><span>曲线记录</span></a>
       <a href="#"><span>提示与指导</span></a>
       <a href="#"><span>显示界面设置</span></a>
       <a href="#"><span class="select_span" id ="step1">1</span></a>
@@ -84,6 +87,14 @@
     </div>
 <!--  <input type="hidden" id="stepanalysis" th:value="${stepAnalysis}" />-->
     <!-- 存放表格 -->
+  <div id="show_execl" class="show_excel">
+<!--    <a th:href="@{/oldNameDownload?filename=}+${fileinfo.oldFileName}+'&id='+${fileinfo.id}" onclick="download_origin_file()">下载原始文件</a>-->
+<!--    <a th:href="@{/oldNameDownload?filename=}+${fileinfo.fileName}+'&id='+${fileinfo.id}"onclick="download_excle_file()">下载excle文件</a>-->
+    <a href="#" onclick="download_origin_file()">下载原始文件</a>
+    <a href="#" onclick="download_excle_file()">下载excle文件</a>
+
+    <span class="origin_file_name"></span>
+  </div>
     <div class="table-box">
       <table cellpadding="0" cellspacing="0">
         <thead>
@@ -104,12 +115,8 @@
         </thead>
 
         <tbody >
-          <tr th:each="fileinfo,state :${fileInfos}" onclick="quanchengxiazai(this.id)" ondblclick="quancheng(this.id)" th:id="${fileinfo.id}">
-            <div id="show_execl" th:class="show_excel+${fileinfo.id}" style="display: none">
-              <a th:href="@{/oldNameDownload?filename=}+${fileinfo.oldFileName}+'&id='+${fileinfo.id}">下载原始文件</a>
-              <a th:href="@{/oldNameDownload?filename=}+${fileinfo.fileName}+'&id='+${fileinfo.id}">下载excle文件</a>
-              <span>[[${fileinfo.oldFileName}]]</span>
-            </div>
+          <tr th:each="fileinfo,state :${fileInfos}" th:onclick="'javascript:quanchengxiazai('+${state.index}+')'" ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
+
             <td>[[${state.index}]]</td>
             <td>[[${fileinfo.zhuangBeiDian}]]</td>
             <td class="uploadformat">[[${fileinfo.fileStartTime}]]</td>
@@ -141,10 +148,7 @@
             <button></button>
             <button></button>
             <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+
           </div>
           <div class="select_bao">
             <span class="undo"></span>
@@ -182,7 +186,7 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
+
 
 
   <script type="text/javascript" th:inline="javascript">
@@ -192,139 +196,153 @@
     var step3 = document.getElementById('step3')
     var step4= document.getElementById('step4')
     var step5 = document.getElementById('step5')
-      var stepanalysis = [[${stepAnalysis}]];
-    console.log(stepanalysis.oneStep)
+    var fileinfos = [[${fileInfos}]]
+    var stepanalysis = [[${stepAnalysis}]]
 
 
-      let flag_step = 1
+
+      let flag_step = 0
       if (stepanalysis!=null){
         if(stepanalysis.oneStep!=null){
           step1.style.backgroundColor="#38f"
-          flag_step=0
+          flag_step=1
         }
         if(stepanalysis.twoStep!=null){
           step2.style.backgroundColor="#38f"
-          flag_step=0
+          flag_step=2
         }
         if(stepanalysis.threeStep!=null){
           step3.style.backgroundColor="#38f"
-          flag_step=0
+          flag_step=3
         }
         if(stepanalysis.fourStep !=null){
           step4.style.backgroundColor="#38f"
-          flag_step=0
+          flag_step=4
         }
         if(stepanalysis.fiveStep!=null){
           step5.style.backgroundColor="#38f"
-          flag_step=0
+          flag_step=5
         }
-        if (flag_step==0){
+        if (flag_step>0){
           let video_div = document.getElementsByClassName('video_div')[0]
           video_div.style.display = 'block'
+          if (flag_step==1){
+            elevideo.src= "../images/1.mp4"
+          }else if(flag_step==2){
+            elevideo.src= "../images/2.mp4"
+          }else if(flag_step==3){
+            elevideo.src= "../images/3.mp4"
+          }else if(flag_step==4){
+            elevideo.src= "../images/4.mp4"
+          }else {
+            elevideo.src= "../images/5.mp4"
+          }
         }
       }
-=======
-    <script>
-      var elevideo = document.getElementById('video_play')
->>>>>>> b8e7b24b4a9a48ca5fabfa7674a271235d9e4a2b
-      elevideo.addEventListener(
-              'ended',
-              function () {
-                //结束
-                var video_div = document.getElementsByClassName('video_div')[0]
-                video_div.style.display = 'none'
-                // console.log('播放结束')
-              },
-              false
-      )
-      function close_video() {
-        var video_div = document.getElementsByClassName('video_div')[0]
-        video_div.style.display = 'none'
-        elevideo.pause()
+    elevideo.addEventListener(
+            'ended',
+            function () {
+              //结束
+              var video_div = document.getElementsByClassName('video_div')[0]
+              video_div.style.display = 'none'
+              // console.log('播放结束')
+            },
+            false
+    )
+    function close_video() {
+      var video_div = document.getElementsByClassName('video_div')[0]
+      video_div.style.display = 'none'
+      elevideo.pause()
+    }
+    function quancheng(id) {
+      window.location="../quancheng?id="+id;
+    }
+    function quanchengxiazai(index) {
+        var show = document.getElementsByClassName('show_excel')[0]
+        show.style.display = 'block'
+        var spaninntext = document.getElementsByClassName('origin_file_name')[0]
+        spaninntext.innerText='my name is guile'
+        fileinfos[index].
+        console.log(fileinfos[0])
+
+    }
+    var timeformat = document.getElementsByClassName('timeformat')
+    //修改时间
+    for (let i = 0; i < timeformat.length; i++) {
+      let time = timeformat[i].innerText
+      if (time != null && time.length != 0) {
+        var d = new Date(time + ' GMT+8')
+
+        let month =
+                d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
+        let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+        let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+
+        let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+        let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+        let times =
+                d.getFullYear() +
+                '-' +
+                month +
+                '-' +
+                day +
+                ' ' +
+                hours +
+                ':' +
+                min +
+                ':' +
+                sec
+        timeformat[i].innerHTML = times
       }
 
-      function quancheng(id) {
-       window.location="../quancheng?id="+id;
+      timeformat[i].style.width = '100px'
+    }
+    var uploadformat = document.getElementsByClassName('uploadformat')
+    for (let i = 0; i < uploadformat.length; i++) {
+      let time = uploadformat[i].innerText
+      if (time != null && time.length != 0) {
+        var d = new Date(time + ' GMT+8')
+        console.log(d)
+        let month =
+                d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
+        let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
+        let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+        console.log(d.getHours())
+        let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+        let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+        let times =
+                d.getFullYear() +
+                '-' +
+                month +
+                '-' +
+                day +
+                ' ' +
+                hours +
+                ':' +
+                min +
+                ':' +
+                sec
+        uploadformat[i].innerHTML = times
       }
-      let flag = 1
-      var temp = 0
-      function quanchengxiazai(id) {
 
-        if (flag == 1){
-          var show = document.getElementsByClassName('show_excel'+id)[0]
-          show.style.display="block"
-          flag = 0
-          temp  = id
+      uploadformat[i].style.width = '100px'
+    }
+      var fileinfo0 = [[${fileinfo0}]]
+      function getquancheng(){
+      //跳转到全程文件中去
+        if (fileinfo0!=null){
+            window.location="../quancheng?id="+fileinfo0.id;
         }else {
-          var show = document.getElementsByClassName('show_excel'+id)[0]
-          var show_last = document.getElementsByClassName('show_excel'+temp)[0]
-          console.log(show_last)
-          console.log(show)
-          show.style.display="block"
-          show_last.style.display="none"
-          temp = id
+          alert("还没有选中文件")
         }
       }
-      var timeformat = document.getElementsByClassName('timeformat')
-      for (let i = 0; i < timeformat.length; i++) {
-        let time = timeformat[i].innerText
-        if (time != null && time.length != 0) {
-          var d = new Date(time + ' GMT+8')
-
-          let month =
-                  d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
-          let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
-          let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
-
-          let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-          let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-          let times =
-                  d.getFullYear() +
-                  '-' +
-                  month +
-                  '-' +
-                  day +
-                  ' ' +
-                  hours +
-                  ':' +
-                  min +
-                  ':' +
-                  sec
-          timeformat[i].innerHTML = times
+      function getquxian(){
+        if (fileinfo0!=null){
+          window.location="../quxianIndex?id="+fileinfo0.id;
+        }else {
+          alert("还没有选中文件")
         }
-
-        timeformat[i].style.width = '100px'
       }
-      var uploadformat = document.getElementsByClassName('uploadformat')
-      for (let i = 0; i < uploadformat.length; i++) {
-        let time = uploadformat[i].innerText
-        if (time != null && time.length != 0) {
-          var d = new Date(time + ' GMT+8')
-          console.log(d)
-          let month =
-                  d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
-          let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
-          let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
-          console.log(d.getHours())
-          let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-          let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-          let times =
-                  d.getFullYear() +
-                  '-' +
-                  month +
-                  '-' +
-                  day +
-                  ' ' +
-                  hours +
-                  ':' +
-                  min +
-                  ':' +
-                  sec
-          uploadformat[i].innerHTML = times
-        }
-
-        uploadformat[i].style.width = '100px'
-      }
-    </script>
+  </script>
   </body>
 </html>

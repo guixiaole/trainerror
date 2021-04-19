@@ -76,10 +76,12 @@ public class UserController {
         /*
         第一个五步闸
          */
+
         if (fileInfos.size()>0){
             FileInfo fileInfo = fileInfos.get(0);
             StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(fileInfo.getId());
             model.addAttribute("stepAnalysis",stepAnalysis);
+            model.addAttribute("fileinfo0",fileInfos.get(0));
         }
 //        if (fileInfos.size()>0){
 //            //在size大于0的时候，根据五步闸来
