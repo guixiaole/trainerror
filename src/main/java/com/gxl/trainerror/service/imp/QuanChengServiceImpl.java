@@ -119,6 +119,16 @@ public class QuanChengServiceImpl implements QuanChengService {
                         if (file1.equals("司机号2")){
                             fieldInfo.setFuSiJiName(lists[4].get(i));
                         }
+                        if (file1.equals("计长")){
+                            fieldInfo.setJiChang(lists[4].get(i));
+                        }
+                        if (file1.equals("数据交路号")){
+                            fieldInfo.setJiaoLuHao(lists[4].get(i));
+                        }
+                        if (file1.equals("车站号")){
+                            fieldInfo.setStartStation(lists[4].get(i));
+                        }
+
                     }
 
                     if (lists[3].get(i).equals(""))

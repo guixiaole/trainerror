@@ -34,4 +34,8 @@ public class FileInfo {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date uploadTime;//上传时间
     private String  oldFileName;
+    private String jiCheHao;//机车号
+    private String jiaoLuHao;//交路号
+    private String jiChang;//计长
+    private String startStation;//起始站点
 }

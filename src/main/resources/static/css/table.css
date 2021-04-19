@@ -334,3 +334,72 @@ input {
   display: block;
   color: white;
 }
+.yubaohuo {
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  background-color: #b5e61d;
+  top: 30%;
+  left: 30%;
+}
+.jixing_baohuo {
+  height: 70px;
+}
+.jixing_input {
+  float: left;
+  margin-top: 20px;
+}
+.input_span input {
+  width: 100px;
+  margin-left: 5px;
+}
+
+.piliangcheci {
+  float: left;
+  display: block;
+  width: 80px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 80px;
+  background-color: #00a2e8;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 18px;
+}
+.res_date input {
+  width: 150px;
+  margin-top: 10px;
+}
+.baohuo_text {
+  width: 80%;
+  display: block;
+}
+.shenhe_div {
+  height: 30px;
+}
+.shenhe_div input {
+  width: 60px;
+  margin-left: 100px;
+}
+.btn_last {
+  height: 60px;
+}
+.btn_last span {
+  width: 80px;
+  height: 30px;
+  border: 1px solid #000;
+  background-color: #00a2e8;
+  float: left;
+  margin-left: 20px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 30px;
+}
+.btn_baohuo {
+  float: left;
+  background-color: #00a2e8;
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+}

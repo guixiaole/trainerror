@@ -11,27 +11,27 @@
   <body>
   <div class="nav">
     <div class="info">
-        <span class="left_info">司机</span
-        ><span class="right_info">503234</span>
+       <span class="left_info">司机</span
+       ><span class="right_info">[[${fileInfo.siJiName}]]</span>
       <span class="left_info">副司机</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.fuSiJiName}]]</span>
       <span class="left_info">开车时间</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.fileStartTime}]]</span>
 
       <span class="left_info">机型</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.jiXing}]]</span>
       <span class="left_info">车次</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.cheCi}]]</span>
       <span class="left_info">起点站</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.startStation}]]</span>
 
       <span class="left_info">机车号</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.jiCheHao}]]</span>
       <span class="left_info">交路号</span
-      ><span class="right_info">503234</span>
+      ><span class="right_info">[[${fileInfo.jiaoLuHao}]]</span>
 
       <span class="left_info">计长</span>
-      <span class="right_info">503234</span>
+      <span class="right_info">[[${fileInfo.jiChang}]]</span>
     </div>
     <div class="xiangdian">
       <div class="file_info">项点分析指向</div>
@@ -425,7 +425,7 @@
         myChart1.resize()
         quanping_click.style.height = '600px'
         quanping_click1.style.display = 'none'
-        quanping_span1.style.display = 'none'
+
         flag_quanping = 0
       } else {
         myChart.getDom().style.height = '300px'
@@ -433,8 +433,8 @@
         myChart1.getDom().style.height = '300px'
         myChart1.resize()
         quanping_click.style.height = '300px'
-        quanping_click1.style.display = 'block'
-        quanping_span1.style.display = 'block'
+        quanping_click1.style.display = 'flex'
+
         flag_quanping = 1
       }
     }
@@ -446,7 +446,7 @@
         myChart.resize()
         quanping_click.style.display = 'none'
         quanping_click1.style.height = '600px'
-        quanping_span.style.display = 'none'
+
 
         flag_quanping1 = 0
       } else {
@@ -455,8 +455,8 @@
         myChart.getDom().style.height = '300px'
         myChart.resize()
         quanping_click1.style.height = '300px'
-        quanping_click.style.display = 'block'
-        quanping_span.style.display = 'block'
+        quanping_click.style.display = 'flex'
+
         flag_quanping1 = 1
       }
     }

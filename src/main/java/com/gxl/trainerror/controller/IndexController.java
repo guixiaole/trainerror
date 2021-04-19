@@ -97,8 +97,8 @@ public class IndexController {
         FileInfo fileInfo = fileInfoService.selectFileInfoById(fileId);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String filePath = sdf.format(fileInfo.getUploadTime());
-        String allPath = "D:\\output\\"+filePath+"\\"+fileInfo.getOldFileName();
-        DownloadUtil.downloadFile(allPath,fileInfo.getOldFileName(),response,request);
+        String allPath = "D:\\output\\"+filePath+"\\"+oldName;
+        DownloadUtil.downloadFile(allPath,oldName,response,request);
         return null;
     }
 }

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" th:href="@{/css/table.css}" />
     <script th:src="@{js/index.js}" th:inline="javascript"></script>
+    <script th:src="@{js/jquery.js}"></script>
     <title>train</title>
   </head>
 
@@ -63,7 +64,7 @@
         <span class="nav_div">机统6与报错</span>
         <div class="dropdown-content">
           <a href="#">人工提报机统6</a>
-          <a href="#">智能报活</a>
+          <a href="#" id ="baohuo">智能报活</a>
         </div>
       </div>
       <div class="nav_div"><span>在线升级</span></div>
@@ -88,12 +89,51 @@
 <!--  <input type="hidden" id="stepanalysis" th:value="${stepAnalysis}" />-->
     <!-- 存放表格 -->
   <div id="show_execl" class="show_excel">
+
 <!--    <a th:href="@{/oldNameDownload?filename=}+${fileinfo.oldFileName}+'&id='+${fileinfo.id}" onclick="download_origin_file()">下载原始文件</a>-->
 <!--    <a th:href="@{/oldNameDownload?filename=}+${fileinfo.fileName}+'&id='+${fileinfo.id}"onclick="download_excle_file()">下载excle文件</a>-->
     <a href="#" onclick="download_origin_file()">下载原始文件</a>
     <a href="#" onclick="download_excle_file()">下载excle文件</a>
-
     <span class="origin_file_name"></span>
+    <span onclick="cancleShow()"style="cursor: pointer;">取消</span>
+  </div>
+<!--  此部分为点击预报活而开始的页面-->
+  <div class="yubaohuo" id="yubaohuo" style="display: none">
+    <div class="jixing_baohuo">
+      <div class="jixing_input">
+        <div class="input_span">
+          <span>机型</span><input type="text" name=""  />
+        </div>
+        <div class="input_span">
+          <span>车号</span><input type="text" name=""  />
+        </div>
+      </div>
+      <span class="piliangcheci">批量车次</span>
+    </div>
+
+    <div class="res_date">
+      <div>预报活有效期</div>
+      <input type="datetime-local" name="" />
+      <input type="datetime-local" name=""  />
+    </div>
+
+    <div>预报活内容</div>
+    <input
+            type="text"
+            name=""
+
+            class="baohuo_text"
+            placeholder="50个汉字、大小写英文、符号"
+    />
+    <div class="shenhe_div">
+      <div style="float: left">预报活审核码</div>
+      <input style="float: left" type="text" placeholder="1-5位数字" />
+    </div>
+    <div class="btn_last">
+      <input type="button" value="确认" class="btn_baohuo" />
+      <span>历史预报活</span>
+      <span>撤销预报活</span>
+    </div>
   </div>
     <div class="table-box">
       <table cellpadding="0" cellspacing="0">
@@ -266,8 +306,11 @@
       var spaninntext = document.getElementsByClassName('origin_file_name')[0]
       originName= fileinfos[index].oldFileName
       fileName = fileinfos[index].fileName
+
       fileIdDownload = fileinfos[index].id
       spaninntext.innerText = originName
+      console.log(fileName)
+      console.log(originName)
     }
     function download_origin_file(){
       window.location = '../oldNameDownload?filename='+originName+'&id='+fileIdDownload
@@ -354,6 +397,38 @@
           alert("还没有选中文件")
         }
       }
+      function cancleShow(){
+        //下载execl的取消界面
+        var show = document.getElementsByClassName('show_excel')[0]
+        show.style.display = 'none'
+      }
+
+    function e(obj) {
+
+      return document.getElementById(obj)
+    }
+    e('baohuo').onclick = function (event) {
+      e('yubaohuo').style.display = 'block'
+      console.log(e('yubaohuo').style.display)
+      stopBubble(event)
+      document.onclick = function () {
+        e('yubaohuo').style.display = 'none'
+        document.onclick = null
+      }
+    }
+
+    e('yubaohuo').onclick = function (event) {
+      //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+      stopBubble(event)
+    }
+    //阻止冒泡函数
+    function stopBubble(e) {
+      if (e && e.stopPropagation) {
+        e.stopPropagation() //w3c
+      } else {
+        window.event.cancelBubble = true //IE
+      }
+    }
   </script>
   </body>
 </html>

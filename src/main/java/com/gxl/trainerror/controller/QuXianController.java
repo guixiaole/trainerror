@@ -1,6 +1,8 @@
 package com.gxl.trainerror.controller;
 
+import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
 import com.gxl.trainerror.service.StepAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class QuXianController {
     private QuanChengService quanChengService;
     @Autowired
     private StepAnalysisService stepAnalysisService;
+    @Autowired
+    private FileInfoService fileInfoService;
     @RequestMapping("/quxianIndex")
     public String quXianIndex(@RequestParam("id") Integer id, Model model){
         List<QuanCheng> quanCheng= quanChengService.selectByFileAscXuhao(id);
@@ -61,6 +65,8 @@ public class QuXianController {
         model.addAttribute("restrictSpeed",restrictSpeed);
         model.addAttribute("speed",speed);
         model.addAttribute("zhuanSuDianLiu",zhuanSuDianLiu);
+        FileInfo fileInfo =fileInfoService.selectFileInfoById(id);
+        model.addAttribute("fileInfo",fileInfo);
         return "quxian";
     }
 

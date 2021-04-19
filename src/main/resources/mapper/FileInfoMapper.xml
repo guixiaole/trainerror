@@ -48,7 +48,19 @@
       <if test="oldFileName!=null and oldFileName!=''">
           old_file_name =#{oldFileName},
       </if>
-                              id = #{id}
+      <if test="jiCheHao!=null and jiCheHao!=''">
+          ji_che_hao =#{jiCheHao},
+      </if>
+      <if test="jiaoLuHao!=null and jiaoLuHao!=''">
+          jiaoL_lu_hao =#{jiaoLuHao},
+      </if>
+      <if test="jiChang!=null and jiChang!=''">
+          ji_chang =#{jiChang},
+      </if>
+      <if test="startStation!=null and startStation!=''">
+          start_station =#{startStation},
+      </if>
+      id = #{id}
                               where id =#{id}
   </update>
     <select id="selectIndexFileInfo" parameterType="com.gxl.trainerror.bean.FileInfo" resultType="com.gxl.trainerror.bean.FileInfo">

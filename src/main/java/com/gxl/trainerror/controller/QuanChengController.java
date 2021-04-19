@@ -1,6 +1,8 @@
 package com.gxl.trainerror.controller;
 
+import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import java.util.List;
 public class QuanChengController {
     @Autowired
     private QuanChengService quanChengService;
+    @Autowired
+    private FileInfoService fileInfoService;
     @RequestMapping("/quancheng")
     public String getQuanCheng(Integer id, Model model){
         List<QuanCheng> quanChengs = quanChengService.selectByFileAscXuhao(id);
@@ -24,6 +28,8 @@ public class QuanChengController {
         if (quanChengs.size()>0){
             Integer fileid = quanChengs.get(0).getFileId();
             model.addAttribute("fileid",fileid);
+            FileInfo fileInfo=fileInfoService.selectFileInfoById(id);
+            model.addAttribute("fileInfo",fileInfo);
         }
         List<String> Times = new ArrayList<>();
         for (QuanCheng quanCheng : quanChengs) {
