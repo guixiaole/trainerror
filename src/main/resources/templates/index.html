@@ -73,18 +73,18 @@
     </div>
     <!-- 中间各种操作 -->
     <div class="midselect clearfix">
-      <a href="#"><span>普通</span></a>
-      <a href="#" onclick="getquancheng()"><span>全程记录</span></a>
-      <a href="#" onclick="getquxian()"><span>曲线记录</span></a>
-      <a href="#"><span>提示与指导</span></a>
-      <a href="#"><span>显示界面设置</span></a>
+      <a href="#"><span style="background-color: #a3a0f9">普通</span></a>
+      <a href="#" onclick="getquancheng()" ><span style="width: 150px">全程记录</span></a>
+      <a href="#" onclick="getquxian()"><span style="width: 150px">曲线记录</span></a>
+      <a href="#" onclick="tishiandguide()"><span style="width: 150px">提示与指导</span></a>
+
       <a href="#"><span class="select_span" id ="step1">1</span></a>
       <a href="#"><span class="select_span" id ="step2">2</span></a>
       <a href="#"><span class="select_span" id ="step3">3</span></a>
       <a href="#"><span class="select_span" id ="step4">4</span></a>
       <a href="#"><span class="select_span" id ="step5">5</span></a>
-      <a href="#"><span>预报活</span></a>
-      <a href="/index"><span>新文件显示</span></a>
+      <a href="#"><span style="width: 150px">预报活</span></a>
+      <a href="/index"><span style="width: 150px">新文件显示</span></a>
     </div>
 <!--  <input type="hidden" id="stepanalysis" th:value="${stepAnalysis}" />-->
     <!-- 存放表格 -->
@@ -141,7 +141,7 @@
           <tr>
             <th>序号</th>
             <th>整备点</th>
-            <th style="width: 100px">文件起时</th>
+            <th style="width: 130px">文件起时</th>
             <th>车次</th>
             <th>机型</th>
             <th>车号</th>
@@ -150,16 +150,16 @@
             <th>文件状态</th>
             <th>版本状态</th>
             <th>作业分</th>
-            <th style="width: 100px">上传时间</th>
+            <th style="width: 130px">上传时间</th>
           </tr>
         </thead>
 
-        <tbody >
+        <tbody id = "tbody">
           <tr th:each="fileinfo,state :${fileInfos}" th:onclick="'javascript:quanchengxiazai('+${state.index}+')'" ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
 
-            <td>[[${state.index}]]</td>
-            <td>[[${fileinfo.zhuangBeiDian}]]</td>
-            <td class="uploadformat">[[${fileinfo.fileStartTime}]]</td>
+            <td style="background-color: #e1e1e1">[[${state.index}]]</td>
+            <td style="background-color: #e1e1e1">[[${fileinfo.zhuangBeiDian}]]</td>
+            <td class="uploadformat">[[${startTime[state.index]}]]</td>
             <td>[[${fileinfo.cheCi}]]</td>
             <td>[[${fileinfo.jiXing}]]</td>
             <td>[[${fileinfo.cheHao}]]</td>
@@ -168,7 +168,7 @@
             <td>[[${fileinfo.fileState}]]</td>
             <td></td>
             <td>[[${fileinfo.testScore}]]</td>
-            <td class="timeformat">[[${fileinfo.uploadTime}]]</td>
+            <td class="timeformat">[[${uploadTime[state.index]}]]</td>
           </tr>
         </tbody>
         <!-- 
@@ -230,6 +230,10 @@
 
 
   <script type="text/javascript" th:inline="javascript">
+    var height = window.screen.availHeight
+    var tbody = document.getElementById('tbody')
+    tbody.style.height = height - 100 + 'px'
+    //修改tbody的高度
     var elevideo = document.getElementById('video_play')
     var step1 = document.getElementById('step1')
     var step2 = document.getElementById('step2')
@@ -242,26 +246,53 @@
 
 
       let flag_step = 0
-      if (stepanalysis!=null){
-        if(stepanalysis.oneStep!=null){
-          step1.style.backgroundColor="#38f"
-          flag_step=1
+      if(stepanalysis.fiveStep!=null){
+        var  five =[[${five}]]
+        if (five.xiangDianId!=null){
+          step5.style.backgroundColor="red"
+        }else {
+          step5.style.backgroundColor="#38f"
+          flag_step=5
         }
-        if(stepanalysis.twoStep!=null){
-          step2.style.backgroundColor="#38f"
-          flag_step=2
-        }
-        if(stepanalysis.threeStep!=null){
-          step3.style.backgroundColor="#38f"
-          flag_step=3
-        }
-        if(stepanalysis.fourStep !=null){
+      }
+      if(stepanalysis.fourStep !=null){
+        var  four =[[${four}]]
+        if (four.xiangDianId!=null){
+          step4.style.backgroundColor="red"
+        }else {
           step4.style.backgroundColor="#38f"
           flag_step=4
         }
-        if(stepanalysis.fiveStep!=null){
-          step5.style.backgroundColor="#38f"
-          flag_step=5
+      }
+      if(stepanalysis.threeStep!=null){
+        var  three =[[${three}]]
+        if (three.xiangDianId!=null){
+          step3.style.backgroundColor="red"
+        }else {
+          step3.style.backgroundColor="#38f"
+          flag_step=3
+        }
+      }
+
+    if(stepanalysis.twoStep!=null){
+          var  two =[[${two}]]
+          if (two.xiangDianId!=null){
+            step2.style.backgroundColor="red"
+          }else {
+            step2.style.backgroundColor="#38f"
+            flag_step=2
+          }
+        }
+
+      if (stepanalysis!=null){
+        if(stepanalysis.oneStep!=null){
+          var  one =[[${one}]]
+          if (one.xiangDianId!=null){
+            step1.style.backgroundColor="red"
+          }else {
+            step1.style.backgroundColor="#38f"
+            flag_step=1
+          }
         }
         if (flag_step>0){
           let video_div = document.getElementsByClassName('video_div')[0]
@@ -309,8 +340,6 @@
 
       fileIdDownload = fileinfos[index].id
       spaninntext.innerText = originName
-      console.log(fileName)
-      console.log(originName)
     }
     function download_origin_file(){
       window.location = '../oldNameDownload?filename='+originName+'&id='+fileIdDownload
@@ -319,67 +348,6 @@
     function download_excle_file(){
       window.location = '../oldNameDownload?filename='+fileName+'&id='+fileIdDownload
 
-    }
-    var timeformat = document.getElementsByClassName('timeformat')
-    //修改时间
-    for (let i = 0; i < timeformat.length; i++) {
-      let time = timeformat[i].innerText
-      if (time != null && time.length != 0) {
-        var d = new Date(time + ' GMT+8')
-
-        let month =
-                d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
-        let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
-        let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
-
-        let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-        let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-        let times =
-                d.getFullYear() +
-                '-' +
-                month +
-                '-' +
-                day +
-                ' ' +
-                hours +
-                ':' +
-                min +
-                ':' +
-                sec
-        timeformat[i].innerHTML = times
-      }
-
-      timeformat[i].style.width = '100px'
-    }
-    var uploadformat = document.getElementsByClassName('uploadformat')
-    for (let i = 0; i < uploadformat.length; i++) {
-      let time = uploadformat[i].innerText
-      if (time != null && time.length != 0) {
-        var d = new Date(time + ' GMT+8')
-
-        let month =
-                d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
-        let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()
-        let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
-        console.log(d.getHours())
-        let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
-        let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
-        let times =
-                d.getFullYear() +
-                '-' +
-                month +
-                '-' +
-                day +
-                ' ' +
-                hours +
-                ':' +
-                min +
-                ':' +
-                sec
-        uploadformat[i].innerHTML = times
-      }
-
-      uploadformat[i].style.width = '100px'
     }
       var fileinfo0 = [[${fileinfo0}]]
       function getquancheng(){
@@ -404,7 +372,6 @@
       }
 
     function e(obj) {
-
       return document.getElementById(obj)
     }
     e('baohuo').onclick = function (event) {
@@ -429,6 +396,9 @@
         window.event.cancelBubble = true //IE
       }
     }
+      function tishiandguide(){
+        //提示与指导进行
+      }
   </script>
   </body>
 </html>

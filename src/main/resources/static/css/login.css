@@ -82,14 +82,14 @@
 .login {
     position: relative;
     height: 80px;
-    width: 500px;
+    width: 350px;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -200px;
     background-color: #28a0ed;
     border-radius: 30px;
     text-align: center;
     line-height: 80px;
-    font-size: 30px;
+    font-size: 24px;
     color: #fff;
     margin-top: 50px;
 }
