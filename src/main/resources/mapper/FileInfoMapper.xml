@@ -52,7 +52,7 @@
           ji_che_hao =#{jiCheHao},
       </if>
       <if test="jiaoLuHao!=null and jiaoLuHao!=''">
-          jiaoL_lu_hao =#{jiaoLuHao},
+          jiao_lu_hao =#{jiaoLuHao},
       </if>
       <if test="jiChang!=null and jiChang!=''">
           ji_chang =#{jiChang},

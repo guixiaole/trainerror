@@ -17,5 +17,5 @@ public class StepInfo {
     private Integer id;
     private Integer startXiangDian;
     private Integer endXiangDian;
-    private Integer xiangDianID;
+    private Integer xiangDianId;
 }

@@ -86,7 +86,6 @@ public class IndexController {
     }
     @PostMapping("/searchFile")
     public String searchFile(FileInfo fileInfo,Model model){
-        System.out.println(fileInfo);
         List<FileInfo> fileInfos = fileInfoService.selectIndexFileInfo(fileInfo);
         model.addAttribute("fileInfos",fileInfos);
         return "index";

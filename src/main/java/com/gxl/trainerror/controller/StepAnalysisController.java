@@ -89,7 +89,7 @@ public class StepAnalysisController {
         stepInfo.setId(step_id);
         String jsonConde;
         if (xiangDian.getId()!=null){
-            stepInfo.setXiangDianID(xiangDian.getId());
+            stepInfo.setXiangDianId(xiangDian.getId());
             stepInfoService.updateXiangDianId(stepInfo);
             jsonConde="{\"code\":\"项点标记成功\"}";
             return jsonConde;

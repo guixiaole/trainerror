@@ -356,7 +356,7 @@
       let time = uploadformat[i].innerText
       if (time != null && time.length != 0) {
         var d = new Date(time + ' GMT+8')
-        console.log(d)
+
         let month =
                 d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1
         let day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate()

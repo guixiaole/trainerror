@@ -16,7 +16,7 @@
       <span class="left_info">副司机</span
       ><span class="right_info">[[${fileInfo.fuSiJiName}]]</span>
       <span class="left_info">开车时间</span
-      ><span class="right_info">[[${fileInfo.fileStartTime}]]</span>
+      ><span class="right_info" id="startTime">[[${fileInfo.fileStartTime}]]</span>
 
       <span class="left_info">机型</span
       ><span class="right_info">[[${fileInfo.jiXing}]]</span>
@@ -38,25 +38,21 @@
       <div class="error_wubu">
         <div class="error_td">
           <span>I端</span>
-          <span onclick="modefiy_option()">第一步</span>
-          <span>第二步</span>
-          <span>第三步</span>
-          <span>第四步</span>
-          <span>第五步</span>
-          <span>第六步</span>
-          <span>第七步</span>
-          <span>第八步</span>
+          <span onclick="modefiy_option(1)">第一步</span>
+          <span onclick="modefiy_option(2)">第二步</span>
+          <span onclick="modefiy_option(3)">第三步</span>
+          <span onclick="modefiy_option(4)">第四步</span>
+          <span onclick="modefiy_option(5)" >第五步</span>
+
         </div>
         <div class="error_td">
           <span>II端</span>
-          <span>第一步</span>
-          <span>第二步</span>
-          <span>第三步</span>
-          <span>第四步</span>
-          <span>第五步</span>
-          <span>第六步</span>
-          <span>第七步</span>
-          <span>第八步</span>
+          <span onclick="modefiy_option(1)">第一步</span>
+          <span onclick="modefiy_option(2)">第二步</span>
+          <span onclick="modefiy_option(3)">第三步</span>
+          <span onclick="modefiy_option(4)">第四步</span>
+          <span onclick="modefiy_option(5)">第五步</span>
+
         </div>
       </div>
       <div class="quxian">
@@ -145,6 +141,24 @@
     ></div>
   </body>
   <script type="text/javascript" th:inline="javascript">
+    var startTime= document.getElementById("startTime")
+    let time = startTime.innerText
+    if (time != null && time.length != 0) {
+      var d = new Date(time + ' GMT+8')
+
+
+      let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+      console.log(d.getHours())
+      let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+      let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+      let times =
+              hours +
+              ':' +
+              min +
+              ':' +
+              sec
+      startTime.innerText = times
+    }
     // 基于准备好的dom，初始化echarts实例
     var myPaint = document.getElementById('paint')
     var myPaint1 = document.getElementById('paint1')
@@ -377,45 +391,69 @@
     var quanping_click1 = document.getElementsByClassName("quanpingclick1")[0]
     var quanping_span = document.getElementsByClassName("quanping_span")[0]
     var quanping_span1 = document.getElementsByClassName("quanping_span1")[0]
-    function modefiy_option(step){
-      myChart.setOption(
-              {
-                series:[
-                  {
-                    name: '管压',
-                    type: 'line',
-                    smooth: false,
-                    symbol: 'none',
-                    data: gangya,
-                    markLine: {
+    function modefiy_option(s){
+      if (s==1){
+        var step = [[${one}]]
+      }else if(s==2){
+        var step = [[${two}]]
+      }else if(s==3){
+        var step =  [[${three}]]
+      }else if(s==4){
+        var step =[[${four}]]
+      }else {
+        var step = [[${five}]]
+      }
+      if (step==null){
+        alert("此步闸并没有错误")
+      }else {
+        myChart.setOption(
+                {
+                  series:[
+                    {
+                      name: '管压',
+                      type: 'line',
+                      smooth: false,
                       symbol: 'none',
-                      lineStyle: {
-                        type: 'solid',
-                      },
-                      data: [
-                        [
-                          {
-                            coord: [times[10], 0],
-                          },
-                          {
-                            coord: [times[10], 600],
-                          },
-                        ],
-                      ],
-                    } ,
+                      data: gangya,
+                      markLine: {
+                        symbol: 'none',
 
-                  },
-                  {
-                    symbol: 'none',
-                    name: '均缸压',
-                    type: 'line',
-                    smooth: false,
-                    data: guanya,
-                  },
-                ]
-              }
-      )
-      myChart.setOption(option);
+                        itemStyle: {
+                          normal: {
+                            color: 'red',
+                            lineStyle:{
+                              width:3,//设置线条粗细
+                              type: 'solid'
+                                  }
+                                }
+                                },
+
+                            data: [
+                          [
+                            {
+                              coord: [times[step.startXiangDian], 0],
+                            },
+                            {
+                              coord: [times[step.startXiangDian], 600],
+                            },
+                          ],
+                        ],
+                      } ,
+
+                    },
+                    {
+                      symbol: 'none',
+                      name: '均缸压',
+                      type: 'line',
+                      smooth: false,
+                      data: guanya,
+                    },
+                  ]
+                }
+        )
+        myChart.setOption(option);
+      }
+
     }
     function quanping() {
       if (flag_quanping == 1) {

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" th:href="@{/css/allrecord.css}" />
-  <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+  <script th:src="@{/js/jquery.js}"></script>
   <title>Document</title>
 </head>
 <body>
@@ -41,7 +41,7 @@
     </thead>
 
     <tbody>
-    <tr th:each="quancheng,indexState :${quanChengs}" onclick="stepdesign(this.id)"  th:id="${quancheng.xuHao}"  >
+    <tr th:each="quancheng,indexState :${quanChengs}" onclick="stepdesign(this.id)"  th:id="${quancheng.xuHao}" class="tr_quancheng" >
       <td>[[${quancheng.xuHao}]]</td>
       <td style="width: 100px">[[${quancheng.event}]]</td>
       <td class="timeformat" style="width: 100px">[[${times[indexState.index]}]]</td>
@@ -128,6 +128,7 @@
   var fileId = fileid.value;
   let step = -1
   function design(id){
+    alert("开始标记五步闸")
     step = id
   }
   let flag = 1
@@ -142,21 +143,29 @@
       flag = 1
       if(step!=-1){
         sendGet(fileId,step,start,end)
+        var tr = document.getElementsByClassName('tr_quancheng')
+        for(var i = start;i<=end;i++){
+          tr[i].style.backgroundColor='#ff3333'
+        }
       }
     }
   }
-  let xiangdian_step = -1
+  var xiangdian_step = -1
   function xiangdiandesign(ids){
+    alert("设置第几步闸")
     xiangdian_step=ids
   }
   function xiangdian(){
+    alert("开始插入项点")
     if (xiangdian_step==-1){
       alert("请先确认是哪一步")
     }else {
       if (xiangdian_input.value==null){
         alert("请输入项点消息")
       }else {
-        xiangdianpost(fileid,xiangdian_input,xiangdian_step);
+        alert(xiangdian_input.value)
+        var xiangdian_value = xiangdian_input.value
+        xiangdianpost(fileId,xiangdian_value,xiangdian_step);
         xiangdian_step=-1
       }
     }

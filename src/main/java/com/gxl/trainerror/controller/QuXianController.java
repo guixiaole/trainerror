@@ -2,9 +2,12 @@ package com.gxl.trainerror.controller;
 
 import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.bean.StepAnalysis;
+import com.gxl.trainerror.bean.StepInfo;
 import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
 import com.gxl.trainerror.service.StepAnalysisService;
+import com.gxl.trainerror.service.StepInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,8 @@ public class QuXianController {
     private StepAnalysisService stepAnalysisService;
     @Autowired
     private FileInfoService fileInfoService;
+    @Autowired
+    private StepInfoService stepInfoService;
     @RequestMapping("/quxianIndex")
     public String quXianIndex(@RequestParam("id") Integer id, Model model){
         List<QuanCheng> quanCheng= quanChengService.selectByFileAscXuhao(id);
@@ -67,6 +72,27 @@ public class QuXianController {
         model.addAttribute("zhuanSuDianLiu",zhuanSuDianLiu);
         FileInfo fileInfo =fileInfoService.selectFileInfoById(id);
         model.addAttribute("fileInfo",fileInfo);
+        StepAnalysis stepAnalysis = stepAnalysisService.selectByFileID(id);
+        if (stepAnalysis.getOneStep()!=null){
+            StepInfo one = stepInfoService.selectById(stepAnalysis.getOneStep());
+            model.addAttribute("one",one);
+        }
+        if (stepAnalysis.getTwoStep()!=null){
+            StepInfo two = stepInfoService.selectById(stepAnalysis.getTwoStep());
+            model.addAttribute("two",two);
+        }
+        if (stepAnalysis.getThreeStep()!=null){
+            StepInfo three = stepInfoService.selectById(stepAnalysis.getThreeStep());
+            model.addAttribute("three",three);
+        }
+        if (stepAnalysis.getFourStep()!=null){
+            StepInfo four = stepInfoService.selectById(stepAnalysis.getFourStep());
+            model.addAttribute("four",four);
+        }
+        if (stepAnalysis.getFiveStep()!=null){
+            StepInfo five = stepInfoService.selectById(stepAnalysis.getFiveStep());
+            model.addAttribute("five",five);
+        }
         return "quxian";
     }
 

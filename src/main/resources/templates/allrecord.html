@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" th:href="@{/css/allrecord.css}" />
+    <script th:src="@{/js/jquery.js}"></script>
     <title>Document</title>
   </head>
   <body>
@@ -15,7 +16,7 @@
       <button onclick="quxian(this.id)" th:id="${fileid}">曲线记录</button>
     </div>
     <div>
-      <table cellpadding="0" cellspacing="0">
+      <table cellpadding="0" cellspacing="0" id = "table_quancheng">
         <thead>
           <tr>
             <th>序号</th>
@@ -39,8 +40,8 @@
           </tr>
         </thead>
 
-        <tbody>
-          <tr th:each="quancheng,indexState :${quanChengs}">
+        <tbody id = "tbody_quancheng">
+          <tr th:each="quancheng,indexState :${quanChengs}" class="tr_quancheng" th:id="tr+${quancheng.xuHao}">
             <td>[[${quancheng.xuHao}]]</td>
             <td style="width: 100px">[[${quancheng.event}]]</td>
             <td class="timeformat" style="width: 100px">[[${times[indexState.index]}]]</td>
@@ -69,8 +70,8 @@
           ><span class="right_info">[[${fileInfo.siJiName}]]</span>
           <span class="left_info">副司机</span
           ><span class="right_info">[[${fileInfo.fuSiJiName}]]</span>
-          <span class="left_info">开车时间</span
-          ><span class="right_info">[[${fileInfo.fileStartTime}]]</span>
+          <span class="left_info" >开车时间</span
+          ><span class="right_info" id="startTime">[[${fileInfo.fileStartTime}]]</span>
 
           <span class="left_info">机型</span
           ><span class="right_info">[[${fileInfo.jiXing}]]</span>
@@ -92,40 +93,42 @@
           <div class="error_td">
             <span>I端</span>
             <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
+            <span>第二步</span>
+            <span>第三步</span>
+            <span>第四步</span>
+            <span>第五步</span>
+            <span>第六步</span>
+            <span>第七步</span>
+            <span>第八步</span>
           </div>
           <div class="error_td">
-            <span>I端</span>
+            <span>II端</span>
             <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
-            <span>第一步</span>
+            <span>第二步</span>
+            <span>第三步</span>
+            <span>第四步</span>
+            <span>第五步</span>
+            <span>第六步</span>
+            <span>第七步</span>
+            <span>第八步</span>
           </div>
           <div class="quxian">
             <div class="all_xiangdian">
               <div class="error_td1">
                 <span>I端</span>
-                <span>第一步</span>
-                <span>第一步</span>
-                <span>第一步</span>
-                <span>第一步</span>
+                <span onclick="step(1)">第一步</span>
+                <span onclick="step(2)">第二步</span>
+                <span onclick="step(3)">第三步</span>
+                <span onclick="step(4)">第四步</span>
+                <span onclick="step(5)">第五步</span>
               </div>
               <div class="error_td1">
-                <span>I端</span>
-                <span>第一步</span>
-                <span>第一步</span>
-                <span>第一步</span>
-                <span>第一步</span>
+                <span>II端</span>
+                <span onclick="step(1)">第一步</span>
+                <span onclick="step(2)">第二步</span>
+                <span onclick="step(3)">第三步</span>
+                <span onclick="step(4)">第四步</span>
+                <span onclick="step(5)">第五步</span>
               </div>
             </div>
             <div class="recorder_quxian">曲线记录</div>
@@ -139,7 +142,52 @@
       </div>
     </div>
   </body>
-<script>
+  <script type="text/javascript" th:inline="javascript">
+     var startTime= document.getElementById("startTime")
+     let time = startTime.innerText
+     if (time != null && time.length != 0) {
+       var d = new Date(time + ' GMT+8')
+
+
+       let hours = d.getHours() <= 9 ? '0' + d.getHours() : d.getHours()
+       console.log(d.getHours())
+       let min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()
+       let sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds()
+       let times =
+               hours +
+               ':' +
+               min +
+               ':' +
+               sec
+       startTime.innerText = times
+     }
+    function step(s){
+      if (s==1){
+        var step = [[${one}]]
+      }else if(s==2){
+        var step = [[${two}]]
+      }else if(s==3){
+        var step =  [[${three}]]
+      }else if(s==4){
+        var step =[[${four}]]
+      }else {
+        var step = [[${five}]]
+      }
+
+      if (step==null){
+        alert("此步闸并没有错误")
+      }else {
+        var start = step.startXiangDian
+        var  end = step.endXiangDian
+        var tr = document.getElementsByClassName('tr_quancheng')
+        for(var i = start;i<=end;i++){
+          tr[i].style.backgroundColor='#FF3333'
+        }
+        var $objTr = $("#tr"+start); //找到要定位的地方 tr
+        var objTr = $objTr[0]; //转化为dom对象
+        $("#tbody_quancheng").animate({scrollTop:objTr.offsetTop},"slow");
+      }
+    }
  function quxian(id){
    window.location="../quxianIndex?id="+id;
  }
