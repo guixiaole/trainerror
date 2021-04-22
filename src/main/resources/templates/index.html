@@ -398,7 +398,98 @@
     }
       function tishiandguide(){
         //提示与指导进行
+        if (fileIdDownload!=''){
+          sendGet(fileIdDownload)
+        }
       }
+    function sendGet(id) {
+      // alert(phone)
+      //用 ajax 写
+      $.ajax(
+              {
+                url: "/guideAndTishi",
+                method: 'post',
+                dataType:"json",
+                // contentType: "application/json",
+                data:{"id": id},
+                success: function (data) {
+                  // console.log(data['code']);
+                  // document.querySelector("#rescode").value = data['code'];
+                  if(data['code']==1){
+                    var stepanalysis = [[${stepAnalysis}]]
+                    let flag_step = 0
+                    if(stepanalysis.fiveStep!=null){
+                      var  five =[[${five}]]
+                      if (five.xiangDianId!=null){
+                        step5.style.backgroundColor="red"
+                      }else {
+                        step5.style.backgroundColor="#38f"
+                        flag_step=5
+                      }
+                    }
+                    if(stepanalysis.fourStep !=null){
+                      var  four =[[${four}]]
+                      if (four.xiangDianId!=null){
+                        step4.style.backgroundColor="red"
+                      }else {
+                        step4.style.backgroundColor="#38f"
+                        flag_step=4
+                      }
+                    }
+                    if(stepanalysis.threeStep!=null){
+                      var  three =[[${three}]]
+                      if (three.xiangDianId!=null){
+                        step3.style.backgroundColor="red"
+                      }else {
+                        step3.style.backgroundColor="#38f"
+                        flag_step=3
+                      }
+                    }
+
+                    if(stepanalysis.twoStep!=null){
+                      var  two =[[${two}]]
+                      if (two.xiangDianId!=null){
+                        step2.style.backgroundColor="red"
+                      }else {
+                        step2.style.backgroundColor="#38f"
+                        flag_step=2
+                      }
+                    }
+
+                    if (stepanalysis!=null){
+                      if(stepanalysis.oneStep!=null){
+                        var  one =[[${one}]]
+                        if (one.xiangDianId!=null){
+                          step1.style.backgroundColor="red"
+                        }else {
+                          step1.style.backgroundColor="#38f"
+                          flag_step=1
+                        }
+                      }
+                      if (flag_step>0){
+                        let video_div = document.getElementsByClassName('video_div')[0]
+                        video_div.style.display = 'block'
+                        if (flag_step==1){
+                          elevideo.src= "../images/1.mp4"
+                        }else if(flag_step==2){
+                          elevideo.src= "../images/2.mp4"
+                        }else if(flag_step==3){
+                          elevideo.src= "../images/3.mp4"
+                        }else if(flag_step==4){
+                          elevideo.src= "../images/4.mp4"
+                        }else {
+                          elevideo.src= "../images/5.mp4"
+                        }
+                      }
+                    }
+                  }
+                },
+                error: function (err) {
+                  console.log("error")
+                  alert(err);
+                }
+              });
+    }
   </script>
   </body>
 </html>
