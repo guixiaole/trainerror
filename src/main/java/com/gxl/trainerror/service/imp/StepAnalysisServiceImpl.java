@@ -24,4 +24,9 @@ public class StepAnalysisServiceImpl implements StepAnalysisService {
     public Integer insertOnlyFileID(StepAnalysis stepAnalysis) {
         return stepAnalysisMapper.insertOnlyFileID(stepAnalysis);
     }
+
+    @Override
+    public StepAnalysis selectStepInfoByFileId(Integer fileId) {
+        return  stepAnalysisMapper.selectStepByFileId(fileId);
+    }
 }

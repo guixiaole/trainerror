@@ -15,12 +15,17 @@ public class StepAnalysis {
      */
     private Integer id;
     private Integer fileId;
-    private String JiXing;
+    private String jiXing;
     private Integer oneStep;
     private Integer twoStep;
     private Integer threeStep;
     private Integer fourStep;
     private Integer fiveStep;
+    private StepInfo one;
+    private StepInfo two;
+    private StepInfo three;
+    private StepInfo four;
+    private StepInfo five;
     public StepAnalysis(Integer fileId){
         this.fileId = fileId;
     }

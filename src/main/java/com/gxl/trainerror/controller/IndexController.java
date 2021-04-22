@@ -121,31 +121,11 @@ public class IndexController {
     }
     @ResponseBody
     @RequestMapping("guideAndTishi")
-    public String guideAndTishi(@RequestParam("id")Integer id,Model model){
-        StepAnalysis stepAnalysis = stepAnalysisService.selectByFileID(id);
-        model.addAttribute("stepAnalysis",stepAnalysis);
-        String jsonCode;
-        if (stepAnalysis.getOneStep()!=null){
-            StepInfo one  = stepInfoService.selectById(stepAnalysis.getOneStep());
-            model.addAttribute("one",one);
-        }
-        if (stepAnalysis.getTwoStep()!=null){
-            StepInfo two  = stepInfoService.selectById(stepAnalysis.getTwoStep());
-            model.addAttribute("two",two);
-        }
-        if (stepAnalysis.getThreeStep()!=null){
-            StepInfo three  = stepInfoService.selectById(stepAnalysis.getThreeStep());
-            model.addAttribute("three",three);
-        }
-        if (stepAnalysis.getFourStep()!=null){
-            StepInfo four  = stepInfoService.selectById(stepAnalysis.getFourStep());
-            model.addAttribute("four",four);
-        }
-        if (stepAnalysis.getFiveStep()!=null){
-            StepInfo five  = stepInfoService.selectById(stepAnalysis.getFiveStep());
-            model.addAttribute("five",five);
-        }
-        jsonCode="{\"error\":\"1\"}";
-        return jsonCode;
+    public StepAnalysis guideAndTishi(@RequestParam("id")Integer id,Model model){
+        StepAnalysis stepAnalysis = stepAnalysisService.selectStepInfoByFileId(id);
+//        model.addAttribute("stepAnalysis1",stepAnalysis);
+
+
+        return stepAnalysis;
     }
 }

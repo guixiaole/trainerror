@@ -8,4 +8,6 @@ public interface StepAnalysisService {
     public Integer updateAnyStep(StepAnalysis stepAnalysis);
     //根据id查找需要的信息
     public Integer insertOnlyFileID(StepAnalysis stepAnalysis);
+
+    public StepAnalysis selectStepInfoByFileId(Integer fileId);
 }
