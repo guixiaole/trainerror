@@ -101,6 +101,29 @@
             <span>第七步</span>
             <span>第八步</span>
           </div>
+          <span style="display: block; height: 20px">
+                <span
+                        style="
+                    float: left;
+                    height: 0px;
+                    width: 0px;
+                    border-right: 10px solid #7f7f7f;
+                    border-top: 10px solid transparent;
+                    border-bottom: 10px solid transparent;
+                  "
+                ></span>
+                <span
+                        style="
+                    float: left;
+                    height: 10px;
+                    width: calc(100% - 10px);
+                    text-align: center;
+                    line-height: 15px;
+                    background-color: #7f7f7f;
+                    margin-top: 5px;
+                  "
+                ></span>
+              </span>
           <div class="error_td">
             <span>II端</span>
             <span>第一步</span>
@@ -122,6 +145,29 @@
                 <span onclick="step(4)">第四步</span>
                 <span onclick="step(5)">第五步</span>
               </div>
+              <span style="display: block; height: 20px">
+                <span
+                        style="
+                    float: left;
+                    height: 0px;
+                    width: 0px;
+                    border-right: 10px solid #7f7f7f;
+                    border-top: 10px solid transparent;
+                    border-bottom: 10px solid transparent;
+                  "
+                ></span>
+                <span
+                        style="
+                    float: left;
+                    height: 10px;
+                    width: calc(100% - 10px);
+                    text-align: center;
+                    line-height: 15px;
+                    background-color: #7f7f7f;
+                    margin-top: 5px;
+                  "
+                ></span>
+              </span>
               <div class="error_td1">
                 <span>II端</span>
                 <span onclick="step(1)">第一步</span>
@@ -143,6 +189,9 @@
     </div>
   </body>
   <script type="text/javascript" th:inline="javascript">
+      let tbody = document.getElementById('tbody_quancheng')
+      var height = window.screen.availHeight
+      tbody.style.height =height-150+'px'
      var startTime= document.getElementById("startTime")
      let time = startTime.innerText
      if (time != null && time.length != 0) {
@@ -175,14 +224,12 @@
       }
 
       if (step==null){
-        alert("此步闸并没有错误")
+        alert("此步闸还没有做五部闸分析")
       }else {
         var start = step.startXiangDian
         var  end = step.endXiangDian
         var tr = document.getElementsByClassName('tr_quancheng')
-        for(var i = start;i<=end;i++){
-          tr[i].style.backgroundColor='#FF3333'
-        }
+
         var $objTr = $("#tr"+start); //找到要定位的地方 tr
         var objTr = $objTr[0]; //转化为dom对象
         $("#tbody_quancheng").animate({scrollTop:objTr.offsetTop},"slow");

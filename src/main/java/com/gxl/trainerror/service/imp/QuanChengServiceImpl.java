@@ -128,6 +128,12 @@ public class QuanChengServiceImpl implements QuanChengService {
                         if (file1.equals("车站号")){
                             fieldInfo.setStartStation(lists[4].get(i));
                         }
+                        if (file1.contains("机") && file1.contains("型")){
+                            fieldInfo.setJiXing(lists[4].get(i));
+                        }
+                        if (file1.equals("机车号")){
+                            fieldInfo.setJiCheHao(lists[4].get(i));
+                        }
 
                     }
 

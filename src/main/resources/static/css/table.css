@@ -105,9 +105,12 @@ table caption {
 
 table th,
 table td {
-  height: 50px;
+  height: 30px;
   text-align: center;
-  border: 1px solid gray;
+  border: 1px solid  #e1e1e1;
+}
+table th{
+  border: 1px solid  #000000;
 }
 
 table thead {
@@ -118,7 +121,7 @@ table thead {
 tbody {
   display: block;
   width: calc(100% + 15px); /*这里的8px是 /*这里的8px是滚动条的宽度*/
-  height: 500px;
+  height: calc(100% - 100px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   font-size: 12px;
@@ -141,7 +144,7 @@ table tbody tr td {
   border-bottom: none;
 }
 table tbody tr:last-child td {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid  #e1e1e1;
 }
 .rightbox {
   float: right;
@@ -149,7 +152,7 @@ table tbody tr:last-child td {
   width: 25%;
   /* background-color: blue; */
   margin-left: 0px;
-  border: 1px solid #38f;
+  border: 1px solid #000000;
 }
 .clearfix:after {
   content: '020';
@@ -192,6 +195,9 @@ table tbody tr:last-child td {
   background-size: 100%;
   float: left;
   margin-left: 20px;
+  color: white;
+  background-color: #7f7f7f;
+  cursor:pointer;
 }
 .select_redo {
   display: block;
@@ -200,6 +206,10 @@ table tbody tr:last-child td {
   width: 50px;
   line-height: 30px;
   margin-left: 80px;
+  color: white;
+  background-color: #7f7f7f;
+  text-align: center;
+  cursor:pointer;
 }
 .file_select {
   height: 150px;
@@ -217,13 +227,15 @@ input {
 }
 .input_select {
   float: left;
-  margin-top: 20px;
+  margin-top: 10px;
+  width: 33%;
+  font-size: 12px;
 }
 .btn_confirm {
-  margin-top: 20px;
-  margin-left: 50px;
   width: 50px;
   border-radius: 3px;
+  background-color: #7f7f7f;
+  color: white;
 }
 .history_select {
   margin-top: 20px;
@@ -240,8 +252,10 @@ input {
   margin-left: 20px;
   height: 30px;
   width: 50px;
-  border-color: #38f;
+  border-color: #7f7f7f;
   border-radius: 5px;
+  color: white;
+  background-color: #7f7f7f;
 }
 .yubaohuo {
   width: 500px;
@@ -382,17 +396,20 @@ input {
   line-height: 40px;
   margin: 0 auto;
   text-align: center;
-  width: 400px;
-  height: 200px;
-  border: 1px solid #38f;
-  display: none;
-  background-color: #38f;
-  color: white;
+  /* width: 300px; */
+  border: 1px solid #e1e1e1;
+  display: block;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.06);
+  z-index: 9999999;
+  border-radius: 5px;
+  color: #000;
 }
 #show_execl a,
 #show_execl span {
   display: block;
-  color: white;
+  color: #000000;
+  text-decoration: none;
 }
 .select_span {
   width: 40px;
