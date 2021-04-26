@@ -156,7 +156,9 @@
         </thead>
 
         <tbody id = "tbody">
-          <tr class="tr_show" th:each="fileinfo,state :${fileInfos}" th:onclick="'javascript:quanchengxiazai('+${state.index}+');javascript:stopBubble()'" ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
+          <tr th:class="tr_show" th:each="fileinfo,state :${fileInfos}"ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
+<!--              th:onclick="'javascript:quanchengxiazai('+${state.index}+');javascript:stopBubble()'" -->
+
 
             <td style="background-color: #e1e1e1;width: 60px;border: 1px solid white">[[${state.index}+1]]</td>
             <td style="background-color: #e1e1e1;width: 60px">[[${fileinfo.zhuangBeiDian}]]</td>
@@ -273,40 +275,7 @@
     var last_show=''
     var last_tr_show = ''
     function quanchengxiazai(index) {
-      var posX = 0, posY = 0;
-      var event = event || window.event;
-      var th_show = document.getElementsByClassName("tr_show")
-      if (last_tr_show==''){
 
-        th_show[index].style.backgroundColor="#aca1a1"
-        last_tr_show = th_show[index]
-      }else {
-        last_tr_show.style.backgroundColor="#ffffff"
-        th_show[index].style.backgroundColor="#aca1a1"
-        last_tr_show = th_show[index]
-      }
-
-      var show = document.getElementsByClassName('show_excel')[0]
-      if (event.pageX || event.pageY) {
-        posX = event.pageX;
-        posY = event.pageY;
-        if (last_show!=''){
-          last_show.style.display='none'
-        }
-      }
-      show.style.top=posY+'px'
-      show.style.left = posX+'px'
-      console.log( show.style.top)
-      console.log( show.style.left)
-      show.style.display = 'block'
-
-      last_show = show
-      var spaninntext = document.getElementsByClassName('origin_file_name')[0]
-      originName= fileinfos[index].oldFileName
-      fileName = fileinfos[index].fileName
-
-      fileIdDownload = fileinfos[index].id
-      spaninntext.innerText = originName
       // document.onclick = function () {
       //   show.style.display = 'none'
       //   document.onclick = null
@@ -588,6 +557,53 @@
                 }
               });
     }
+  //  鼠标右键行为
+      tr_right = document.getElementsByClassName("tr_show")
+      for(let i= 0;i<tr_right.length;i++){
+        tr_right[i].oncontextmenu=function (e){
+          e.preventDefault();
+        }
+        tr_right[i].onmouseup = function (oEvent){
+          if (!oEvent) oEvent=window.event;
+          if (oEvent.button==2) {
+            var posX = 0, posY = 0;
+            var event = event || window.event;
+            var th_show = tr_right
+            if (last_tr_show==''){
+
+              tr_right[i].style.backgroundColor="#aca1a1"
+              last_tr_show = th_show[i]
+            }else {
+              last_tr_show.style.backgroundColor="#ffffff"
+              tr_right[i].style.backgroundColor="#aca1a1"
+              last_tr_show = th_show[i]
+            }
+
+            var show = document.getElementsByClassName('show_excel')[0]
+            if (event.pageX || event.pageY) {
+              posX = event.pageX;
+              posY = event.pageY;
+              if (last_show!=''){
+                last_show.style.display='none'
+              }
+            }
+            show.style.top=posY+'px'
+            show.style.left = posX+'px'
+            console.log( show.style.top)
+            console.log( show.style.left)
+            show.style.display = 'block'
+
+            last_show = show
+            var spaninntext = document.getElementsByClassName('origin_file_name')[0]
+            originName= fileinfos[i].oldFileName
+            fileName = fileinfos[i].fileName
+
+            fileIdDownload = fileinfos[i].id
+            spaninntext.innerText = originName
+          }
+        }
+      }
+
   </script>
   </body>
 </html>
