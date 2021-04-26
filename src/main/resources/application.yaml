@@ -9,3 +9,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+logging:
+  level:
+    com:
+      gxl:
+        trainerror:
+          mapper: debug

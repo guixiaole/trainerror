@@ -14,4 +14,9 @@ public class XiangDianServiceImpl implements XiangDianService {
     public Integer insertXiangDian(XiangDian xiangDian) {
         return xiangDianMapper.insertXiangDian(xiangDian);
     }
+
+    @Override
+    public XiangDian selectById(Integer id) {
+        return xiangDianMapper.selectById(id);
+    }
 }

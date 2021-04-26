@@ -66,10 +66,13 @@
   font-size: 12px;
   align-content: center;
   line-height: 30px;
+  cursor: pointer;
 }
+
 .quxian {
   width: 50%;
   float: left;
+  cursor: pointer;
 }
 .all_xiangdian {
   width: 60%;

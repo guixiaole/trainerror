@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" th:href="@{/css/allrecord.css}" />
+  <link rel="stylesheet" th:href="@{/css/allrecord1.css}" />
   <script th:src="@{/js/jquery.js}"></script>
   <title>Document</title>
 </head>
@@ -16,12 +16,12 @@
   <button>全程记录</button>
 </div>
 <div>
-  <table cellpadding="0" cellspacing="0">
+  <table cellpadding="0" cellspacing="0" id = "table_quancheng">
     <thead>
     <tr>
       <th>序号</th>
-      <th style="width: 100px">事件</th>
-      <th style="width: 100px">时间</th>
+      <th style="width: 150px">事件</th>
+      <th style="width: 150px">时间</th>
       <th style="width: 100px">公里标</th>
       <th style="width: 100px">其它</th>
       <th>距离</th>
@@ -34,17 +34,17 @@
       <th>前后</th>
       <th>管压</th>
       <th>缸压</th>
-      <th>转速电流</th>
+      <th style="width: 50px">转速电流</th>
       <th>均缸1</th>
       <th>均缸2</th>
     </tr>
     </thead>
 
-    <tbody>
-    <tr th:each="quancheng,indexState :${quanChengs}" onclick="stepdesign(this.id)"  th:id="${quancheng.xuHao}" class="tr_quancheng" >
+    <tbody id = "tbody_quancheng">
+    <tr th:each="quancheng,indexState :${quanChengs}" class="tr_quancheng" th:id="${quancheng.xuHao}" onclick="stepdesign(this.id)" >
       <td>[[${quancheng.xuHao}]]</td>
-      <td style="width: 100px">[[${quancheng.event}]]</td>
-      <td class="timeformat" style="width: 100px">[[${times[indexState.index]}]]</td>
+      <td style="width: 150px">[[${quancheng.event}]]</td>
+      <td class="timeformat" style="width: 150px">[[${times[indexState.index]}]]</td>
       <td style="width: 100px">[[${quancheng.gongLiBiao}]]</td>
       <td style="width: 100px">[[${quancheng.other}]]</td>
       <td>[[${quancheng.distance}]]</td>
@@ -57,7 +57,7 @@
       <td>[[${quancheng.qianHou}]]</td>
       <td>[[${quancheng.guanYa}]]</td>
       <td>[[${quancheng.gangYa}]]</td>
-      <td>[[${quancheng.zhuanSuDianLiu}]]</td>
+      <td style="width: 50px">[[${quancheng.zhuanSuDianLiu}]]</td>
       <td>[[${quancheng.junGang1}]]</td>
       <td>[[${quancheng.junGang2}]]</td>
     </tr>
@@ -220,5 +220,8 @@
               }
             });
   }
+  let tbody = document.getElementById('tbody_quancheng')
+  var height = window.screen.availHeight
+  tbody.style.height =height-150+'px'
 </script>
 </html>

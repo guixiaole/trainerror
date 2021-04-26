@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+<style>
+    * {
+        background-color: #9ad9ea;
+        margin: 0;
+        padding: 0;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+    }
+    .center {
+        width: 45%;
+        height: 400px;
+        margin: 0 auto;
+        margin-top: 100px;
+        position: relative;
+    }
+    .login {
+        position: absolute;
+        top: 280px;
+        left: calc(50% - 100px);
+        background-color: #00a2e8;
+    }
+    .user {
+        background-color: #00a2e8;
+    }
+    .input {
+        background-color: white;
+        margin-left: 10px;
+        width: 70px;
+    }
+    .btn {
+        margin-left: 50px;
+        margin-top: 20px;
+        border-radius: 5px;
+        background-color: #4046cb;
+    }
+</style>
+<div class="center">
+    <img th:src="@{/images/gongsi.png}" alt="" />
+    <div class="login">
+        <form style="background-color: #00a2e8" th:action="@{/loginUser}" method="post" onsubmit="return vailate()">
+        <div class="user">
+            <span style="background-color: #00a2e8">用&nbsp;户</span>
+            <input id ="user" class="input" type="text" name="userid" />
+            <span style="background-color: #00a2e8">记住用户</span>
+            <input  type="checkbox" />
+        </div>
+
+        <div class="user" style="margin-top: 10px">
+            <span style="background-color: #00a2e8">密&nbsp;码</span>
+            <input class="input" type="password" name="password"  />
+            <span style="background-color: #00a2e8">记住密码</span>
+            <input  type="checkbox" />
+        </div>
+            <span style="background-color: #00a2e8" class="tishi" th:text="${msg}"  ></span>
+        <input
+                class="btn"
+                type="submit"
+                value="登录"
+                style="height: 30px; width: 100px"
+        />
+        </form>
+    </div>
+</div>
+<script>
+
+    var tishi = document.getElementsByClassName('tishi')[0]
+
+    function vailate() {
+        var user = document.getElementById("user")
+        if (
+            user.value == null
+        ) {
+            tishi.innerText = '请输入正确的用户名'
+            return false
+
+        }
+        else {
+            return true
+        }
+    }
+</script>
+</body>
+</html>

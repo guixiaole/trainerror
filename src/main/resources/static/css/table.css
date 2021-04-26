@@ -55,7 +55,7 @@ a:hover {
   /* height: 50px; */
   width: 100%;
   /* margin-top: 5px; */
-  border-top: 1px solid gray;
+  /*border-top: 1px solid #C3C3C3;*/
   background-color: #e1e1e1;
 }
 .midselect span {
@@ -65,7 +65,7 @@ a:hover {
 
   /* border-right: 1px solid #38f; */
   background-color: #e1e1e1;
-  border: 1px solid #000;
+  border: 1px solid #C3C3C3;
   box-sizing: border-box;
   font-size: 20px;
   line-height: 30px;
@@ -110,7 +110,7 @@ table td {
   border: 1px solid  #e1e1e1;
 }
 table th{
-  border: 1px solid  #000000;
+  /*border: 1px solid  transparent;*/
 }
 
 table thead {
@@ -124,7 +124,7 @@ tbody {
   height: calc(100% - 100px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 table thead tr,
@@ -149,9 +149,10 @@ table tbody tr:last-child td {
 .rightbox {
   float: right;
   height: 450px;
-  width: 25%;
+  width: calc(25% - 2px);
   /* background-color: blue; */
-  margin-left: 0px;
+  margin-top: 31px;
+  margin-left: 2px;
   border: 1px solid #000000;
 }
 .clearfix:after {
@@ -179,11 +180,12 @@ table tbody tr:last-child td {
   margin-left: 50px;
 }
 .btn_select {
-  height: 70px;
+  height: 85px;
 }
-.btn_select button {
-  width: 40%;
-  margin-left: 10px;
+.btn_select input {
+  width: 46%;
+  margin-left: 5px;
+  margin-top: 5px;
   height: 30px;
   border-radius: 10px;
 }
@@ -358,7 +360,7 @@ input {
   height: 30px;
   width: 150px;
   background-color: #eeeeee;
-  border: 1px solid #000;
+  border: 1px solid #C3C3C3;
   box-sizing: border-box;
   font-size: 20px;
   line-height: 30px;
@@ -369,24 +371,29 @@ input {
   display: block;
   text-decoration: none;
   height: 30px;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 20px;
   height: 30px;
   width: 150px;
   background-color: #f5f5f5;
-  border-bottom: 1px solid #000;
+  border: 1px solid #B9B9B9;
+  border-left: 3px solid #b9b9b9;
+  border-right: 3px solid #b9b9b9;
   box-sizing: border-box;
 
   /* padding-right: 10px; */
   text-align: center;
 }
-.dropdown-content a:hover,
+
 .dropdown-content a:link,
 .dropdown-content a:visited,
 .dropdown-content a:active,
 .dropdown-content a:focus {
   color: #000;
   text-decoration: none;
+}
+.dropdown-content a:hover{
+  background-color: #C3C3C3;
 }
 #show_execl {
   position: absolute;
@@ -415,8 +422,8 @@ input {
   width: 40px;
 }
 .timeformat {
-  width: 130px;
+  width: 150px;
 }
 .uploadformat {
-  width: 130px;
+  width: 150px;
 }

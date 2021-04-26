@@ -42,8 +42,10 @@ public class QuXianController {
         List<Integer> speed = new ArrayList<>();
         List<Integer> zhuanSuDianLiu = new ArrayList<>();
         String timeLast=sdf.format(quanCheng.get(0).getDateTime());
+        List<String> finalTimes = new ArrayList<>();
         for (QuanCheng cheng : quanCheng) {
             String timeNow=sdf.format(cheng.getDateTime());
+            finalTimes.add(timeNow);
             if (!timeNow.equals(timeLast)){
                 if (cheng.getGangYa()!=null&&cheng.getGuanYa()!=null
                 ){
@@ -61,6 +63,7 @@ public class QuXianController {
             }
             timeLast = timeNow;
         }
+        model.addAttribute("finalTimes",finalTimes);
         model.addAttribute("quanCheng",quanCheng);
         model.addAttribute("times",times);
         model.addAttribute("guanya",guanya);
@@ -75,22 +78,32 @@ public class QuXianController {
         StepAnalysis stepAnalysis = stepAnalysisService.selectByFileID(id);
         if (stepAnalysis.getOneStep()!=null){
             StepInfo one = stepInfoService.selectById(stepAnalysis.getOneStep());
+            String one_times = finalTimes.get(one.getStartXiangDian());
+            model.addAttribute("one_times",one_times);
             model.addAttribute("one",one);
         }
         if (stepAnalysis.getTwoStep()!=null){
             StepInfo two = stepInfoService.selectById(stepAnalysis.getTwoStep());
+            String two_times = finalTimes.get(two.getStartXiangDian());
+            model.addAttribute("two_times",two_times);
             model.addAttribute("two",two);
         }
         if (stepAnalysis.getThreeStep()!=null){
             StepInfo three = stepInfoService.selectById(stepAnalysis.getThreeStep());
+            String three_times = finalTimes.get(three.getStartXiangDian());
+            model.addAttribute("three_times",three_times);
             model.addAttribute("three",three);
         }
         if (stepAnalysis.getFourStep()!=null){
             StepInfo four = stepInfoService.selectById(stepAnalysis.getFourStep());
+            String four_times = finalTimes.get(four.getStartXiangDian());
+            model.addAttribute("four_times",four_times);
             model.addAttribute("four",four);
         }
         if (stepAnalysis.getFiveStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getFiveStep());
+            String five_times = finalTimes.get(five.getStartXiangDian());
+            model.addAttribute("five_times",five_times);
             model.addAttribute("five",five);
         }
         return "quxian";

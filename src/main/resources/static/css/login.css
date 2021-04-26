@@ -1,7 +1,7 @@
 .image {
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 200px;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@
     background: url(../images/1.jpg) no-repeat;
     background-size: 100%;
 }
-.image span:nth-child(2) {
+.image span{
     height: 0.666667rem;
     width: 300px;
     font-size: 35px;

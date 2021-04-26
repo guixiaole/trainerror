@@ -3,6 +3,7 @@ package com.gxl.trainerror.controller;
 import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.StepAnalysis;
 import com.gxl.trainerror.bean.StepInfo;
+import com.gxl.trainerror.bean.XiangDian;
 import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.StepAnalysisService;
 import com.gxl.trainerror.service.StepInfoService;
@@ -81,32 +82,130 @@ public class IndexController {
             StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(id);
             //没有用mybatis的缓存
             if (stepAnalysis.getOneStep()!=null){
-                StepInfo one  = stepInfoService.selectById(stepAnalysis.getOneStep());
+                StepInfo one = stepInfoService.selectById(stepAnalysis.getOneStep());
+                if(one.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(one.getXiangDianId());
+                    model.addAttribute("oneXiangDian",oneXiangDian);
+                }
                 model.addAttribute("one",one);
             }
             if (stepAnalysis.getTwoStep()!=null){
-                StepInfo two  = stepInfoService.selectById(stepAnalysis.getTwoStep());
+                StepInfo two = stepInfoService.selectById(stepAnalysis.getTwoStep());
                 model.addAttribute("two",two);
+                if(two.getXiangDianId()!=null){
+                    XiangDian twoXiangDian = xiangDianService.selectById(two.getXiangDianId());
+                    model.addAttribute("twoXiangDian",twoXiangDian);
+                }
             }
             if (stepAnalysis.getThreeStep()!=null){
-                StepInfo three  = stepInfoService.selectById(stepAnalysis.getThreeStep());
+                StepInfo three = stepInfoService.selectById(stepAnalysis.getThreeStep());
                 model.addAttribute("three",three);
+                if(three.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(three.getXiangDianId());
+                    model.addAttribute("threeXiangDian",oneXiangDian);
+                }
             }
             if (stepAnalysis.getFourStep()!=null){
-                StepInfo four  = stepInfoService.selectById(stepAnalysis.getFourStep());
+                StepInfo four = stepInfoService.selectById(stepAnalysis.getFourStep());
                 model.addAttribute("four",four);
+                if(four.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(four.getXiangDianId());
+                    model.addAttribute("fourXiangDian",oneXiangDian);
+                }
             }
             if (stepAnalysis.getFiveStep()!=null){
-                StepInfo five  = stepInfoService.selectById(stepAnalysis.getFiveStep());
+                StepInfo five = stepInfoService.selectById(stepAnalysis.getFiveStep());
                 model.addAttribute("five",five);
+                if(five.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(five.getXiangDianId());
+                    model.addAttribute("fiveXiangDian",oneXiangDian);
+                }
             }
         }
         return "index";
     }
     @PostMapping("/searchFile")
-    public String searchFile(FileInfo fileInfo,Model model){
-        List<FileInfo> fileInfos = fileInfoService.selectIndexFileInfo(fileInfo);
+    public String searchFile(FileInfo fileInfo1,Model model){
+        System.out.println(fileInfo1.getSiJiName());
+        if (fileInfo1.getSiJiName().equals(",")){
+            fileInfo1.setSiJiName("");
+        }
+        if(!fileInfo1.getFuSiJiName().equals("")){
+            fileInfo1.setSiJiName(fileInfo1.getFuSiJiName());
+            fileInfo1.setFuSiJiName("");
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        List<FileInfo> fileInfos = fileInfoService.selectIndexFileInfo(fileInfo1);
         model.addAttribute("fileInfos",fileInfos);
+        if (fileInfos.size()>0){
+            FileInfo fileInfo = fileInfos.get(0);
+            StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(fileInfo.getId());
+            model.addAttribute("fileinfo0",fileInfos.get(0));
+            model.addAttribute("stepAnalysis",stepAnalysis);
+        }
+        List<String> startTime = new ArrayList<>();
+        List<String> uploadTime = new ArrayList<>();
+        for (FileInfo fileInfo : fileInfos) {
+            if (fileInfo.getFileStartTime()!=null){
+                startTime.add(sdf.format(fileInfo.getFileStartTime()));
+            }else
+                startTime.add(null);
+            if (fileInfo.getUploadTime()!=null){
+                uploadTime.add(sdf.format(fileInfo.getUploadTime()));
+            }else
+                uploadTime.add(null);
+
+        }
+        model.addAttribute("startTime",startTime);
+        model.addAttribute("uploadTime",uploadTime);
+
+        if (fileInfos.size()>0){
+            //在size大于0的时候，根据五步闸来
+            FileInfo fileInfo = fileInfos.get(0);
+            Integer id = fileInfo.getId();
+            StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(id);
+            //没有用mybatis的缓存
+            if (stepAnalysis.getOneStep()!=null){
+                StepInfo one = stepInfoService.selectById(stepAnalysis.getOneStep());
+                if(one.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(one.getXiangDianId());
+                    model.addAttribute("oneXiangDian",oneXiangDian);
+                }
+                model.addAttribute("one",one);
+            }
+            if (stepAnalysis.getTwoStep()!=null){
+                StepInfo two = stepInfoService.selectById(stepAnalysis.getTwoStep());
+                model.addAttribute("two",two);
+                if(two.getXiangDianId()!=null){
+                    XiangDian twoXiangDian = xiangDianService.selectById(two.getXiangDianId());
+                    model.addAttribute("twoXiangDian",twoXiangDian);
+                }
+            }
+            if (stepAnalysis.getThreeStep()!=null){
+                StepInfo three = stepInfoService.selectById(stepAnalysis.getThreeStep());
+                model.addAttribute("three",three);
+                if(three.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(three.getXiangDianId());
+                    model.addAttribute("threeXiangDian",oneXiangDian);
+                }
+            }
+            if (stepAnalysis.getFourStep()!=null){
+                StepInfo four = stepInfoService.selectById(stepAnalysis.getFourStep());
+                model.addAttribute("four",four);
+                if(four.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(four.getXiangDianId());
+                    model.addAttribute("fourXiangDian",oneXiangDian);
+                }
+            }
+            if (stepAnalysis.getFiveStep()!=null){
+                StepInfo five = stepInfoService.selectById(stepAnalysis.getFiveStep());
+                model.addAttribute("five",five);
+                if(five.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(five.getXiangDianId());
+                    model.addAttribute("fiveXiangDian",oneXiangDian);
+                }
+            }
+        }
         return "index";
     }
     @RequestMapping("oldNameDownload")

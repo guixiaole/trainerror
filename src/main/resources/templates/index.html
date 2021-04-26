@@ -41,6 +41,7 @@
             width="600px"
             class="step_video"
             id="video_play"
+            autoplay="autoplay"
     ></video>
   </div>
     <div class="info_soft clearfix">
@@ -57,7 +58,7 @@
           <a href="/showTimeIndex?time=24">显示24小时内</a>
           <a href="/showTimeIndex?time=3">显示3天内</a>
           <a href="/showTimeIndex?time=7">显示7天内</a>
-          <a href="/showTimeIndex?time=30">显示一个月内</a>
+          <a href="/showTimeIndex?time=30" style="  border-bottom: 3px solid #b9b9b9;">显示一个月内</a>
         </div>
       </div>
       <div class="dropdown">
@@ -139,9 +140,9 @@
       <table cellpadding="0" cellspacing="0">
         <thead>
           <tr>
-            <th>序号</th>
-            <th>整备点</th>
-            <th style="width: 130px">文件起时</th>
+            <th style="width: 60px;">序号</th>
+            <th style="width: 60px">整备点</th>
+            <th style="width: 150px">文件起时</th>
             <th>车次</th>
             <th>机型</th>
             <th>车号</th>
@@ -150,15 +151,15 @@
             <th>文件状态</th>
             <th>版本状态</th>
             <th>作业分</th>
-            <th style="width: 130px">上传时间</th>
+            <th style="width: 150px">上传时间</th>
           </tr>
         </thead>
 
         <tbody id = "tbody">
-          <tr th:each="fileinfo,state :${fileInfos}" th:onclick="'javascript:quanchengxiazai('+${state.index}+');javascript:stopBubble()'" ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
+          <tr class="tr_show" th:each="fileinfo,state :${fileInfos}" th:onclick="'javascript:quanchengxiazai('+${state.index}+');javascript:stopBubble()'" ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
 
-            <td style="background-color: #e1e1e1">[[${state.index}+1]]</td>
-            <td style="background-color: #e1e1e1">[[${fileinfo.zhuangBeiDian}]]</td>
+            <td style="background-color: #e1e1e1;width: 60px;border: 1px solid white">[[${state.index}+1]]</td>
+            <td style="background-color: #e1e1e1;width: 60px">[[${fileinfo.zhuangBeiDian}]]</td>
             <td class="uploadformat">[[${startTime[state.index]}]]</td>
             <td>[[${fileinfo.cheCi}]]</td>
             <td>[[${fileinfo.jiXing}]]</td>
@@ -184,10 +185,10 @@
         <div class="baocuo">
           <span class="baocuo_title">报错与质量情况分析</span>
           <div class="btn_select">
-            <button></button>
-            <button></button>
-            <button></button>
-            <button></button>
+            <input  id="xiangdian0" type="text" />
+            <input  id="xiangdian1" type="text" />
+            <input  id="xiangdian2" type="text" />
+            <input  id="xiangdian3" type="text" />
 
           </div>
           <div class="select_bao">
@@ -200,16 +201,16 @@
           <span class="file_span">文件查询</span>
           <form th:action="@{/searchFile}" method="post">
             <div class="input_select">
-              <span>司机号：</span><input type="text" name="siJiName"/>
+              <span>司机号：</span><input type="text" name="siJiName" />
             </div>
             <div class="input_select">
-              <span>机型：</span><input type="text" name="jiXing"/>
+              <span>机型：</span><input type="text" name="jiXing" />
             </div>
             <div class="input_select">
               <span>车次：</span><input type="text" name="cheCi" />
             </div>
             <div class="input_select">
-              <span>司机名：</span><input type="text" name="siJiName" />
+              <span>司机名：</span><input type="text" name="fuSiJiName" />
             </div>
             <div class="input_select">
               <span>车号：</span><input type="text" name="cheHao" />
@@ -220,10 +221,10 @@
           </form>
         </div>
         <div class="history_select">
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
+          <input  style="color: #000000" type="text" value="" />
+          <input style="color: #000000" type="text"  value=""/>
+          <input  style="color: #000000" type="text" value="" />
+          <input  style="color: #000000" type="text" value="" />
           <button class="btn_history">查询</button>
         </div>
       </div>
@@ -270,9 +271,21 @@
     var fileName = ''
     var fileIdDownload = ''
     var last_show=''
+    var last_tr_show = ''
     function quanchengxiazai(index) {
       var posX = 0, posY = 0;
       var event = event || window.event;
+      var th_show = document.getElementsByClassName("tr_show")
+      if (last_tr_show==''){
+
+        th_show[index].style.backgroundColor="#aca1a1"
+        last_tr_show = th_show[index]
+      }else {
+        last_tr_show.style.backgroundColor="#ffffff"
+        th_show[index].style.backgroundColor="#aca1a1"
+        last_tr_show = th_show[index]
+      }
+
       var show = document.getElementsByClassName('show_excel')[0]
       if (event.pageX || event.pageY) {
         posX = event.pageX;
@@ -361,13 +374,45 @@
     }
       function tishiandguide(){
         //提示与指导进行
-        console.log("kaishi")
+        var xiangdian1 = [[${oneXiangDian}]]
+        var xiangdian2 = [[${twoXiangDian}]]
+        var xiangdian3 = [[${threeXiangDian}]]
+        var xiangdian4 = [[${fourXiangDian}]]
+        var xiangdian5 = [[${fiveXiangDian}]]
+
+        var xiangdian_flag = 0
+        if (xiangdian1!=null){
+          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
+          inp_xiangdian.value = xiangdian1.info
+          console.log(xiangdian1.info)
+          xiangdian_flag=xiangdian_flag+1
+          console.log(inp_xiangdian)
+        }
+        if (xiangdian2!=null){
+          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
+          inp_xiangdian.value = xiangdian2.info
+          xiangdian_flag=xiangdian_flag+1
+        }
+        if (xiangdian3!=null){
+          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
+          inp_xiangdian.value = xiangdian3.info
+          xiangdian_flag=xiangdian_flag+1
+        }
+        if (xiangdian4!=null){
+          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
+          inp_xiangdian.value = xiangdian4.info
+          xiangdian_flag=xiangdian_flag+1
+        }
+        if (xiangdian5!=null){
+          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
+          inp_xiangdian.value = xiangdian5.info
+          xiangdian_flag=xiangdian_flag+1
+        }
+
         if (fileIdDownload!=''){
           sendGet(fileIdDownload)
         }else {
-
           let flag_step = 0
-
           if (stepanalysis!=null) {
             console.log("1start"+flag_step)
             if(stepanalysis.fiveStep!=null){
@@ -431,19 +476,25 @@
               video_div.style.display = 'block'
               var elevideo = document.getElementById('video_play')
               if (flag_step==1){
-                elevideo.src= "../images/1.mp4"
+                elevideo.src= "../images/剧情2.mp4"
               }else if(flag_step==2){
-                elevideo.src= "../images/2.mp4"
+                elevideo.src= "../images/剧情2.mp4"
               }else if(flag_step==3){
-                elevideo.src= "../images/3.mp4"
+                elevideo.src= "../images/剧情2.mp4"
               }else if(flag_step==4){
-                elevideo.src= "../images/4.mp4"
+                elevideo.src= "../images/剧情2.mp4"
               }else {
-                elevideo.src= "../images/5.mp4"
+                elevideo.src= "../images/剧情2.mp4"
               }
+              elevideo.play()
             }
           }else{
+            for (var i = 0;i<4;i++){
+              let input_show = document.getElementById("xiangdian"+i)
+              input_show.value = ""
+            }
             alert("此文件暂时还没有做五步闸分析")
+
           }
         }
       }
@@ -518,16 +569,17 @@
                     video_div.style.display = 'block'
                     var elevideo = document.getElementById('video_play')
                     if (flag_step==1){
-                      elevideo.src= "../images/1.mp4"
+                      elevideo.src= "../images/剧情2.mp4"
                     }else if(flag_step==2){
-                      elevideo.src= "../images/2.mp4"
+                      elevideo.src= "../images/剧情2.mp4"
                     }else if(flag_step==3){
-                      elevideo.src= "../images/3.mp4"
+                      elevideo.src= "../images/剧情2.mp4"
                     }else if(flag_step==4){
-                      elevideo.src= "../images/4.mp4"
+                      elevideo.src= "../images/剧情2.mp4"
                     }else {
-                      elevideo.src= "../images/5.mp4"
+                      elevideo.src= "../images/剧情2.mp4"
                     }
+                    elevideo.play()
                   }
                 },
                 error: function (err) {

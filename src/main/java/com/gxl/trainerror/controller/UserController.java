@@ -1,10 +1,7 @@
 package com.gxl.trainerror.controller;
 
 import com.gxl.trainerror.bean.*;
-import com.gxl.trainerror.service.FileInfoService;
-import com.gxl.trainerror.service.StepAnalysisService;
-import com.gxl.trainerror.service.StepInfoService;
-import com.gxl.trainerror.service.UserService;
+import com.gxl.trainerror.service.*;
 import com.gxl.trainerror.util.FindError;
 import com.gxl.trainerror.util.TimeCal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,8 @@ public class UserController {
     private StepInfoService stepInfoService;
     @Autowired
     private StepAnalysisService stepAnalysisService;
+    @Autowired
+    private XiangDianService xiangDianService;
 
 //    @RequestMapping(value = {"/","/index"})
 //    public String index(HttpServletRequest request) throws IOException, ParseException {
@@ -51,7 +50,7 @@ public class UserController {
 //    }
     @RequestMapping(value={"/","login"})
     public String index(){
-        return "login";
+        return "login1";
     }
     @RequestMapping("/loginUser")
     public String loginUser(User user,
@@ -64,7 +63,7 @@ public class UserController {
             }
             else {
                 model.addAttribute("msg","账号密码错误");
-                return "login";
+                return "login1";
             }
     }
     @RequestMapping(value = {"index.html","index"})
@@ -106,24 +105,44 @@ public class UserController {
             StepAnalysis stepAnalysis= stepAnalysisService.selectByFileID(id);
             //没有用mybatis的缓存
             if (stepAnalysis.getOneStep()!=null){
-                StepInfo one  = stepInfoService.selectById(stepAnalysis.getOneStep());
+                StepInfo one = stepInfoService.selectById(stepAnalysis.getOneStep());
+                if(one.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(one.getXiangDianId());
+                    model.addAttribute("oneXiangDian",oneXiangDian);
+                }
                 model.addAttribute("one",one);
             }
             if (stepAnalysis.getTwoStep()!=null){
-                StepInfo two  = stepInfoService.selectById(stepAnalysis.getTwoStep());
+                StepInfo two = stepInfoService.selectById(stepAnalysis.getTwoStep());
                 model.addAttribute("two",two);
+                if(two.getXiangDianId()!=null){
+                    XiangDian twoXiangDian = xiangDianService.selectById(two.getXiangDianId());
+                    model.addAttribute("twoXiangDian",twoXiangDian);
+                }
             }
             if (stepAnalysis.getThreeStep()!=null){
-                StepInfo three  = stepInfoService.selectById(stepAnalysis.getThreeStep());
+                StepInfo three = stepInfoService.selectById(stepAnalysis.getThreeStep());
                 model.addAttribute("three",three);
+                if(three.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(three.getXiangDianId());
+                    model.addAttribute("threeXiangDian",oneXiangDian);
+                }
             }
             if (stepAnalysis.getFourStep()!=null){
-                StepInfo four  = stepInfoService.selectById(stepAnalysis.getFourStep());
+                StepInfo four = stepInfoService.selectById(stepAnalysis.getFourStep());
                 model.addAttribute("four",four);
+                if(four.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(four.getXiangDianId());
+                    model.addAttribute("fourXiangDian",oneXiangDian);
+                }
             }
             if (stepAnalysis.getFiveStep()!=null){
-                StepInfo five  = stepInfoService.selectById(stepAnalysis.getFiveStep());
+                StepInfo five = stepInfoService.selectById(stepAnalysis.getFiveStep());
                 model.addAttribute("five",five);
+                if(five.getXiangDianId()!=null){
+                    XiangDian oneXiangDian = xiangDianService.selectById(five.getXiangDianId());
+                    model.addAttribute("fiveXiangDian",oneXiangDian);
+                }
             }
         }
         return"index";
