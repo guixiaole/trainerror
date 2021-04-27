@@ -77,7 +77,7 @@
       <a href="#"><span style="background-color: #a3a0f9">普通</span></a>
       <a href="#" onclick="getquancheng()" ><span style="width: 150px">全程记录</span></a>
       <a href="#" onclick="getquxian()"><span style="width: 150px">曲线记录</span></a>
-      <a href="#" onclick="tishiandguide()"><span style="width: 150px">提示与指导</span></a>
+      <a href="#" onclick="tishi_guide()"><span style="width: 150px">提示与指导</span></a>
 
       <a href="#"><span class="select_span" id ="step1">1</span></a>
       <a href="#"><span class="select_span" id ="step2">2</span></a>
@@ -156,7 +156,7 @@
         </thead>
 
         <tbody id = "tbody">
-          <tr th:class="tr_show" th:each="fileinfo,state :${fileInfos}"ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}">
+          <tr th:class="tr_show" th:each="fileinfo,state :${fileInfos}"ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}"  th:onclick="'javascript:click_show_info('+${state.index}+')'">
 <!--              th:onclick="'javascript:quanchengxiazai('+${state.index}+');javascript:stopBubble()'" -->
 
 
@@ -187,10 +187,10 @@
         <div class="baocuo">
           <span class="baocuo_title">报错与质量情况分析</span>
           <div class="btn_select">
-            <input  id="xiangdian0" type="text" />
-            <input  id="xiangdian1" type="text" />
-            <input  id="xiangdian2" type="text" />
-            <input  id="xiangdian3" type="text" />
+            <span onclick="xiangdian_to_quancheng(this.id)" id="xiangdian0"></span>
+            <span onclick="xiangdian_to_quancheng(this.id)" id="xiangdian1"></span>
+            <span onclick="xiangdian_to_quancheng(this.id)" id="xiangdian2"></span>
+            <span onclick="xiangdian_to_quancheng(this.id)" id="xiangdian3"></span>
 
           </div>
           <div class="select_bao">
@@ -240,15 +240,7 @@
     tbody.style.height = height - 100 + 'px'
     //修改tbody的高度
     var elevideo = document.getElementById('video_play')
-    var step1 = document.getElementById('step1')
-    var step2 = document.getElementById('step2')
-    var step3 = document.getElementById('step3')
-    var step4= document.getElementById('step4')
-    var step5 = document.getElementById('step5')
-    var fileinfos = [[${fileInfos}]]
-    let stepanalysis = [[${stepAnalysis}]]
-
-
+    var fileInfos =[[${fileInfos}]]
 
 
     elevideo.addEventListener(
@@ -261,58 +253,49 @@
             },
             false
     )
+    //关闭视频页面
     function close_video() {
       var video_div = document.getElementsByClassName('video_div')[0]
       video_div.style.display = 'none'
       elevideo.pause()
     }
+    //双击跳转全程界面
     function quancheng(id) {
       window.location="../quancheng?id="+id;
     }
-    var originName=''
-    var fileName = ''
-    var fileIdDownload = ''
-    var last_show=''
-    var last_tr_show = ''
-    function quanchengxiazai(index) {
 
-      // document.onclick = function () {
-      //   show.style.display = 'none'
-      //   document.onclick = null
-      // }
-    }
-    document.body.addEventListener('click', function() {
-      last_show.style.display = 'none'
-    })
-    function download_origin_file(){
-      window.location = '../oldNameDownload?filename='+originName+'&id='+fileIdDownload
-
-    }
-    function download_excle_file(){
-      window.location = '../oldNameDownload?filename='+fileName+'&id='+fileIdDownload
-
-    }
-      var fileinfo0 = [[${fileinfo0}]]
+      //点击全程页面
       function getquancheng(){
       //跳转到全程文件中去
+        if (last_index!=''){
+          var fileinfo0 = fileInfos[last_index]
+        }else
+        {
+          var fileinfo0 = fileInfos[0]
+        }
+
         if (fileinfo0!=null){
             window.location="../quancheng?id="+fileinfo0.id;
         }else {
           alert("还没有选中文件")
         }
       }
+      //点击曲线页面
       function getquxian(){
+      //跳转到曲线里去
+        if (last_index!=''){
+          var fileinfo0 = fileInfos[last_index]
+        }else
+        {
+          var fileinfo0 = fileInfos[0]
+        }
         if (fileinfo0!=null){
           window.location="../quxianIndex?id="+fileinfo0.id;
         }else {
           alert("还没有选中文件")
         }
       }
-      function cancleShow(){
-        //下载execl的取消界面
-        var show = document.getElementsByClassName('show_excel')[0]
-        show.style.display = 'none'
-      }
+
 
     function e(obj) {
       return document.getElementById(obj)
@@ -341,223 +324,35 @@
         window.event.cancelBubble = true //IE
       }
     }
-      function tishiandguide(){
-        //提示与指导进行
-        var xiangdian1 = [[${oneXiangDian}]]
-        var xiangdian2 = [[${twoXiangDian}]]
-        var xiangdian3 = [[${threeXiangDian}]]
-        var xiangdian4 = [[${fourXiangDian}]]
-        var xiangdian5 = [[${fiveXiangDian}]]
-
-        var xiangdian_flag = 0
-        if (xiangdian1!=null){
-          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
-          inp_xiangdian.value = xiangdian1.info
-          console.log(xiangdian1.info)
-          xiangdian_flag=xiangdian_flag+1
-          console.log(inp_xiangdian)
-        }
-        if (xiangdian2!=null){
-          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
-          inp_xiangdian.value = xiangdian2.info
-          xiangdian_flag=xiangdian_flag+1
-        }
-        if (xiangdian3!=null){
-          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
-          inp_xiangdian.value = xiangdian3.info
-          xiangdian_flag=xiangdian_flag+1
-        }
-        if (xiangdian4!=null){
-          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
-          inp_xiangdian.value = xiangdian4.info
-          xiangdian_flag=xiangdian_flag+1
-        }
-        if (xiangdian5!=null){
-          let inp_xiangdian = document.getElementById("xiangdian"+xiangdian_flag)
-          inp_xiangdian.value = xiangdian5.info
-          xiangdian_flag=xiangdian_flag+1
-        }
-
-        if (fileIdDownload!=''){
-          sendGet(fileIdDownload)
-        }else {
-          let flag_step = 0
-          if (stepanalysis!=null) {
-            console.log("1start"+flag_step)
-            if(stepanalysis.fiveStep!=null){
-              var  five =[[${five}]]
-              if (five.xiangDianId!=null){
-                step5.style.backgroundColor="red"
-                flag_step=5
-              }else {
-                step5.style.backgroundColor="#38f"
-              }
-            }
-            console.log("2start"+flag_step)
-            if(stepanalysis.fourStep !=null){
-              var  four =[[${four}]]
-              if (four.xiangDianId!=null){
-                step4.style.backgroundColor="red"
-                flag_step=4
-              }else {
-                step4.style.backgroundColor="#38f"
-
-              }
-            }
-            console.log("3start"+flag_step)
-            if(stepanalysis.threeStep!=null){
-              var  three =[[${three}]]
-              if (three.xiangDianId!=null){
-                step3.style.backgroundColor="red"
-                flag_step=3
-              }else {
-                step3.style.backgroundColor="#38f"
-
-              }
-            }
-            console.log("4start"+flag_step)
-
-            if(stepanalysis.twoStep!=null){
-              var  two =[[${two}]]
-              if (two.xiangDianId!=null){
-                step2.style.backgroundColor="red"
-                flag_step=2
-              }else {
-                step2.style.backgroundColor="#38f"
-
-              }
-            }
-            console.log("5start"+flag_step)
-            if (stepanalysis.oneStep != null) {
-              var one = [[${one}]]
-              if (one.xiangDianId != null) {
-                step1.style.backgroundColor = "red"
-                flag_step = 1
-              } else {
-                step1.style.backgroundColor = "#38f"
-
-              }
-            }
-
-            if (flag_step>0){
-              console.log("end"+flag_step)
-              let video_div = document.getElementsByClassName('video_div')[0]
-              video_div.style.display = 'block'
-              var elevideo = document.getElementById('video_play')
-              if (flag_step==1){
-                elevideo.src= "../images/剧情2.mp4"
-              }else if(flag_step==2){
-                elevideo.src= "../images/剧情2.mp4"
-              }else if(flag_step==3){
-                elevideo.src= "../images/剧情2.mp4"
-              }else if(flag_step==4){
-                elevideo.src= "../images/剧情2.mp4"
-              }else {
-                elevideo.src= "../images/剧情2.mp4"
-              }
-              elevideo.play()
-            }
-          }else{
-            for (var i = 0;i<4;i++){
-              let input_show = document.getElementById("xiangdian"+i)
-              input_show.value = ""
-            }
-            alert("此文件暂时还没有做五步闸分析")
-
-          }
-        }
+    //文件初始名
+    var originName=''
+    //文件名
+    var fileName = ''
+    //关于需要下载的fileid
+    var fileIdDownload = ''
+    //关于是哪一个下载的界面
+    var last_show=''
+    //点的是哪一个
+    var last_tr_show = ''
+    //左键点击的是哪一行
+    var last_index = ''
+    document.body.addEventListener('click', function() {
+      if (last_show!=''){
+        last_show.style.display = 'none'
       }
-    function sendGet(id) {
-      // alert(phone)
-      //用 ajax 写
-      $.ajax(
-              {
-                url: "/guideAndTishi",
-                method: 'post',
-                dataType:"json",
-                // contentType: "application/json",
-                data:{"id": id},
-                success: function (data) {
-                  // console.log(data['code']);
-                  // document.querySelector("#rescode").value = data['code'];
-                  let flag_step = 0
-                  if (data!=null){
-                    if (data['five']!=null){
-                      if (data['five']['xiangDianId']!=null){
-                        step5.style.backgroundColor = "red"
-                        flag_step=5
-                      }else {
-                        step5.style.backgroundColor = "#38f"
-                      }
-                    }
-                    if (data['four']!=null){
-                      if (data['four']['xiangDianId']!=null){
-                        step4.style.backgroundColor = "red"
-                        flag_step=4
-                      }else {
-                        step4.style.backgroundColor = "#38f"
-                      }
-                    }
-                    if (data['three']!=null){
-                      if (data['three']['xiangDianId']!=null){
-                        step3.style.backgroundColor = "red"
-                        flag_step=3
-                      }else {
-                        step3.style.backgroundColor = "#38f"
-                      }
-                    }
-                    if (data['two']!=null){
-                      if (data['two']['xiangDianId']!=null){
-                        step2.style.backgroundColor = "red"
-                        flag_step=2
-                      }else {
-                        step2.style.backgroundColor = "#38f"
-                      }
-                    }
-                    if (data['one']!=null){
-                      if (data['one']['xiangDianId']!=null){
-                        step1.style.backgroundColor = "red"
-                        flag_step=1
-                      }else {
-                        step1.style.backgroundColor = "#38f"
-                      }
-                    }
-                  }
-                  if (data['three']==null&&data['one']==null&& data['two']==null && data['four']==null &&data['five']==null){
+    })
+    //下载文件
+    function download_origin_file(){
+      window.location = '../oldNameDownload?filename='+originName+'&id='+fileIdDownload
 
-                    step1.style.backgroundColor = "#e1e1e1"
-                    step2.style.backgroundColor = "#e1e1e1"
-                    step3.style.backgroundColor = "#e1e1e1"
-                    step4.style.backgroundColor = "#e1e1e1"
-                    step5.style.backgroundColor = "#e1e1e1"
-                    alert("还没有进行五步闸分析")
-                  }
-                  if (flag_step>0){
-
-                    let video_div = document.getElementsByClassName('video_div')[0]
-                    video_div.style.display = 'block'
-                    var elevideo = document.getElementById('video_play')
-                    if (flag_step==1){
-                      elevideo.src= "../images/剧情2.mp4"
-                    }else if(flag_step==2){
-                      elevideo.src= "../images/剧情2.mp4"
-                    }else if(flag_step==3){
-                      elevideo.src= "../images/剧情2.mp4"
-                    }else if(flag_step==4){
-                      elevideo.src= "../images/剧情2.mp4"
-                    }else {
-                      elevideo.src= "../images/剧情2.mp4"
-                    }
-                    elevideo.play()
-                  }
-                },
-                error: function (err) {
-                  console.log("error")
-                  alert(err);
-                }
-              });
     }
-  //  鼠标右键行为
+    //下载excel文件
+    function download_excle_file(){
+
+      window.location = '../oldNameDownload?filename='+fileName+'&id='+fileIdDownload
+
+    }
+      //右键点击tr时，显示对应的下载
       tr_right = document.getElementsByClassName("tr_show")
       for(let i= 0;i<tr_right.length;i++){
         tr_right[i].oncontextmenu=function (e){
@@ -568,15 +363,15 @@
           if (oEvent.button==2) {
             var posX = 0, posY = 0;
             var event = event || window.event;
-            var th_show = tr_right
+
             if (last_tr_show==''){
 
               tr_right[i].style.backgroundColor="#aca1a1"
-              last_tr_show = th_show[i]
+              last_tr_show = tr_right[i]
             }else {
               last_tr_show.style.backgroundColor="#ffffff"
               tr_right[i].style.backgroundColor="#aca1a1"
-              last_tr_show = th_show[i]
+              last_tr_show = tr_right[i]
             }
 
             var show = document.getElementsByClassName('show_excel')[0]
@@ -589,21 +384,189 @@
             }
             show.style.top=posY+'px'
             show.style.left = posX+'px'
-            console.log( show.style.top)
-            console.log( show.style.left)
+
             show.style.display = 'block'
 
             last_show = show
             var spaninntext = document.getElementsByClassName('origin_file_name')[0]
-            originName= fileinfos[i].oldFileName
-            fileName = fileinfos[i].fileName
-
-            fileIdDownload = fileinfos[i].id
+            originName= fileInfos[i].oldFileName
+            fileName = fileInfos[i].fileName
+            fileIdDownload = fileInfos[i].id
             spaninntext.innerText = originName
           }
         }
       }
+    //隐藏下载页面
+    function cancleShow(){
+        //下载execl的取消界面
+        var show = document.getElementsByClassName('show_excel')[0]
+        show.style.display = 'none'
+      }
+      //主要为用户单击的时候
+      function click_show_info(index){
+        //修改配色
+        if (last_tr_show==''){
+          tr_right[index].style.backgroundColor="#aca1a1"
+          last_tr_show = tr_right[index]
+        }else {
+          last_tr_show.style.backgroundColor="#ffffff"
+          tr_right[index].style.backgroundColor="#aca1a1"
+          last_tr_show = tr_right[index]
+        }
+        last_index = index
+        //其次单击的时候要显示需要的文件
+        flag_xiangdian = 0
+        var fileinfo_xiangdian = fileInfos[index]
+        console.log(fileinfo_xiangdian)
+        if(fileinfo_xiangdian.stepAnalysis.one!=null){
+        if(fileinfo_xiangdian.stepAnalysis.one.xiangDian!=null){
+          var ipt_xiangdian = document.getElementById('xiangdian'+flag_xiangdian)
+          ipt_xiangdian.innerText = fileinfo_xiangdian.stepAnalysis.one.xiangDian.info
+          ipt_xiangdian.className='one'
+          flag_xiangdian=flag_xiangdian+1
+        }
+        }
+        if(fileinfo_xiangdian.stepAnalysis.two!=null){
+        if(fileinfo_xiangdian.stepAnalysis.two.xiangDian!=null){
+          var ipt_xiangdian = document.getElementById('xiangdian'+flag_xiangdian)
+          ipt_xiangdian.innerText = fileinfo_xiangdian.stepAnalysis.two.xiangDian.info
+          ipt_xiangdian.className='two'
+          flag_xiangdian=flag_xiangdian+1
+        }
+        }
+        if(fileinfo_xiangdian.stepAnalysis.three!=null){
+          if(fileinfo_xiangdian.stepAnalysis.three.xiangDian!=null){
+            var ipt_xiangdian = document.getElementById('xiangdian'+flag_xiangdian)
+            ipt_xiangdian.innerText = fileinfo_xiangdian.stepAnalysis.three.xiangDian.info
+            ipt_xiangdian.className='three'
+            flag_xiangdian=flag_xiangdian+1
+          }
+        }
+        if(fileinfo_xiangdian.stepAnalysis.four!=null){
+          if(fileinfo_xiangdian.stepAnalysis.four.xiangDian!=null){
+            var ipt_xiangdian = document.getElementById('xiangdian'+flag_xiangdian)
+            ipt_xiangdian.innerText = fileinfo_xiangdian.stepAnalysis.four.xiangDian.info
+            ipt_xiangdian.className='four'
+            flag_xiangdian=flag_xiangdian+1
+          }
+        }
+        if(fileinfo_xiangdian.stepAnalysis.five!=null){
+          if(fileinfo_xiangdian.stepAnalysis.five.xiangDian!=null){
+            if (flag_xiangdian<4){
+              var ipt_xiangdian = document.getElementById('xiangdian'+flag_xiangdian)
+              ipt_xiangdian.innerText = fileinfo_xiangdian.stepAnalysis.five.xiangDian.info
+              ipt_xiangdian.className='five'
+              flag_xiangdian=flag_xiangdian+1
+            }
+          }
+        }
+        if (flag_xiangdian==0){
+          for (let i = 0;i<4;i++){
+            let ipt_xiangdian = document.getElementById('xiangdian'+i)
+            ipt_xiangdian.innerText = " "
+            console.log(ipt_xiangdian)
+          }
+        }
+      }
+    //当用户点击提示与指导
+      function tishi_guide(){
 
+        if (last_index!=""){
+          var fileinfo_xiangdian = fileInfos[last_index]
+        }else
+        {
+          var fileinfo_xiangdian = fileInfos[0]
+        }
+        var step1 = document.getElementById('step1')
+        var step2 = document.getElementById('step2')
+        var step3 = document.getElementById('step3')
+        var step4= document.getElementById('step4')
+        var step5 = document.getElementById('step5')
+        let flag_step = 0
+        if(fileinfo_xiangdian.stepAnalysis.five!=null){
+          if(fileinfo_xiangdian.stepAnalysis.five.xiangDian!=null){
+            step5.style.backgroundColor = "red"
+            flag_step = 5
+          }else {
+            step5.style.backgroundColor = "#38f"
+          }
+        }else {
+          step5.style.backgroundColor = "#e1e1e1"
+        }
+        if(fileinfo_xiangdian.stepAnalysis.four!=null){
+          if(fileinfo_xiangdian.stepAnalysis.four.xiangDian!=null){
+            step4.style.backgroundColor = "red"
+            flag_step = 4
+          }else {
+            step4.style.backgroundColor = "#38f"
+          }
+        }else {
+          step4.style.backgroundColor = "#e1e1e1"
+        }
+        if(fileinfo_xiangdian.stepAnalysis.three!=null){
+          if(fileinfo_xiangdian.stepAnalysis.three.xiangDian!=null){
+            step3.style.backgroundColor = "red"
+            flag_step = 3
+          }else {
+            step3.style.backgroundColor = "#38f"
+          }
+        }else {
+          step3.style.backgroundColor = "#e1e1e1"
+        }
+        if(fileinfo_xiangdian.stepAnalysis.two!=null){
+          if(fileinfo_xiangdian.stepAnalysis.two.xiangDian!=null){
+            step2.style.backgroundColor = "red"
+            flag_step = 2
+          }else {
+            step2.style.backgroundColor = "#38f"
+          }
+        }else {
+          step2.style.backgroundColor = "#e1e1e1"
+        }
+
+        if(fileinfo_xiangdian.stepAnalysis.one!=null){
+          if(fileinfo_xiangdian.stepAnalysis.one.xiangDian!=null){
+            step1.style.backgroundColor = "red"
+            flag_step = 1
+          }else {
+            step1.style.backgroundColor = "#38f"
+          }
+        }else {
+          step1.style.backgroundColor = "#e1e1e1"
+        }
+        if (flag_step>0){
+          let video_div = document.getElementsByClassName('video_div')[0]
+          video_div.style.display = 'block'
+          var elevideo = document.getElementById('video_play')
+          if (flag_step==1){
+            elevideo.src= "../images/剧情2.mp4"
+          }else if(flag_step==2){
+            elevideo.src= "../images/剧情2.mp4"
+          }else if(flag_step==3){
+            elevideo.src= "../images/剧情2.mp4"
+          }else if(flag_step==4){
+            elevideo.src= "../images/剧情2.mp4"
+          }else {
+            elevideo.src= "../images/剧情2.mp4"
+          }
+          elevideo.play()
+        }
+      }
+    //当用户点击具体的项点进行跳转
+      function xiangdian_to_quancheng(id){
+        var xiangdian = document.getElementById(id)
+       if (xiangdian.innerText.length>0){
+         //当项点不为0的时候
+         console.log(xiangdian.innerText.length)
+         console.log(xiangdian.innerText)
+         if(last_index!=''){
+           var fileid = fileInfos[last_index].id
+           var step = xiangdian.className
+           console.log(step)
+           // window.location="../jumpToQuancheng?id="+fileid+"&step="+step
+         }
+       }
+      }
   </script>
   </body>
 </html>

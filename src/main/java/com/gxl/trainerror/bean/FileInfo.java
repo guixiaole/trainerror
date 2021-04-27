@@ -36,4 +36,5 @@ public class FileInfo {
     private String jiaoLuHao;//交路号
     private String jiChang;//计长
     private String startStation;//起始站点
+    private StepAnalysis stepAnalysis;
 }

@@ -46,4 +46,9 @@ public class FileInfoServiceImpl implements FileInfoService {
     public List<FileInfo> selectIndexFileInfo(FileInfo fileInfo) {
         return fileInfoMapper.selectIndexFileInfo(fileInfo);
     }
+
+    @Override
+    public List<FileInfo> selectIndexFileInfoByIndex() {
+        return fileInfoMapper.selectIndexFileInfoByIndex();
+    }
 }
