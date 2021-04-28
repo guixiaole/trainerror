@@ -49,7 +49,7 @@ public class QuanChengController {
     }
     @RequestMapping("/jumpToQuancheng")
     public String jumpToQuancheng(@RequestParam("id") Integer id,
-                                  @RequestParam("step") Integer step,
+                                  @RequestParam("step") String step,
                                   Model model){
         List<QuanCheng> quanChengs = quanChengService.selectByFileAscXuhao(id);
 
@@ -69,8 +69,16 @@ public class QuanChengController {
             Times.add(sdf.format(quanCheng.getDateTime()));
         }
         model.addAttribute("times",Times);
-        while (step>0){
-            
+        if (step.equals("one")){
+            model.addAttribute("step",stepAnalysis.getOne());
+        }else if(step.equals("two")){
+            model.addAttribute("step",stepAnalysis.getTwo());
+        }else if(step.equals("three")){
+            model.addAttribute("step",stepAnalysis.getThree());
+        }else if(step.equals("four")){
+            model.addAttribute("step",stepAnalysis.getFour());
+        }else {
+            model.addAttribute("step",stepAnalysis.getFive());
         }
         return "allrecord";
     }

@@ -156,7 +156,7 @@
         </thead>
 
         <tbody id = "tbody">
-          <tr th:class="tr_show" th:each="fileinfo,state :${fileInfos}"ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}"  th:onclick="'javascript:click_show_info('+${state.index}+')'">
+          <tr th:class="tr_show" th:each="fileinfo,state :${fileInfos}"ondblclick="quancheng(this.id)"  th:id="${fileinfo.id}"  th:onclick="'javascript:click_show_info('+${state.index}+')'" >
 <!--              th:onclick="'javascript:quanchengxiazai('+${state.index}+');javascript:stopBubble()'" -->
 
 
@@ -223,6 +223,7 @@
           </form>
         </div>
         <div class="history_select">
+          <span class="file_span">历史质量分析</span>
           <input  style="color: #000000" type="text" value="" />
           <input style="color: #000000" type="text"  value=""/>
           <input  style="color: #000000" type="text" value="" />
@@ -335,7 +336,7 @@
     //点的是哪一个
     var last_tr_show = ''
     //左键点击的是哪一行
-    var last_index = ''
+    var last_index = -1
     document.body.addEventListener('click', function() {
       if (last_show!=''){
         last_show.style.display = 'none'
@@ -417,7 +418,7 @@
         //其次单击的时候要显示需要的文件
         flag_xiangdian = 0
         var fileinfo_xiangdian = fileInfos[index]
-        console.log(fileinfo_xiangdian)
+        // console.log(fileinfo_xiangdian)
         if(fileinfo_xiangdian.stepAnalysis.one!=null){
         if(fileinfo_xiangdian.stepAnalysis.one.xiangDian!=null){
           var ipt_xiangdian = document.getElementById('xiangdian'+flag_xiangdian)
@@ -464,14 +465,14 @@
           for (let i = 0;i<4;i++){
             let ipt_xiangdian = document.getElementById('xiangdian'+i)
             ipt_xiangdian.innerText = " "
-            console.log(ipt_xiangdian)
+            // console.log(ipt_xiangdian)
           }
         }
       }
     //当用户点击提示与指导
       function tishi_guide(){
 
-        if (last_index!=""){
+        if (last_index!=-1){
           var fileinfo_xiangdian = fileInfos[last_index]
         }else
         {
@@ -557,13 +558,12 @@
         var xiangdian = document.getElementById(id)
        if (xiangdian.innerText.length>0){
          //当项点不为0的时候
-         console.log(xiangdian.innerText.length)
-         console.log(xiangdian.innerText)
-         if(last_index!=''){
+
+         if(last_index!=-1){
            var fileid = fileInfos[last_index].id
            var step = xiangdian.className
-           console.log(step)
-           // window.location="../jumpToQuancheng?id="+fileid+"&step="+step
+           // console.log(step)
+           window.location="../jumpToQuancheng?id="+fileid+"&step="+step
          }
        }
       }

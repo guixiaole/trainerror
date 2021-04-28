@@ -24,6 +24,7 @@ public interface FileInfoMapper {
     public Integer updateIsSaveFileInfo(FileInfo fileInfo);
     public Integer updateWhenInsertQuancheg(FileInfo fileInfo);
     //首页方法中，查找所有可能的文件
+    //resultType="com.gxl.trainerror.bean.FileInfo"
     public List<FileInfo> selectIndexFileInfo(FileInfo fileInfo);
     //首先进入首页中进行查找。
     @Select("select * from file_info order by upload_time desc limit 20")
@@ -49,4 +50,7 @@ public interface FileInfoMapper {
             @Result(property = "stepAnalysis",column = "id",one = @One(select = "com.gxl.trainerror.mapper.StepAnalysisMapper.selectStepByFileId",fetchType = FetchType.EAGER))
     })
     public List<FileInfo> selectIndexFileInfoByIndex();
+    @Select("select * from file_info where id = #{id}")
+    @ResultMap(value = "fileinfoIndex")
+    public FileInfo selectTestById(Integer id);
 }

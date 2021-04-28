@@ -63,7 +63,7 @@
       id = #{id}
                               where id =#{id}
   </update>
-    <select id="selectIndexFileInfo" parameterType="com.gxl.trainerror.bean.FileInfo" resultType="com.gxl.trainerror.bean.FileInfo">
+    <select id="selectIndexFileInfo" parameterType="com.gxl.trainerror.bean.FileInfo" resultMap="fileinfoIndex">
         select *
         from file_info where 1=1
         <if test="isSave!=null ">

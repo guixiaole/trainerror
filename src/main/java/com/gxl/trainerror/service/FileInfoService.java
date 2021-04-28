@@ -15,4 +15,5 @@ public interface FileInfoService {
     public List<FileInfo> selectIndexFileInfo(FileInfo fileInfo);
     //首页显示所需要的文件
     public List<FileInfo> selectIndexFileInfoByIndex();
+    public FileInfo selectTestById(Integer id);
 }

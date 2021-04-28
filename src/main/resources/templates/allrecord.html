@@ -92,11 +92,14 @@
           <div class="file_info">项点分析指向</div>
           <div class="error_td">
             <span>I端</span>
-            <span  onclick="stepxiangdian(1)">1报错</span>
-            <span onclick="stepxiangdian(2)">2报错</span>
-            <span onclick="stepxiangdian(3)">3报错</span>
-            <span onclick="stepxiangdian(4)">4报错</span>
-            <span onclick="stepxiangdian(5)">5报错</span>
+            <span onclick="step(1)" class="changeColor">第1步</span>
+            <span onclick="step(2)" class="changeColor">第2步</span>
+            <span onclick="step(3)" class="changeColor">第3步</span>
+            <span onclick="step(4)" class="changeColor">第4步</span>
+            <span onclick="step(5)" class="changeColor">第5步</span>
+            <span onclick="step(3)" class="changeColor">第6步</span>
+            <span onclick="step(4)" class="changeColor">第7步</span>
+
 
           </div>
           <span style="display: block; height: 20px">
@@ -124,21 +127,25 @@
               </span>
           <div class="error_td">
             <span>II端</span>
-            <span  onclick="stepxiangdian(1)">1报错</span>
-            <span onclick="stepxiangdian(2)">2报错</span>
-            <span onclick="stepxiangdian(3)">3报错</span>
-            <span onclick="stepxiangdian(4)">4报错</span>
-            <span onclick="stepxiangdian(5)">5报错</span>
+            <span onclick="step(1)" class="changeColor">第1步</span>
+            <span onclick="step(2)" class="changeColor">第2步</span>
+            <span onclick="step(3)" class="changeColor">第3步</span>
+            <span onclick="step(4)" class="changeColor">第4步</span>
+            <span onclick="step(5)" class="changeColor">第5步</span>
+            <span onclick="step(3)" class="changeColor">第6步</span>
+            <span onclick="step(4)" class="changeColor">第7步</span>
+
+
           </div>
           <div class="quxian">
             <div class="all_xiangdian">
               <div class="error_td1">
                 <span>I端</span>
-                <span onclick="step(1)">第一步</span>
-                <span onclick="step(2)">第二步</span>
-                <span onclick="step(3)">第三步</span>
-                <span onclick="step(4)">第四步</span>
-                <span onclick="step(5)">第五步</span>
+                <span  onclick="stepxiangdian(1)" class="changeColor">第1报错</span>
+                <span onclick="stepxiangdian(2)" class="changeColor">第2报错</span>
+                <span onclick="stepxiangdian(3)" class="changeColor">第3报错</span>
+                <span onclick="stepxiangdian(4)" class="changeColor">第4报错</span>
+
               </div>
               <span style="display: block; height: 20px">
                 <span
@@ -165,18 +172,21 @@
               </span>
               <div class="error_td1">
                 <span>II端</span>
-                <span onclick="step(1)">第一步</span>
-                <span onclick="step(2)">第二步</span>
-                <span onclick="step(3)">第三步</span>
-                <span onclick="step(4)">第四步</span>
-                <span onclick="step(5)">第五步</span>
+                <span  onclick="stepxiangdian(1)" class="changeColor">第1报错</span>
+                <span onclick="stepxiangdian(2)" class="changeColor">第2报错</span>
+                <span onclick="stepxiangdian(3)" class="changeColor">第3报错</span>
+                <span onclick="stepxiangdian(4)" class="changeColor">第4报错</span>
               </div>
             </div>
-            <div onclick="returnquxian(this.id)" th:id="${fileInfo.id}" class="recorder_quxian">曲线记录</div>
+            <div style="float: left; width: 20%; height: 80px">
+              <div onclick="returnquxian(this.id)" th:id="${fileInfo.id}" class="recorder_quxian">曲线记录</div>
+              <div onclick="returnindex()"  class="recorder_quxian">返回</div>
+
+            </div>
           </div>
         </div>
         <div class="error_menthod">
-          <div class="file_info">报错对策</div>
+          <div class="file_info">分析说明</div>
 
           <textarea  name="" id="baocuoduice" cols="30" rows="10"></textarea>
         </div>
@@ -184,6 +194,48 @@
     </div>
   </body>
   <script type="text/javascript" th:inline="javascript">
+    var  changeColor = document.getElementsByClassName("changeColor")
+    for (let i = 0;i<changeColor.length;i++){
+
+      changeColor[i].onclick = function (){
+        console.log("=====")
+        for (let j = 0;j<changeColor.length;j++){
+
+          if (j!=i){
+            changeColor[j].style.backgroundColor = 'transparent'
+          }else {
+            changeColor[j].style.backgroundColor = '#aca1a1'
+          }
+        }
+
+      }
+    }
+    window.onload = function(){
+      //当用户点击项点错误的时候，跳转到
+      var step_jump = [[${step}]]
+      if (step_jump!=null){
+        var start = step_jump.startXiangDian
+        var  end = step_jump.endXiangDian
+
+        var tr = document.getElementsByClassName('tr_quancheng')
+
+        var biaoji = start-10
+
+        var $objTr = $("#tr"+biaoji); //找到要定位的地方 tr
+        var $objTr1 = $("#tr"+start); //找到要定位的地方 tr
+        var objTr = $objTr[0]; //转化为dom对象
+        var objTr1 = $objTr1[0]; //转化为dom对象
+        console.log(objTr)
+        // var $objTrColor = $("#tr"+start); //找到要定位的地方 tr
+        objTr1.style.backgroundColor="#00FFFF"
+
+        $("#tbody_quancheng").animate({scrollTop:objTr.offsetTop},"slow");
+
+      }
+    }
+    function returnindex(){
+      window.location="../index.html"
+    }
     function returnquxian(id){
       window.location="../quxianIndex?id="+id;
     }
@@ -210,16 +262,17 @@
      }
      var lastObjColor =''
     function step(s){
+      var stepAnalysis = [[${stepAnalysis}]]
       if (s==1){
-        var step = [[${one}]]
+        var step = stepAnalysis.one
       }else if(s==2){
-        var step = [[${two}]]
+        var step = stepAnalysis.two
       }else if(s==3){
-        var step =  [[${three}]]
+        var step =  stepAnalysis.three
       }else if(s==4){
-        var step =[[${four}]]
+        var step =stepAnalysis.four
       }else {
-        var step = [[${five}]]
+        var step = stepAnalysis.five
       }
 
       if (step==null){
@@ -255,22 +308,21 @@
    window.location="../quxianIndex?id="+id;
  }
      function stepxiangdian(s){
+
+       var stepAnalysis = [[${stepAnalysis}]]
        if (s==1){
-         var step = [[${one}]]
-         var xiangdian =[[${oneXiangDian}]]
+         var step = stepAnalysis.one
+
        }else if(s==2){
-         var step = [[${two}]]
-         var xiangdian =[[${twoXiangDian}]]
+         var step = stepAnalysis.two
        }else if(s==3){
-         var step =  [[${three}]]
-         var xiangdian =[[${threeXiangDian}]]
+         var step =  stepAnalysis.three
        }else if(s==4){
-         var step =[[${four}]]
-         var xiangdian =[[${fourXiangDian}]]
+         var step =stepAnalysis.four
        }else {
-         var step = [[${five}]]
-         var xiangdian =[[${fiveXiangDian}]]
+         var step = stepAnalysis.five
        }
+       var xiangdian = step.xiangDian
        if (step!=null){
          var start = step.startXiangDian
          var  end = step.endXiangDian
