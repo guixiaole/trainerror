@@ -50,12 +50,13 @@ public class UserController {
             }
     }
     @RequestMapping(value = {"index.html","index"})
-    public String indexFile(Model model){
+    public String indexFile(Model model,HttpSession session){
         /*
         还需要设置一个时间
         首页目前为最新的20个
          */
 //        Date date = TimeCal.backTime(5);
+        session.setAttribute("index",0);
         List<FileInfo> fileInfos = fileInfoService.selectIndexFileInfoByIndex();
         model.addAttribute("fileInfos",fileInfos);
         /*
