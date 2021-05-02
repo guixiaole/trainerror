@@ -149,7 +149,7 @@
             <th>司机名</th>
             <th>副司机名</th>
             <th>文件状态</th>
-            <th>版本状态</th>
+            <th style="width: 100px">版本状态</th>
             <th>作业分</th>
             <th style="width: 150px">上传时间</th>
           </tr>
@@ -161,16 +161,18 @@
 
 
             <td style="background-color: #e1e1e1;width: 60px;border: 1px solid white">[[${state.index}+1]]</td>
-            <td style="background-color: #e1e1e1;width: 60px">[[${fileinfo.zhuangBeiDian}]]</td>
+            <td style="background-color: #e1e1e1;width: 60px">[[${fileinfo.startStation}]]</td>
             <td class="uploadformat">[[${startTime[state.index]}]]</td>
             <td>[[${fileinfo.cheCi}]]</td>
             <td>[[${fileinfo.jiXing}]]</td>
             <td>[[${fileinfo.cheHao}]]</td>
             <td>[[${fileinfo.siJiName}]]</td>
             <td>[[${fileinfo.fuSiJiName}]]</td>
-            <td>[[${fileinfo.fileState}]]</td>
-            <td></td>
-            <td>[[${fileinfo.testScore}]]</td>
+                <td> <img class="td_image" style="width: 20px; height: 20px" src="" alt="" /></td>
+            <td  style="width: 100px">[[${fileinfo.banBen}]]</td>
+            <td>
+<!--              [[${fileinfo.testScore}]]-->
+              <img class="score_image" style="width: 20px; height: 20px" src="" alt="" /></td>
             <td class="timeformat">[[${uploadTime[state.index]}]]</td>
           </tr>
         </tbody>
@@ -236,12 +238,35 @@
 
 
   <script type="text/javascript" th:inline="javascript">
+    // 文件状态，如果是 文件状态是√还是x，还是圈（没分析）
+    var fileInfos =[[${fileInfos}]]
+    var td_image = document.getElementsByClassName('td_image')
+    for (let i = 0;i<td_image.length;i++){
+      if (fileInfos[i].fileState==1){
+        td_image[i].src = '../images/gou.png'
+      }else if(fileInfos[i].fileState == -1){
+        td_image[i].src = '../images/chai.png'
+      }else {
+        td_image[i].src = '../images/quan.png'
+      }
+    }
+    var score_image =document.getElementsByClassName('score_image')
+    for (let i = 0;i<td_image.length;i++){
+      if (fileInfos[i].testScore==100){
+        score_image[i].src = '../images/gou.png'
+      }else if(fileInfos[i].testScore == 0){
+        score_image[i].src = '../images/chai.png'
+      }else {
+        score_image[i].src = '../images/quan.png'
+      }
+    }
+
     var height = window.screen.availHeight
     var tbody = document.getElementById('tbody')
     tbody.style.height = height - 100 + 'px'
     //修改tbody的高度
     var elevideo = document.getElementById('video_play')
-    var fileInfos =[[${fileInfos}]]
+
 
 
     elevideo.addEventListener(
@@ -404,6 +429,14 @@
         show.style.display = 'none'
       }
       //主要为用户单击的时候
+    window.onload = function(){
+        var select_number =[[${numberSelect}]]
+        console.log("=========")
+        console.log(select_number)
+        if (select_number!=null){
+          click_show_info(select_number)
+        }
+    }
       function click_show_info(index){
         //修改配色
         if (last_tr_show==''){

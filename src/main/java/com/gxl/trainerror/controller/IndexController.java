@@ -129,10 +129,45 @@ public class IndexController {
         return stepAnalysis;
     }
     @RequestMapping("returnIndex")
-    public String returnIndex(HttpSession session,Model model){
+    public String returnIndex(@RequestParam("id") Integer id,
+                              HttpSession session,Model model){
        Integer indexid = (Integer) session.getAttribute("index");
+        System.out.println(id);
+        System.out.println(indexid);
         if (indexid==0){
-            return "redirect:/index.html";
+            session.setAttribute("index",0);
+            List<FileInfo> fileInfos = fileInfoService.selectIndexFileInfoByIndex();
+            model.addAttribute("fileInfos",fileInfos);
+        /*
+        第一个五步闸
+         */
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+            List<String> startTime = new ArrayList<>();
+            List<String> uploadTime = new ArrayList<>();
+            for (FileInfo fileInfo : fileInfos) {
+                if (fileInfo.getFileStartTime()!=null){
+                    startTime.add(sdf.format(fileInfo.getFileStartTime()));
+                }else
+                    startTime.add(null);
+                if (fileInfo.getUploadTime()!=null){
+                    uploadTime.add(sdf.format(fileInfo.getUploadTime()));
+                }else
+                    uploadTime.add(null);
+            }
+            
+            for (int i = 0;i<fileInfos.size();i++){
+                System.out.println(fileInfos.get(i).getId());
+                if (fileInfos.get(i).getId().equals(id)){
+                    model.addAttribute("numberSelect",i);
+                    System.out.println("numberSelect"+i);
+                    break;
+                }
+            }
+            model.addAttribute("startTime",startTime);
+            model.addAttribute("uploadTime",uploadTime);
+
+            return"index";
         }else {
             Integer time = indexid;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -156,6 +191,14 @@ public class IndexController {
                     uploadTime.add(sdf.format(fileInfo.getUploadTime()));
                 }else
                     uploadTime.add(null);
+            }
+            for (int i = 0;i<fileInfos.size();i++){
+                if (fileInfos.get(i).getId().equals(id)){
+                    System.out.println(fileInfos.get(i).getId());
+                    System.out.println("numberSelect"+i);
+                    model.addAttribute("numberSelect",i);
+                    break;
+                }
             }
             model.addAttribute("startTime",startTime);
             model.addAttribute("uploadTime",uploadTime);

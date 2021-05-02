@@ -28,7 +28,7 @@ public class FileInfo {
     private  String cheHao;//车号
     private String siJiName;//司机名
     private  String fuSiJiName;//副司机名
-    private String fileState;//文件状态
+    private Integer fileState;//文件状态 如果是1的话代表分析正确，-1的话代表分析错误，其它为待分析
     private Integer testScore;//作业分
     private Date uploadTime;//上传时间
     private String  oldFileName;
@@ -37,4 +37,5 @@ public class FileInfo {
     private String jiChang;//计长
     private String startStation;//起始站点
     private StepAnalysis stepAnalysis;
+    private String banBen;//版本
 }

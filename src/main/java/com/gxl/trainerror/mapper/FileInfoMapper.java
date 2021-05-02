@@ -47,6 +47,7 @@ public interface FileInfoMapper {
             @Result(property = "jiaoLuHao",column = "jiao_lu_hao"),
             @Result(property = "jiChang",column = "ji_chang"),
             @Result(property = "startStation",column = "start_station"),
+            @Result(property = "banBen",column = "ban_ben"),
             @Result(property = "stepAnalysis",column = "id",one = @One(select = "com.gxl.trainerror.mapper.StepAnalysisMapper.selectStepByFileId",fetchType = FetchType.EAGER))
     })
     public List<FileInfo> selectIndexFileInfoByIndex();

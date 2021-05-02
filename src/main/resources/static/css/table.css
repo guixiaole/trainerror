@@ -148,7 +148,7 @@ table tbody tr:last-child td {
 }
 .rightbox {
   float: right;
-  height: 450px;
+  height: 460px;
   width: calc(25% - 2px);
   /* background-color: blue; */
   margin-top: 31px;
@@ -398,6 +398,11 @@ input {
 }
 .dropdown-content a:hover{
   background-color: #C3C3C3;
+}
+.show_excel a:hover,
+.show_excel span:hover
+{
+  background-color: #c3c3c3;
 }
 #show_execl {
   position: absolute;

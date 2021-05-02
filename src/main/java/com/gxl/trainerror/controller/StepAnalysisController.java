@@ -105,7 +105,7 @@ public class StepAnalysisController {
         User user =(User) session.getAttribute("user");
         if (user==null)
             return "login";
-        if (!user.getUserid().equals("gxl")){
+        if (!user.getUserid().equals("admin")){
             return "redirect:/index.html";
         }else {
             List<QuanCheng> quanChengs=quanChengService.selectByFileAscXuhao(id);
