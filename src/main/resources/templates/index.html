@@ -41,7 +41,7 @@
             width="600px"
             class="step_video"
             id="video_play"
-            autoplay="autoplay"
+
     ></video>
   </div>
     <div class="info_soft clearfix">
@@ -171,8 +171,8 @@
                 <td> <img class="td_image" style="width: 20px; height: 20px" src="" alt="" /></td>
             <td  style="width: 100px">[[${fileinfo.banBen}]]</td>
             <td>
-<!--              [[${fileinfo.testScore}]]-->
-              <img class="score_image" style="width: 20px; height: 20px" src="" alt="" /></td>
+              [[${fileinfo.testScore}]]
+              </td>
             <td class="timeformat">[[${uploadTime[state.index]}]]</td>
           </tr>
         </tbody>
@@ -250,16 +250,7 @@
         td_image[i].src = '../images/quan.png'
       }
     }
-    var score_image =document.getElementsByClassName('score_image')
-    for (let i = 0;i<td_image.length;i++){
-      if (fileInfos[i].testScore==100){
-        score_image[i].src = '../images/gou.png'
-      }else if(fileInfos[i].testScore == 0){
-        score_image[i].src = '../images/chai.png'
-      }else {
-        score_image[i].src = '../images/quan.png'
-      }
-    }
+
 
     var height = window.screen.availHeight
     var tbody = document.getElementById('tbody')
@@ -431,8 +422,7 @@
       //主要为用户单击的时候
     window.onload = function(){
         var select_number =[[${numberSelect}]]
-        console.log("=========")
-        console.log(select_number)
+
         if (select_number!=null){
           click_show_info(select_number)
         }
@@ -583,7 +573,7 @@
           }else {
             elevideo.src= "../images/剧情2.mp4"
           }
-          elevideo.play()
+          elevideo.play();
         }
       }
     //当用户点击具体的项点进行跳转
