@@ -53,4 +53,13 @@ public class QuanCheng {
                 this.junGang1 = junGang1;
                 this.junGang2 = junGang2;
         }
+
+       public QuanCheng(Date dateTime,Integer guanYa,Integer gangYa,Integer junGang1,Integer junGang2,Integer xuHao){
+                this.gangYa = gangYa;
+                this.junGang1 = junGang1;
+                this.junGang2 =junGang2;
+                this.guanYa = guanYa;
+                this.dateTime = dateTime;
+                this.xuHao = xuHao;
+       }
 }
