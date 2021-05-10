@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模板页面</title>
+  </head>
+  <style>
+    ul li {
+      list-style-type: none;
+    }
+    li {
+      display: block;
+      width: 100%;
+      height: 80px;
+      border-radius: 8px;
+      background-color: #efefef;
+      margin: 0 auto;
+    }
+    li span {
+      display: block;
+      text-align: center;
+      padding-top: 35px;
+      cursor: pointer;
+    }
+    .insert_step {
+      display: block;
+      height: 80px;
+      width: 500px;
+      bottom: 0;
+      background-color: #28a0ed;
+      text-align: center;
+      line-height: 80px;
+      border-radius: 10px;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+    }
+    .show {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 100px;
+      background-color: #28a0ed;
+      text-align: center;
+    }
+    .show_div {
+      margin-top: 20px;
+    }
+    .show button {
+      height: 25px;
+      width: 80px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .show input {
+      width: 100px;
+    }
+  </style>
+  <body>
+    <div class="index">
+      <ul th:each="all_template :${all_templates}">
+        <li>
+          <span ondblclick="modefiy_step(this.id)" th:id="${all_template.id}"> [[${all_template.templateName}]] </span>
+        </li>
+
+      </ul>
+    </div>
+    <span class="insert_step" id="addstep">添加闸</span>
+    <div class="show" id="show">
+      <form action="">
+        <div class="show_div"><span>闸名</span> <input type="text" /></div>
+        <button>提交</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    function e(obj) {
+      return document.getElementById(obj)
+    }
+    e('addstep').onclick = function (event) {
+      e('show').style.display = 'block'
+      stopBubble(event)
+      document.onclick = function () {
+        e('show').style.display = 'none'
+        document.onclick = null
+      }
+    }
+    e('show').onclick = function (event) {
+      //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+      stopBubble(event)
+    }
+    function stopBubble(e) {
+      if (e && e.stopPropagation) {
+        e.stopPropagation() //w3c
+      } else {
+        window.event.cancelBubble = true //IE
+      }
+    }
+    function modefiy_step(id) {
+      window.location = '../'
+    }
+  </script>
+</html>
