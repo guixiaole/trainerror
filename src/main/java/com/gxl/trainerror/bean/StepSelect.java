@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StepSelectTemplate {
+public class StepSelect {
     /*
       模板选择
      */
@@ -23,4 +23,6 @@ public class StepSelectTemplate {
     private Integer endNumber;
     //优先权的处理
     private Integer prior;
+    //需要的压力名字
+    private String stressName;
 }

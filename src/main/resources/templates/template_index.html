@@ -72,8 +72,8 @@
     </div>
     <span class="insert_step" id="addstep">添加闸</span>
     <div class="show" id="show">
-      <form action="">
-        <div class="show_div"><span>闸名</span> <input type="text" /></div>
+      <form th:action="@{/addTemplate}" method="post">
+        <div class="show_div"><span>闸名</span> <input type="text" th:id="templateName" name="templateName" /></div>
         <button>提交</button>
       </form>
     </div>
@@ -102,7 +102,7 @@
       }
     }
     function modefiy_step(id) {
-      window.location = '../'
+      window.location = '../modefiyTemplate?id='+id;
     }
   </script>
 </html>

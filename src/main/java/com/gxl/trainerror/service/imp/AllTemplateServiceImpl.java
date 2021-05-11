@@ -13,4 +13,9 @@ public class AllTemplateServiceImpl implements AllTemplateService {
     public List<AllTemplate> index() {
         return allTemplateMapper.index();
     }
+
+    @Override
+    public Integer insert(AllTemplate allTemplate) {
+        return allTemplateMapper.insertTemplate(allTemplate);
+    }
 }
