@@ -25,4 +25,8 @@ public class StepSelect {
     private Integer prior;
     //需要的压力名字
     private String stressName;
+    //需要同步的时候，
+    private Integer selectId;
+    //一对一查询
+    private StepSelect select;
 }

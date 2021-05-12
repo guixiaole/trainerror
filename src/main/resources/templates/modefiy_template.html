@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .clearfix:after {
+      content: '020';
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
+
+    .clearfix {
+      /* 触发 hasLayout */
+      zoom: 1;
+    }
+
+    ul li {
+      list-style-type: none;
+    }
+    li {
+      display: block;
+      background-color: #28aedd;
+      width: 150px;
+      height: 150px;
+      float: left;
+    }
+    li span {
+      display: block;
+      line-height: 30px;
+      margin-left: 20px;
+    }
+    .jiantou1,
+    .jiantou2,
+    .jiantou3 {
+      display: block;
+      width: 50px;
+      height: 50px;
+      background: url(../images/left.png) no-repeat;
+      background-size: 100%;
+      float: left;
+      margin-top: 50px;
+      margin-left: 5px;
+    }
+    button {
+      height: 20px;
+      margin-top: 65px;
+    }
+    .add_template {
+      display: none;
+      width: 200px;
+      height: 180px;
+      background-color: #28aedd;
+      position: absolute;
+      top: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      line-height: 30px;
+    }
+    .add_template span {
+      display: block;
+    }
+    input {
+      width: 100px;
+    }
+    select {
+      width: 100px;
+    }
+    .add_btn {
+      margin: 0;
+      width: 50px;
+      margin-left: 70px;
+    }
+  </style>
+  <body>
+    <div class="template_div clearfix">
+      <ul>
+        <li>
+          <span>管压</span>
+          <span>最大值：360</span>
+          <span>最小值 360</span>
+          <span> 持续时间：10s </span>
+        </li>
+        <span class="jiantou1"></span>
+      </ul>
+      <button id="add_template1">增加模板</button>
+    </div>
+    <div class="template_div clearfix">
+      <ul>
+        <li>
+          <span>缸压</span>
+          <span>最大值：360</span>
+          <span>最小值 360</span>
+          <span> 持续时间：10s </span>
+          <span>同步压力：</span>
+        </li>
+        <span class="jiantou2"></span>
+      </ul>
+      <button id="add_template2">增加模板</button>
+    </div>
+    <div class="template_div clearfix">
+      <ul>
+        <li>
+          <span>均缸压</span>
+          <span>最大值：360</span>
+          <span>最小值 360</span>
+          <span> 持续时间：10s </span>
+        </li>
+        <span class="jiantou3"></span>
+        <li>
+          <span>均缸压</span>
+          <span>最大值：360</span>
+          <span>最小值 360</span>
+          <span> 持续时间：10s </span>
+        </li>
+        <span class="jiantou3"></span>
+      </ul>
+      <button id="add_template3">增加模板</button>
+    </div>
+    <div class="add_template" id="template_div">
+      <form action="">
+        <span>管压</span>
+        <span> 最大值 <input type="text" /> </span>
+        <span>最小值<input type="text" /> </span>
+        <span> 持续时间<input type="text" /></span>
+        <span>
+          同步压力
+          <select class="select_nandu">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="4">5</option>
+          </select>
+        </span>
+        <button class="add_btn">增加</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    for (let i = 1; i <= 3; i++) {
+      let jiantou = document.getElementsByClassName('jiantou' + i)
+      jiantou[jiantou.length - 1].style.display = 'none'
+    }
+    function e(obj) {
+      return document.getElementById(obj)
+    }
+    for (let i = 1; i <= 3; i++) {
+      e('add_template' + i).onclick = function (event) {
+        e('template_div').style.display = 'block'
+        stopBubble(event)
+        document.onclick = function () {
+          e('template_div').style.display = 'none'
+          document.onclick = null
+        }
+      }
+    }
+
+    e('template_div').onclick = function (event) {
+      //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+      stopBubble(event)
+    }
+    function stopBubble(e) {
+      if (e && e.stopPropagation) {
+        e.stopPropagation() //w3c
+      } else {
+        window.event.cancelBubble = true //IE
+      }
+    }
+  </script>
+</html>
