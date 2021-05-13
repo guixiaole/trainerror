@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -58,7 +58,7 @@
     .add_template {
       display: none;
       width: 200px;
-      height: 180px;
+      height: 220px;
       background-color: #28aedd;
       position: absolute;
       top: 150px;
@@ -83,73 +83,75 @@
   </style>
   <body>
     <div class="template_div clearfix">
-      <ul>
+      <ul th:each="guanya :${guanyas}">
         <li>
           <span>管压</span>
-          <span>最大值：360</span>
-          <span>最小值 360</span>
-          <span> 持续时间：10s </span>
+          <span>最大值：[[${guanya.startNumber}]]</span>
+          <span>最小值 [[${guanya.endNumber}]]</span>
+          <span> 持续时间：[[${guanya.continueTime}]]s </span>
+          <span class="gangyatongbu">同步压力：</span>
         </li>
         <span class="jiantou1"></span>
       </ul>
       <button id="add_template1">增加模板</button>
     </div>
     <div class="template_div clearfix">
-      <ul>
+      <ul th:each="gangya :${gangyas}">
         <li>
-          <span>缸压</span>
-          <span>最大值：360</span>
-          <span>最小值 360</span>
-          <span> 持续时间：10s </span>
-          <span>同步压力：</span>
+          <span>管压</span>
+          <span>最大值：[[${gangya.startNumber}]]</span>
+          <span>最小值 [[${gangya.endNumber}]]</span>
+          <span> 持续时间：[[${gangya.continueTime}]]s </span>
+          <span class="guanyatongbu">同步压力：</span>
         </li>
-        <span class="jiantou2"></span>
       </ul>
       <button id="add_template2">增加模板</button>
     </div>
     <div class="template_div clearfix">
-      <ul>
+      <ul th:each="jungang :${jungangs}">
         <li>
-          <span>均缸压</span>
-          <span>最大值：360</span>
-          <span>最小值 360</span>
-          <span> 持续时间：10s </span>
+          <span>管压</span>
+          <span>最大值：[[${jungang.startNumber}]]</span>
+          <span>最小值 [[${jungang.endNumber}]]</span>
+          <span> 持续时间：[[${jungang.continueTime}]]s </span>
+          <span class="jungangtongbu">同步压力：</span>
         </li>
-        <span class="jiantou3"></span>
-        <li>
-          <span>均缸压</span>
-          <span>最大值：360</span>
-          <span>最小值 360</span>
-          <span> 持续时间：10s </span>
-        </li>
-        <span class="jiantou3"></span>
       </ul>
       <button id="add_template3">增加模板</button>
     </div>
     <div class="add_template" id="template_div">
-      <form action="">
-        <span>管压</span>
-        <span> 最大值 <input type="text" /> </span>
-        <span>最小值<input type="text" /> </span>
-        <span> 持续时间<input type="text" /></span>
+      <form action="addTemplateSelect" method="post">
+        <span> 压力 <select class="select_nandu" name="stressName">
+            <option value="管压">管压</option>
+            <option value="缸压">缸压</option>
+            <option value="均缸">均缸</option>
+          </select>
+        </span>
+        <span> 最大值 <input type="text" name="startNumber"/> </span>
+        <span>最小值<input type="text" name="endNumber"/> </span>
+        <span> 持续时间<input type="number" name="continueTime"/></span>
+        <input type="hidden" th:value="${templateId}" name="templateId">
         <span>
           同步压力
-          <select class="select_nandu">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="4">5</option>
+          <select class="select_nandu" name="tongbu">
+              <option value="无">无</option>
+              <option value="管压">管压</option>
+              <option value="缸压">缸压</option>
+              <option value="均缸">均缸</option>
           </select>
+          <span>压力顺序<input type="number" name="tongbuNumber" value="0"/></span>
         </span>
         <button class="add_btn">增加</button>
       </form>
     </div>
   </body>
-  <script>
+  <script type="text/javascript" th:inline="javascript">
     for (let i = 1; i <= 3; i++) {
       let jiantou = document.getElementsByClassName('jiantou' + i)
-      jiantou[jiantou.length - 1].style.display = 'none'
+      if(jiantou.length>=1){
+        jiantou[jiantou.length - 1].style.display = 'none'
+      }
+
     }
     function e(obj) {
       return document.getElementById(obj)
@@ -175,6 +177,15 @@
       } else {
         window.event.cancelBubble = true //IE
       }
+    }
+    var guanya = [[${guanyas}]]
+    var gangya = [[${gangyas}]]
+    var jungang = [[${jungangs}]]
+    var guanyatongbu = document.getElementsByClassName("guanyatongbu")
+    var gangyatongbu = document.getElementsByClassName("gangyatongbu")
+    var jungangtongbu = document.getElementsByClassName("jungangtongbu")
+    for (let i = 0;i<guanyatongbu.length;i++){
+        if (guanya[i].)
     }
   </script>
 </html>

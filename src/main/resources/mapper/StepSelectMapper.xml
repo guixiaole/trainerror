@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxl.trainerror.mapper.StepSelectMapper">
+
+    <!--    public Account getAcct(Long id); -->
+<sql id="stepSelectKey">
+    <trim suffixOverrides=",">
+
+        <if test="templateId!=null">
+            template_id,
+        </if>
+        <if test="continueTime!=null">
+            continue_time,
+        </if>
+        <if test="startNumber!=null">
+            start_number,
+        </if>
+        <if test="endNumber!=null">
+            end_number,
+        </if>
+        <if test="priorNumber!=null">
+            prior_number,
+        </if>
+    <if test="selectId!=null">
+        select_id,
+    </if>
+        <if test="stressName!=null and stressName!=''">
+            stress_name,
+        </if>
+    </trim>
+</sql>
+
+    <sql id="stepSelectValues">
+        <trim suffixOverrides=",">
+
+            <if test="templateId!=null">
+                #{templateId},
+            </if>
+            <if test="continueTime!=null">
+                #{continueTime},
+            </if>
+            <if test="startNumber!=null">
+                #{startNumber},
+            </if>
+            <if test="endNumber!=null">
+                #{endNumber},
+            </if>
+            <if test="priorNumber!=null">
+                #{priorNumber},
+            </if>
+            <if test="selectId!=null">
+                #{selectId},
+            </if>
+            <if test="stressName!=null and stressName!=''">
+                #{stressName},
+            </if>
+        </trim>
+    </sql>
+    <insert id="insertStepSelect" useGeneratedKeys="true" keyProperty="id">
+        insert into step_select (<include refid="stepSelectKey" />)
+        values (<include refid="stepSelectValues" />)
+    </insert>
+
+</mapper>
