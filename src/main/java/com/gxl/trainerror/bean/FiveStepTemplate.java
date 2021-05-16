@@ -31,4 +31,6 @@ public class FiveStepTemplate {
     private Integer isStable;
     //使用链表进行构成
     private FiveStepTemplate next;
+    //持续的时间
+    private Integer continueTime;
 }

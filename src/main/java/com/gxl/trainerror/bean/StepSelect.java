@@ -27,6 +27,8 @@ public class StepSelect {
     private String stressName;
     //需要同步的时候，
     private Integer selectId;
+    //0为这段稳定，1为这段上升，-1为这段下降。
+    private Integer isStable;
     //一对一查询
     private StepSelect select;
 }

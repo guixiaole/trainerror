@@ -19,7 +19,7 @@ public class StepTemplateController {
     private AllTemplateService allTemplateService;
     @Autowired
     private StepSelectService stepSelectService;
-    @RequestMapping(" ")
+    @RequestMapping("/templateIndex")
     public String TmeplateIndex(Model model){
         List<AllTemplate> allTemplates =allTemplateService.index();
         model.addAttribute("all_templates",allTemplates);
@@ -52,7 +52,7 @@ public class StepTemplateController {
          select.setSelectId(tongbu.getTemplateId());
         }
         Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
-        select.setPriorNumber(prior);
+        select.setPriorNumber(prior+1);
         stepSelectService.insertStepSelect(select);
         List<StepSelect> guanya = stepSelectService.selectByIdAndName(select.getTemplateId(),"管压");
         List<StepSelect> gangya = stepSelectService.selectByIdAndName(select.getTemplateId(),"缸压");

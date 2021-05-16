@@ -25,6 +25,6 @@ public interface StepSelectMapper {
     @Select("select * from step_select where template_id =#{templateId} and stress_name = #{stressName} and prior_number=#{priorNumber}")
     public StepSelect selectByIdPriorName(Integer templateId,String stressName,Integer prior);
     public Integer insertStepSelect(StepSelect select);
-    @Select("select count(*) from steo_select where template_id =#{templateId} and stress_name = #{stressName}")
-    public Integer selectCount(Integer templateId,String StressName);
+    @Select("select count(*) from step_select where template_id =#{templateId} and stress_name = #{stressName}")
+    public Integer selectCount(Integer templateId,String stressName);
 }

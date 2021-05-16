@@ -3,6 +3,7 @@ package com.gxl.trainerror.util;
 import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.FiveStepTemplate;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.bean.StepSelect;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -355,4 +356,138 @@ public class StepTemplateUtil {
         return resJunGang2;
     }
 
+    public static List<Integer> stepFinder(List<QuanCheng>quanChengs, List<List<FiveStepTemplate>> fiveStepTemplates, List<List<StepSelect>> stepSelects){
+        /*
+        步骤寻找，
+        输入：quancheng 全程文件
+             fiveStepTemplate 全程文件板块
+             stepSelect 步骤的板块
+             如果输出结果是-1 则表示没有找到结果
+         */
+        List<FiveStepTemplate> guanyaTemplate =fiveStepTemplates.get(0);
+        List<FiveStepTemplate> gangyaTemplate =fiveStepTemplates.get(1);
+        List<FiveStepTemplate> jungang1Template =fiveStepTemplates.get(2);
+        List<FiveStepTemplate> jungang2Template =fiveStepTemplates.get(0);
+        List<StepSelect> guanyaSelect = stepSelects.get(0);
+        List<StepSelect> gangyaSelect = stepSelects.get(1);
+        List<StepSelect> jungangSelect = stepSelects.get(2);
+        //挨个进行匹配。最后进行比较，然后返回结果。
+        List<FiveStepTemplate> guanyares= new ArrayList<>();
+        List<FiveStepTemplate> gangyares= new ArrayList<>();
+        List<FiveStepTemplate> jungangres= new ArrayList<>();
+        if (guanyaSelect!=null){
+            int i = 0;
+            for (int j=0;j<guanyaTemplate.size();j++){
+                //首先判断第一个是不是一样，然后后面再继续向下比较
+                int temp = j;
+                //这里没有考虑到同步的问题
+                //同步问题暂时还不考虑。下一阶段开始考虑
+                while (i<guanyaSelect.size() && temp<guanyaTemplate.size()){
+                    if (guanyaSelect.get(i).getIsStable()==guanyaTemplate.get(temp).getIsStable()
+                    && Math.abs( guanyaSelect.get(i).getStartNumber()-guanyaTemplate.get(temp).getStartStress())<=20
+                            && Math.abs( guanyaSelect.get(i).getEndNumber()-guanyaTemplate.get(temp).getEndStress())<20
+                    && guanyaTemplate.get(temp).getContinueTime()>=guanyaSelect.get(i).getContinueTime()){
+                        i++;
+                        temp++;
+                    }else {
+                        i = 0;
+                        break;
+                    }
+                }
+                if (i>=guanyaSelect.size()){
+                    guanyares.add(guanyaTemplate.get(temp));
+                    j = temp;
+                }
+            }
+        }
+        if (gangyaSelect!=null){
+            int i = 0;
+            for (int j=0;j<gangyaTemplate.size();j++){
+                //首先判断第一个是不是一样，然后后面再继续向下比较
+                int temp = j;
+                //这里没有考虑到同步的问题
+                //同步问题暂时还不考虑。下一阶段开始考虑
+                while (i<gangyaSelect.size() && temp<gangyaTemplate.size()){
+                    if (gangyaSelect.get(i).getIsStable()==gangyaTemplate.get(temp).getIsStable()
+                            && Math.abs( gangyaSelect.get(i).getStartNumber()-gangyaTemplate.get(temp).getStartStress())<=20
+                            && Math.abs( gangyaSelect.get(i).getEndNumber()-gangyaTemplate.get(temp).getEndStress())<20
+                            && gangyaTemplate.get(temp).getContinueTime()>=gangyaSelect.get(i).getContinueTime()){
+                        i++;
+                        temp++;
+                    }else {
+                        i = 0;
+                        break;
+                    }
+                }
+                if (i>=gangyaSelect.size()){
+                    gangyares.add(gangyaTemplate.get(temp));
+                    j = temp;
+                }
+            }
+        }
+        if (jungangSelect!=null){
+            //均缸这里有问题还是需要修改的。
+            int i = 0;
+            for (int j=0;j<jungang1Template.size();j++){
+                //首先判断第一个是不是一样，然后后面再继续向下比较
+                int temp = j;
+                //这里没有考虑到同步的问题
+                //同步问题暂时还不考虑。下一阶段开始考虑
+                while (i<jungangSelect.size() && temp<jungang1Template.size()){
+                    if (jungangSelect.get(i).getIsStable()==jungang1Template.get(temp).getIsStable()
+                            && Math.abs( jungangSelect.get(i).getStartNumber()-jungang1Template.get(temp).getStartStress())<=20
+                            && Math.abs( jungangSelect.get(i).getEndNumber()-jungang1Template.get(temp).getEndStress())<20
+                            && jungang1Template.get(temp).getContinueTime()>=jungangSelect.get(i).getContinueTime()){
+                        i++;
+                        temp++;
+                    }else {
+                        i = 0;
+                        break;
+                    }
+                }
+                if (i>=jungangSelect.size()){
+                    jungangres.add(jungang1Template.get(temp));
+                    j = temp;
+                }
+            }
+        }
+        if (jungangres.size()==0){
+            if (jungangSelect!=null){
+                //均缸这里有问题还是需要修改的。
+                int i = 0;
+                for (int j=0;j<jungang2Template.size();j++){
+                    //首先判断第一个是不是一样，然后后面再继续向下比较
+                    int temp = j;
+                    //这里没有考虑到同步的问题
+                    //同步问题暂时还不考虑。下一阶段开始考虑
+                    while (i<jungangSelect.size() && temp<jungang2Template.size()){
+                        if (jungangSelect.get(i).getIsStable()==jungang2Template.get(temp).getIsStable()
+                                && Math.abs( jungangSelect.get(i).getStartNumber()-jungang2Template.get(temp).getStartStress())<=20
+                                && Math.abs( jungangSelect.get(i).getEndNumber()-jungang2Template.get(temp).getEndStress())<20
+                                && jungang2Template.get(temp).getContinueTime()>=jungangSelect.get(i).getContinueTime()){
+                            i++;
+                            temp++;
+                        }else {
+                            i = 0;
+                            break;
+                        }
+                    }
+                    if (i>=jungangSelect.size()){
+                        jungangres.add(jungang2Template.get(temp));
+                        j = temp;
+                    }
+                }
+            }
+        }
+        //当所有res的都找到了。进行匹配。
+        List <Integer> res = new ArrayList<>();
+        if((guanyaSelect!=null&&guanyares==null)||(gangyaSelect!=null &&guanyares==null)||(jungangSelect!=null &&jungangres==null)){
+                //当有条件没找到的时候，进行返回。
+                res.add(-1);
+                return res;
+        }
+
+        return null;
+
+    }
 }
