@@ -15,4 +15,5 @@ public interface AllTemplateMapper {
     @Insert("insert into all_template (template_name) values(#{templateName})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     public Integer insertTemplate(AllTemplate allTemplate);
+
 }

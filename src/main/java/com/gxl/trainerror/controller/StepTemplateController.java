@@ -53,6 +53,13 @@ public class StepTemplateController {
         }
         Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
         select.setPriorNumber(prior+1);
+        if(Math.abs(select.getStartNumber()-select.getEndNumber())<=20){
+            select.setIsStable(0);
+        }else if(select.getStartNumber()>select.getEndNumber()){
+            select.setIsStable(-1);
+        }else {
+            select.setIsStable(1);
+        }
         stepSelectService.insertStepSelect(select);
         List<StepSelect> guanya = stepSelectService.selectByIdAndName(select.getTemplateId(),"管压");
         List<StepSelect> gangya = stepSelectService.selectByIdAndName(select.getTemplateId(),"缸压");

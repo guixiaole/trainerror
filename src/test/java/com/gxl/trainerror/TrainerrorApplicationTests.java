@@ -3,14 +3,17 @@ package com.gxl.trainerror;
 import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.FiveStepTemplate;
 import com.gxl.trainerror.bean.QuanCheng;
+import com.gxl.trainerror.bean.StepSelect;
 import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
+import com.gxl.trainerror.service.StepSelectService;
 import com.gxl.trainerror.util.StepTemplateUtil;
 import com.gxl.trainerror.util.TimeCal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +23,8 @@ class TrainerrorApplicationTests {
     private FileInfoService fileInfoService;
     @Autowired
     private QuanChengService quanChengService;
+    @Autowired
+    private StepSelectService stepSelectService;
     @Test
     void contextLoads() {
 //        Date date = TimeCal.backDate(30);
@@ -33,14 +38,24 @@ class TrainerrorApplicationTests {
 //        }
         List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1216);
         List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
-        for (QuanCheng quanCheng : quanChengs1) {
-            System.out.println(quanCheng.getDateTime());
-            System.out.println(quanCheng.getGuanYa());
-        }
-        List<FiveStepTemplate> fiveStepTemplates = StepTemplateUtil.GuanYaTemplateAnalysis(quanChengs1);
-        for (FiveStepTemplate fiveStepTemplate : fiveStepTemplates) {
-            System.out.println(fiveStepTemplate);
-        }
-    }   
 
+        List<FiveStepTemplate> guanYaTemplateAnalysis = StepTemplateUtil.GuanYaTemplateAnalysis(quanChengs1);
+        List<FiveStepTemplate>  gangYaTemplateAnalysis= StepTemplateUtil.GangYaTemplateAnalysis(quanChengs1);
+        List<FiveStepTemplate> junGang1TemplateAnalysis = StepTemplateUtil.JunGang1TemplateAnalysis(quanChengs1);
+        List<FiveStepTemplate> junGang2TemplateAnalysis = StepTemplateUtil.JunGang2TemplateAnalysis(quanChengs1);
+        List<List<FiveStepTemplate>> fiveStep = new ArrayList<>();
+        fiveStep.add(guanYaTemplateAnalysis);
+        fiveStep.add(gangYaTemplateAnalysis);
+        fiveStep.add(junGang1TemplateAnalysis);
+        fiveStep.add(junGang2TemplateAnalysis);
+        List<StepSelect> guanya = stepSelectService.selectByIdAndName(1,"管压");
+        List<StepSelect> gangya = stepSelectService.selectByIdAndName(1,"缸压");
+        List<StepSelect> jungang = stepSelectService.selectByIdAndName(1,"均缸");
+        List<List<StepSelect>> stepSelects = new ArrayList<>();
+        stepSelects.add(guanya);
+        stepSelects.add(gangya);
+        stepSelects.add(jungang);
+        FiveStepTemplate fiveStepTemplate = StepTemplateUtil.stepFinder(quanChengs1,fiveStep,stepSelects);
+        System.out.println(fiveStepTemplate);
+    }
 }
