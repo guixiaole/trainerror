@@ -356,7 +356,7 @@ public class StepTemplateUtil {
         return resJunGang2;
     }
 
-    public static List<Integer> stepFinder(List<QuanCheng>quanChengs, List<List<FiveStepTemplate>> fiveStepTemplates, List<List<StepSelect>> stepSelects){
+    public static FiveStepTemplate stepFinder(List<QuanCheng>quanChengs, List<List<FiveStepTemplate>> fiveStepTemplates, List<List<StepSelect>> stepSelects){
         /*
         步骤寻找，
         输入：quancheng 全程文件
@@ -481,10 +481,44 @@ public class StepTemplateUtil {
         }
         //当所有res的都找到了。进行匹配。
         List <Integer> res = new ArrayList<>();
+        List<FiveStepTemplate> TemplateRes = new ArrayList<>();
         if((guanyaSelect!=null&&guanyares==null)||(gangyaSelect!=null &&guanyares==null)||(jungangSelect!=null &&jungangres==null)){
                 //当有条件没找到的时候，进行返回。
-                res.add(-1);
-                return res;
+//                res.add(-1);
+                return null;
+        }
+        //进行比较,最好时间不相差过3S
+        if (guanyaSelect!=null){
+            for (int i = 0;i<guanyares.size();i++){
+                if (gangyaSelect!=null){
+                    for (int j = 0;j<=gangyares.size();j++){
+                       if (Math.abs((guanyares.get(i).getStartTime().getTime()-gangyares.get(j).getStartTime().getTime())/1000)<=3){
+                            if (jungangSelect!=null){
+                                for(int q= 0;q<=jungangres.size();q++){
+                                    if (Math.abs((guanyares.get(i).getStartTime().getTime()-jungangres.get(q).getStartTime().getTime())/1000)<=3){
+                                        TemplateRes.add(guanyares.get(i));
+                                        break;
+                                    }
+                                }
+                            }else {
+                                TemplateRes.add(guanyares.get(i));
+                                break;
+                            }
+                       }
+                    }
+                }else {
+                    if (jungangSelect!=null){
+                        for(int q= 0;q<=jungangres.size();q++){
+                            if (Math.abs((guanyares.get(i).getStartTime().getTime()-jungangres.get(q).getStartTime().getTime())/1000)<=3){
+                                TemplateRes.add(guanyares.get(i));
+                                break;
+                            }
+                        }
+                    }else {
+                        TemplateRes.add(guanyares.get(i));
+                    }
+                }
+            }
         }
 
         return null;
