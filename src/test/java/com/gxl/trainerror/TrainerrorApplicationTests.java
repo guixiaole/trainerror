@@ -39,10 +39,10 @@ class TrainerrorApplicationTests {
         List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1216);
         List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
 
-        List<FiveStepTemplate> guanYaTemplateAnalysis = StepTemplateUtil.GuanYaTemplateAnalysis(quanChengs1);
-        List<FiveStepTemplate>  gangYaTemplateAnalysis= StepTemplateUtil.GangYaTemplateAnalysis(quanChengs1);
-        List<FiveStepTemplate> junGang1TemplateAnalysis = StepTemplateUtil.JunGang1TemplateAnalysis(quanChengs1);
-        List<FiveStepTemplate> junGang2TemplateAnalysis = StepTemplateUtil.JunGang2TemplateAnalysis(quanChengs1);
+        List<FiveStepTemplate> guanYaTemplateAnalysis = StepTemplateUtil.GuanYaTemplateTest(quanChengs1);
+        List<FiveStepTemplate>  gangYaTemplateAnalysis= StepTemplateUtil.GangYaTemplateTest(quanChengs1);
+        List<FiveStepTemplate> junGang1TemplateAnalysis = StepTemplateUtil.JunGang1TemplateTest(quanChengs1);
+        List<FiveStepTemplate> junGang2TemplateAnalysis = StepTemplateUtil.JunGang2TemplateTest(quanChengs1);
         List<List<FiveStepTemplate>> fiveStep = new ArrayList<>();
         fiveStep.add(guanYaTemplateAnalysis);
         fiveStep.add(gangYaTemplateAnalysis);

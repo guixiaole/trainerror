@@ -31,4 +31,8 @@ public class StepSelect {
     private Integer isStable;
     //一对一查询
     private StepSelect select;
+    //最大最小世间。当最大时间默认为最大的数据
+    private Integer maxTime;
+    //最小时间，默认的为0；
+    private Integer minTime;
 }

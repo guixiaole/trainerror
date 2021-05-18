@@ -81,297 +81,6 @@ public class StepTemplateUtil {
         }
         return resQuanCheng;
     }
-    public static List<FiveStepTemplate> GuanYaTemplateAnalysis(List<QuanCheng> quanChengs){
-        //传入的数据为已经格式化的时间，然后进行划分
-        //划分的按照
-        /*
-        管压 缸压 均缸1  均缸2
-         */
-        int flag_first_show = 1;
-        List<FiveStepTemplate> resGuanYa = new ArrayList<>();
-        FiveStepTemplate fiveStepTemplate = new FiveStepTemplate();
-        FiveStepTemplate nextfiveStep = new FiveStepTemplate();
-        fiveStepTemplate.setStart(quanChengs.get(0).getXuHao());
-        fiveStepTemplate.setStartStress(quanChengs.get(0).getGuanYa().intValue());
-        fiveStepTemplate.setStartTime(quanChengs.get(0).getDateTime());
-        fiveStepTemplate.setIsStable(0);
-        int last_guanya = quanChengs.get(0).getGuanYa();
-        int length = quanChengs.size();
-        int last_pos = 0;
-        //初始化的时候，可以往前走三秒，看是稳定还是下降
-//        if (Math.abs(quanChengs.get(0).getGuanYa()-quanChengs.get(1).getGuanYa())<20)
-//        if ()
-        for (int i = 0;i<length-3;i++) {
-
-            if (Math.abs(quanChengs.get(i).getGuanYa()-last_guanya)>20 && flag_first_show == 1){
-                //假设误差在20以上
-                //这里代表的是节点
-                fiveStepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
-                fiveStepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
-                fiveStepTemplate.setEndStress(quanChengs.get(i-1).getGuanYa().intValue());
-                if (last_guanya>quanChengs.get(i).getGuanYa()){
-                    //下一段相对于自己来说是升还是降，1为升，-1为降。
-                    fiveStepTemplate.setNextStart(1);
-                }else {
-                    fiveStepTemplate.setNextStart(-1);
-                }
-                nextfiveStep = new FiveStepTemplate();
-                fiveStepTemplate.setNext(nextfiveStep);
-                fiveStepTemplate.setContinueTime((int) ((fiveStepTemplate.getEndTime().getTime()-fiveStepTemplate.getStartTime().getTime())/1000));
-
-                resGuanYa.add(fiveStepTemplate);
-                nextfiveStep.setStartStress(quanChengs.get(i).getGuanYa().intValue());
-                //向前走三步，看是升，还是降。
-                if(quanChengs.get(i).getGuanYa()>quanChengs.get(i+1).getGuanYa() &&
-                        quanChengs.get(i+1).getGuanYa()>quanChengs.get(i+2).getGuanYa()){
-                    nextfiveStep.setIsStable(-1);
-                }else {
-                    nextfiveStep.setIsStable(1);
-                }
-                flag_first_show = 0;
-                nextfiveStep.setStart(quanChengs.get(i).getXuHao());
-                nextfiveStep.setStartTime(quanChengs.get(i).getDateTime());
-
-            }else{
-                //遇到稳定的时候，就开始往前走一步开始修改
-                //在下降或者上升的时候，序号不应该相等，这个时候就可以进行一个序号的判断。
-                if(Math.abs(quanChengs.get(i).getGuanYa()-last_guanya)<20 && flag_first_show==0
-                && Math.abs(quanChengs.get(i-2).getGuanYa()-quanChengs.get(i+1).getGuanYa())>20 &&
-                        Math.abs(quanChengs.get(i+1).getGuanYa()-quanChengs.get(i).getGuanYa())<20 &&
-                        Math.abs(quanChengs.get(i+2).getGuanYa()-quanChengs.get(i+1).getGuanYa())<20){
-                    nextfiveStep.setEnd(quanChengs.get(i-2).getXuHao());
-                    nextfiveStep.setEndTime(quanChengs.get(i-2).getDateTime());
-                    nextfiveStep.setEndStress(quanChengs.get(i-2).getGuanYa().intValue());
-                    flag_first_show = 1;
-                    fiveStepTemplate = new FiveStepTemplate();
-                    fiveStepTemplate.setIsStable(0);
-                    fiveStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
-                    fiveStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
-                    fiveStepTemplate.setStartStress(quanChengs.get(i-1).getGuanYa().intValue());
-                    nextfiveStep.setNext(fiveStepTemplate);
-                    nextfiveStep.setContinueTime((int) ((nextfiveStep.getEndTime().getTime()-nextfiveStep.getStartTime().getTime())/1000));
-                    resGuanYa.add(nextfiveStep);
-                }
-            }
-            last_guanya = quanChengs.get(i).getGuanYa();
-        }
-        return resGuanYa;
-    }
-
-    public static List<FiveStepTemplate> GangYaTemplateAnalysis(List<QuanCheng> quanChengs){
-        //传入的数据为已经格式化的时间，然后进行划分
-        //划分的按照
-        /*
-        管压 缸压 均缸1  均缸2
-         */
-        int flag_first_show = 1;
-        List<FiveStepTemplate> resGangYa = new ArrayList<>();
-        FiveStepTemplate fiveStepTemplate = new FiveStepTemplate();
-        FiveStepTemplate nextfiveStep = new FiveStepTemplate();
-        fiveStepTemplate.setStart(quanChengs.get(0).getXuHao());
-        fiveStepTemplate.setStartStress(quanChengs.get(0).getGangYa().intValue());
-        fiveStepTemplate.setStartTime(quanChengs.get(0).getDateTime());
-        int last_guanya = quanChengs.get(0).getGangYa();
-        int length = quanChengs.size();
-        fiveStepTemplate.setIsStable(0);//初始化为稳定，后面再看。
-        //初始化的时候，可以往前走三秒，看是稳定还是下降
-//        if (Math.abs(quanChengs.get(0).getGuanYa()-quanChengs.get(1).getGuanYa())<20)
-        for (int i = 0;i<length;i++) {
-
-            if (Math.abs(quanChengs.get(i).getGangYa()-last_guanya)>20 && flag_first_show == 1){
-                //假设误差在20以上
-                //这里代表的是节点
-                fiveStepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
-                fiveStepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
-                fiveStepTemplate.setEndStress(quanChengs.get(i-1).getGangYa().intValue());
-                if (last_guanya>quanChengs.get(i).getGangYa()){
-                    //下一段相对于自己来说是升还是降，1为升，-1为降。
-                    fiveStepTemplate.setNextStart(1);
-                }else {
-                    fiveStepTemplate.setNextStart(-1);
-                }
-                nextfiveStep = new FiveStepTemplate();
-                fiveStepTemplate.setNext(nextfiveStep);
-                fiveStepTemplate.setContinueTime((int) ((fiveStepTemplate.getEndTime().getTime()-fiveStepTemplate.getStartTime().getTime())/1000));
-
-                resGangYa.add(fiveStepTemplate);
-                nextfiveStep.setStartStress(quanChengs.get(i).getGangYa().intValue());
-                //向前走三步，看是升，还是降。
-                if(quanChengs.get(i).getGangYa()>quanChengs.get(i+1).getGangYa() &&
-                        quanChengs.get(i+1).getGangYa()>quanChengs.get(i+2).getGangYa()){
-                    nextfiveStep.setIsStable(-1);
-                }else {
-                    nextfiveStep.setIsStable(1);
-                }
-                flag_first_show = 0;
-                nextfiveStep.setStart(quanChengs.get(i).getXuHao());
-                nextfiveStep.setStartTime(quanChengs.get(i).getDateTime());
-
-            }else{
-                //遇到稳定的时候，就开始往前走一步开始修改
-                //在下降或者上升的时候，序号不应该相等，这个时候就可以进行一个序号的判断。
-                if(Math.abs(quanChengs.get(i).getGangYa()-last_guanya)<20 && flag_first_show==0 && !quanChengs.get(i).getXuHao().equals(quanChengs.get(i-1).getXuHao())){
-                    nextfiveStep.setEnd(quanChengs.get(i-2).getXuHao());
-                    nextfiveStep.setEndTime(quanChengs.get(i-2).getDateTime());
-                    nextfiveStep.setEndStress(quanChengs.get(i-2).getGangYa().intValue());
-                    flag_first_show = 1;
-                    fiveStepTemplate = new FiveStepTemplate();
-                    fiveStepTemplate.setIsStable(0);
-                    fiveStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
-                    fiveStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
-                    fiveStepTemplate.setStartStress(quanChengs.get(i-1).getGangYa().intValue());
-                    nextfiveStep.setNext(fiveStepTemplate);
-                    nextfiveStep.setContinueTime((int) ((nextfiveStep.getEndTime().getTime()-nextfiveStep.getStartTime().getTime())/1000));
-                    resGangYa.add(nextfiveStep);
-                }
-            }
-            last_guanya = quanChengs.get(i).getGangYa();
-        }
-        return resGangYa;
-    }
-
-    public static List<FiveStepTemplate> JunGang1TemplateAnalysis(List<QuanCheng> quanChengs){
-        //传入的数据为已经格式化的时间，然后进行划分
-        //划分的按照
-        /*
-        管压 缸压 均缸1  均缸2
-         */
-        int flag_first_show = 1;
-        List<FiveStepTemplate> resJunGang1 = new ArrayList<>();
-        FiveStepTemplate fiveStepTemplate = new FiveStepTemplate();
-        FiveStepTemplate nextfiveStep = new FiveStepTemplate();
-        fiveStepTemplate.setStart(quanChengs.get(0).getXuHao());
-        fiveStepTemplate.setStartStress(quanChengs.get(0).getJunGang1().intValue());
-        fiveStepTemplate.setStartTime(quanChengs.get(0).getDateTime());
-        int last_guanya = quanChengs.get(0).getJunGang1();
-        int length = quanChengs.size();
-        fiveStepTemplate.setIsStable(0);//初始化为稳定，后面再看。
-        //初始化的时候，可以往前走三秒，看是稳定还是下降
-//        if (Math.abs(quanChengs.get(0).getGuanYa()-quanChengs.get(1).getGuanYa())<20)
-        for (int i = 0;i<length;i++) {
-
-            if (Math.abs(quanChengs.get(i).getJunGang1()-last_guanya)>20 && flag_first_show == 1){
-                //假设误差在20以上
-                //这里代表的是节点
-                fiveStepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
-                fiveStepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
-                fiveStepTemplate.setEndStress(quanChengs.get(i-1).getJunGang1().intValue());
-                if (last_guanya>quanChengs.get(i).getJunGang1()){
-                    //下一段相对于自己来说是升还是降，1为升，-1为降。
-                    fiveStepTemplate.setNextStart(1);
-                }else {
-                    fiveStepTemplate.setNextStart(-1);
-                }
-                nextfiveStep = new FiveStepTemplate();
-                fiveStepTemplate.setNext(nextfiveStep);
-                fiveStepTemplate.setContinueTime((int) ((fiveStepTemplate.getEndTime().getTime()-fiveStepTemplate.getStartTime().getTime())/1000));
-
-                resJunGang1.add(fiveStepTemplate);
-                nextfiveStep.setStartStress(quanChengs.get(i).getJunGang1().intValue());
-                //向前走三步，看是升，还是降。
-                if(quanChengs.get(i).getJunGang1()>quanChengs.get(i+1).getJunGang1() &&
-                        quanChengs.get(i+1).getJunGang1()>quanChengs.get(i+2).getJunGang1()){
-                    nextfiveStep.setIsStable(-1);
-                }else {
-                    nextfiveStep.setIsStable(1);
-                }
-                flag_first_show = 0;
-                nextfiveStep.setStart(quanChengs.get(i).getXuHao());
-                nextfiveStep.setStartTime(quanChengs.get(i).getDateTime());
-
-            }else{
-                //遇到稳定的时候，就开始往前走一步开始修改
-                //在下降或者上升的时候，序号不应该相等，这个时候就可以进行一个序号的判断。
-                if(Math.abs(quanChengs.get(i).getJunGang1()-last_guanya)<20 && flag_first_show==0 && !quanChengs.get(i).getXuHao().equals(quanChengs.get(i-1).getXuHao())){
-                    nextfiveStep.setEnd(quanChengs.get(i-2).getXuHao());
-                    nextfiveStep.setEndTime(quanChengs.get(i-2).getDateTime());
-                    nextfiveStep.setEndStress(quanChengs.get(i-2).getJunGang1().intValue());
-                    flag_first_show = 1;
-                    fiveStepTemplate = new FiveStepTemplate();
-                    fiveStepTemplate.setIsStable(0);
-                    fiveStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
-                    fiveStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
-                    fiveStepTemplate.setStartStress(quanChengs.get(i-1).getJunGang1().intValue());
-                    nextfiveStep.setNext(fiveStepTemplate);
-                    nextfiveStep.setContinueTime((int) ((nextfiveStep.getEndTime().getTime()-nextfiveStep.getStartTime().getTime())/1000));
-                    resJunGang1.add(nextfiveStep);
-                }
-            }
-            last_guanya = quanChengs.get(i).getJunGang1();
-        }
-        return resJunGang1;
-    }
-    public static List<FiveStepTemplate> JunGang2TemplateAnalysis(List<QuanCheng> quanChengs){
-        //传入的数据为已经格式化的时间，然后进行划分
-        //划分的按照
-        /*
-        管压 缸压 均缸1  均缸2
-         */
-        int flag_first_show = 1;
-        List<FiveStepTemplate> resJunGang2 = new ArrayList<>();
-        FiveStepTemplate fiveStepTemplate = new FiveStepTemplate();
-        FiveStepTemplate nextfiveStep = new FiveStepTemplate();
-        fiveStepTemplate.setStart(quanChengs.get(0).getXuHao());
-        fiveStepTemplate.setStartStress(quanChengs.get(0).getJunGang2().intValue());
-        fiveStepTemplate.setStartTime(quanChengs.get(0).getDateTime());
-        int last_guanya = quanChengs.get(0).getJunGang2();
-        int length = quanChengs.size();
-        fiveStepTemplate.setIsStable(0);//初始化为稳定，后面再看。
-        //初始化的时候，可以往前走三秒，看是稳定还是下降
-//        if (Math.abs(quanChengs.get(0).getGuanYa()-quanChengs.get(1).getGuanYa())<20)
-        for (int i = 0;i<length;i++) {
-
-            if (Math.abs(quanChengs.get(i).getJunGang2()-last_guanya)>20 && flag_first_show == 1){
-                //假设误差在20以上
-                //这里代表的是节点
-                fiveStepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
-                fiveStepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
-                fiveStepTemplate.setEndStress(quanChengs.get(i-1).getJunGang2().intValue());
-                if (last_guanya>quanChengs.get(i).getJunGang2()){
-                    //下一段相对于自己来说是升还是降，1为升，-1为降。
-                    fiveStepTemplate.setNextStart(1);
-                }else {
-                    fiveStepTemplate.setNextStart(-1);
-                }
-                nextfiveStep = new FiveStepTemplate();
-                fiveStepTemplate.setNext(nextfiveStep);
-                fiveStepTemplate.setContinueTime((int) ((fiveStepTemplate.getEndTime().getTime()-fiveStepTemplate.getStartTime().getTime())/1000));
-                resJunGang2.add(fiveStepTemplate);
-                nextfiveStep.setStartStress(quanChengs.get(i).getJunGang2().intValue());
-                //向前走三步，看是升，还是降。
-                if(quanChengs.get(i).getJunGang2()>quanChengs.get(i+1).getJunGang2() &&
-                        quanChengs.get(i+1).getJunGang2()>quanChengs.get(i+2).getJunGang2()){
-                    nextfiveStep.setIsStable(-1);
-                }else {
-                    nextfiveStep.setIsStable(1);
-                }
-                flag_first_show = 0;
-                nextfiveStep.setStart(quanChengs.get(i).getXuHao());
-                nextfiveStep.setStartTime(quanChengs.get(i).getDateTime());
-
-            }else{
-                //遇到稳定的时候，就开始往前走一步开始修改
-                //在下降或者上升的时候，序号不应该相等，这个时候就可以进行一个序号的判断。
-                if(Math.abs(quanChengs.get(i).getJunGang2()-last_guanya)<20 && flag_first_show==0 && !quanChengs.get(i).getXuHao().equals(quanChengs.get(i-1).getXuHao())){
-                    nextfiveStep.setEnd(quanChengs.get(i-2).getXuHao());
-                    nextfiveStep.setEndTime(quanChengs.get(i-2).getDateTime());
-                    nextfiveStep.setEndStress(quanChengs.get(i-2).getJunGang2().intValue());
-                    flag_first_show = 1;
-                    fiveStepTemplate = new FiveStepTemplate();
-                    fiveStepTemplate.setIsStable(0);
-                    fiveStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
-                    fiveStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
-                    fiveStepTemplate.setStartStress(quanChengs.get(i-1).getJunGang2().intValue());
-
-                    nextfiveStep.setNext(fiveStepTemplate);
-                    nextfiveStep.setContinueTime((int) ((nextfiveStep.getEndTime().getTime()-nextfiveStep.getStartTime().getTime())/1000));
-                    resJunGang2.add(nextfiveStep);
-                }
-            }
-            last_guanya = quanChengs.get(i).getJunGang2();
-        }
-        return resJunGang2;
-    }
 
     public static FiveStepTemplate stepFinder(List<QuanCheng>quanChengs, List<List<FiveStepTemplate>> fiveStepTemplates, List<List<StepSelect>> stepSelects){
         /*
@@ -403,7 +112,8 @@ public class StepTemplateUtil {
                     if (guanyaSelect.get(i).getIsStable()==guanyaTemplate.get(temp).getIsStable()
                     && Math.abs( guanyaSelect.get(i).getStartNumber()-guanyaTemplate.get(temp).getStartStress())<=20
                             && Math.abs( guanyaSelect.get(i).getEndNumber()-guanyaTemplate.get(temp).getEndStress())<=20
-                    && guanyaTemplate.get(temp).getContinueTime()>=guanyaSelect.get(i).getContinueTime()){
+                    && guanyaTemplate.get(temp).getContinueTime()>=guanyaSelect.get(i).getMinTime()
+                    &&guanyaTemplate.get(temp).getContinueTime()<=guanyaSelect.get(i).getMaxTime()){
                         i++;
                         temp++;
                     }else {
@@ -429,7 +139,8 @@ public class StepTemplateUtil {
                     if (gangyaSelect.get(i).getIsStable()==gangyaTemplate.get(temp).getIsStable()
                             && Math.abs( gangyaSelect.get(i).getStartNumber()-gangyaTemplate.get(temp).getStartStress())<=20
                             && Math.abs( gangyaSelect.get(i).getEndNumber()-gangyaTemplate.get(temp).getEndStress())<20
-                            && gangyaTemplate.get(temp).getContinueTime()>=gangyaSelect.get(i).getContinueTime()){
+                            && gangyaTemplate.get(temp).getContinueTime()>=gangyaSelect.get(i).getMinTime()
+                    && gangyaTemplate.get(temp).getContinueTime()<=gangyaSelect.get(i).getMaxTime()){
                         i++;
                         temp++;
                     }else {
@@ -455,7 +166,8 @@ public class StepTemplateUtil {
                     if (jungangSelect.get(i).getIsStable()==jungang1Template.get(temp).getIsStable()
                             && Math.abs( jungangSelect.get(i).getStartNumber()-jungang1Template.get(temp).getStartStress())<=20
                             && Math.abs( jungangSelect.get(i).getEndNumber()-jungang1Template.get(temp).getEndStress())<20
-                            && jungang1Template.get(temp).getContinueTime()>=jungangSelect.get(i).getContinueTime()){
+                            && jungang1Template.get(temp).getContinueTime()>=jungangSelect.get(i).getMinTime()
+                    && jungang1Template.get(temp).getContinueTime()<=jungangSelect.get(i).getMaxTime()){
                         i++;
                         temp++;
                     }else {
@@ -482,7 +194,8 @@ public class StepTemplateUtil {
                         if (jungangSelect.get(i).getIsStable()==jungang2Template.get(temp).getIsStable()
                                 && Math.abs( jungangSelect.get(i).getStartNumber()-jungang2Template.get(temp).getStartStress())<=20
                                 && Math.abs( jungangSelect.get(i).getEndNumber()-jungang2Template.get(temp).getEndStress())<20
-                                && jungang2Template.get(temp).getContinueTime()>=jungangSelect.get(i).getContinueTime()){
+                                && jungang2Template.get(temp).getContinueTime()>=jungangSelect.get(i).getMinTime()
+                                && jungang2Template.get(temp).getContinueTime()<=jungangSelect.get(i).getMaxTime()){
                             i++;
                             temp++;
                         }else {
@@ -559,5 +272,374 @@ public class StepTemplateUtil {
             return TemplateRes.get(TemplateRes.size()-1);
         else
             return null;
+    }
+
+    public static List<FiveStepTemplate> GuanYaTemplateTest(List<QuanCheng> quanChengs){
+        /*
+          按照一般的来说就是肯定是先平，或者先升来着。
+          平与升或降交替变换。
+          其次刚开始设置为默认的为平。
+          当平或者升都需要通过3s来验证。
+         */
+        int flag_float = 0;
+        List<FiveStepTemplate> resGuanYa = new ArrayList<>();
+        //两个进行交替
+        FiveStepTemplate stepTemplate = new FiveStepTemplate();
+        FiveStepTemplate nextStepTemplate = new FiveStepTemplate();
+        //0设置为平。
+        stepTemplate.setIsStable(0);
+        stepTemplate.setStart(quanChengs.get(0).getXuHao());
+        stepTemplate.setStartTime(quanChengs.get(0).getDateTime());
+        stepTemplate.setStartStress(quanChengs.get(0).getGuanYa().intValue());
+        int length = quanChengs.size();
+        for (int i =1;i<length-3;i++){
+            //分为两种情况，一种是出于平的时候，一种是出于升降的时候。
+            if (flag_float==0){
+                //当出于平的时候，flag_float是为0，而这个时候寻找到连续的几个升降点。
+                if (Math.abs(quanChengs.get(i).getGuanYa()-quanChengs.get(i+1).getGuanYa())>=20
+                    &&Math.abs(quanChengs.get(i).getGuanYa()-quanChengs.get(i+2).getGuanYa())>=30
+                    &&Math.abs(quanChengs.get(i).getGuanYa()-quanChengs.get(i+3).getGuanYa())>=30 ){
+                    //连续的时候超出了一定的数值，就开始判断
+
+                    stepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
+                    stepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
+                    stepTemplate.setEndStress(quanChengs.get(i-1).getGuanYa().intValue());
+                    stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+
+                    if (quanChengs.get(i).getGuanYa()>quanChengs.get(i).getGuanYa()){
+                        //下一段相对于自己来说是升还是降，1为升，-1为降。
+                        stepTemplate.setNextStart(1);
+                    }else {
+                        stepTemplate.setNextStart(-1);
+                    }
+                    //设置下一个节点
+                    nextStepTemplate = new FiveStepTemplate();
+                    stepTemplate.setNext(nextStepTemplate);
+                    resGuanYa.add(stepTemplate);
+                    nextStepTemplate.setStartStress(quanChengs.get(i).getGuanYa().intValue());
+                    //向前走三步，看是升，还是降。
+                    if(quanChengs.get(i).getGuanYa()>quanChengs.get(i+1).getGuanYa() &&
+                            quanChengs.get(i+1).getGuanYa()>quanChengs.get(i+2).getGuanYa()){
+                        nextStepTemplate.setIsStable(-1);
+                    }else {
+                        nextStepTemplate.setIsStable(1);
+                    }
+                    flag_float = 1;
+                    nextStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
+                    nextStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
+                }
+            }else if (flag_float==1){
+                //当出于上升或者下降的时候。
+                if (Math.abs(quanChengs.get(i).getGuanYa()-quanChengs.get(i+1).getGuanYa())<=20
+                        &&Math.abs(quanChengs.get(i).getGuanYa()-quanChengs.get(i+2).getGuanYa())<=20
+                        &&Math.abs(quanChengs.get(i).getGuanYa()-quanChengs.get(i+3).getGuanYa())<=20 ){
+                    //设置该节点
+                    nextStepTemplate.setEnd(quanChengs.get(i).getXuHao());
+                    nextStepTemplate.setEndTime(quanChengs.get(i).getDateTime());
+                    nextStepTemplate.setEndStress(quanChengs.get(i).getGuanYa().intValue());
+                    flag_float = 0;
+                    nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+                    stepTemplate = new FiveStepTemplate();
+                    stepTemplate.setIsStable(0);
+                    stepTemplate.setStartTime(quanChengs.get(i).getDateTime());
+                    stepTemplate.setStart(quanChengs.get(i).getXuHao());
+                    stepTemplate.setStartStress(quanChengs.get(i).getGuanYa().intValue());
+                    nextStepTemplate.setNext(stepTemplate);
+                    resGuanYa.add(nextStepTemplate);
+                }
+            }
+        }
+        //把最后一段加上
+        if(nextStepTemplate.getEnd()==null){
+            stepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            stepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            stepTemplate.setEndStress(quanChengs.get(length-1).getGuanYa().intValue());
+            stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+            resGuanYa.add(stepTemplate);
+        }else {
+            nextStepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            nextStepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            nextStepTemplate.setEndStress(quanChengs.get(length-1).getGuanYa().intValue());
+            nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+            resGuanYa.add(nextStepTemplate);
+        }
+        return resGuanYa;
+
+    }
+    public static List<FiveStepTemplate> GangYaTemplateTest(List<QuanCheng> quanChengs){
+        /*
+          按照一般的来说就是肯定是先平，或者先升来着。
+          平与升或降交替变换。
+          其次刚开始设置为默认的为平。
+          当平或者升都需要通过3s来验证。
+         */
+        int flag_float = 0;
+        List<FiveStepTemplate> resGangYa = new ArrayList<>();
+        //两个进行交替
+        FiveStepTemplate stepTemplate = new FiveStepTemplate();
+        FiveStepTemplate nextStepTemplate = new FiveStepTemplate();
+        //0设置为平。
+        stepTemplate.setIsStable(0);
+        stepTemplate.setStart(quanChengs.get(0).getXuHao());
+        stepTemplate.setStartTime(quanChengs.get(0).getDateTime());
+        stepTemplate.setStartStress(quanChengs.get(0).getGangYa().intValue());
+        int length = quanChengs.size();
+        for (int i =1;i<length-3;i++){
+            //分为两种情况，一种是出于平的时候，一种是出于升降的时候。
+            if (flag_float==0){
+                //当出于平的时候，flag_float是为0，而这个时候寻找到连续的几个升降点。
+                if (Math.abs(quanChengs.get(i).getGangYa()-quanChengs.get(i+1).getGangYa())>=20
+                        &&Math.abs(quanChengs.get(i).getGangYa()-quanChengs.get(i+2).getGangYa())>=30
+                        &&Math.abs(quanChengs.get(i).getGangYa()-quanChengs.get(i+3).getGangYa())>=30 ){
+                    //连续的时候超出了一定的数值，就开始判断
+
+                    stepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
+                    stepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
+                    stepTemplate.setEndStress(quanChengs.get(i-1).getGangYa().intValue());
+                    stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+
+                    if (quanChengs.get(i).getGangYa()>quanChengs.get(i).getGangYa()){
+                        //下一段相对于自己来说是升还是降，1为升，-1为降。
+                        stepTemplate.setNextStart(1);
+                    }else {
+                        stepTemplate.setNextStart(-1);
+                    }
+                    //设置下一个节点
+                    nextStepTemplate = new FiveStepTemplate();
+                    stepTemplate.setNext(nextStepTemplate);
+                    resGangYa.add(stepTemplate);
+                    nextStepTemplate.setStartStress(quanChengs.get(i).getGangYa().intValue());
+                    //向前走三步，看是升，还是降。
+                    if(quanChengs.get(i).getGangYa()>quanChengs.get(i+1).getGangYa() &&
+                            quanChengs.get(i+1).getGangYa()>quanChengs.get(i+2).getGangYa()){
+                        nextStepTemplate.setIsStable(-1);
+                    }else {
+                        nextStepTemplate.setIsStable(1);
+                    }
+                    flag_float = 1;
+                    nextStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
+                    nextStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
+                }
+            }else if (flag_float==1){
+                //当出于上升或者下降的时候。
+                if (Math.abs(quanChengs.get(i).getGangYa()-quanChengs.get(i+1).getGangYa())<=20
+                        &&Math.abs(quanChengs.get(i).getGangYa()-quanChengs.get(i+2).getGangYa())<=20
+                        &&Math.abs(quanChengs.get(i).getGangYa()-quanChengs.get(i+3).getGangYa())<=20 ){
+                    //设置该节点
+                    nextStepTemplate.setEnd(quanChengs.get(i).getXuHao());
+                    nextStepTemplate.setEndTime(quanChengs.get(i).getDateTime());
+                    nextStepTemplate.setEndStress(quanChengs.get(i).getGangYa().intValue());
+                    flag_float = 0;
+                    nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+                    stepTemplate = new FiveStepTemplate();
+                    stepTemplate.setIsStable(0);
+                    stepTemplate.setStartTime(quanChengs.get(i).getDateTime());
+                    stepTemplate.setStart(quanChengs.get(i).getXuHao());
+                    stepTemplate.setStartStress(quanChengs.get(i).getGangYa().intValue());
+                    nextStepTemplate.setNext(stepTemplate);
+                    resGangYa.add(nextStepTemplate);
+                }
+            }
+        }
+        //把最后一段加上
+        if(nextStepTemplate.getEnd()==null){
+            stepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            stepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            stepTemplate.setEndStress(quanChengs.get(length-1).getGangYa().intValue());
+            stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+            resGangYa.add(stepTemplate);
+        }else {
+            nextStepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            nextStepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            nextStepTemplate.setEndStress(quanChengs.get(length-1).getGangYa().intValue());
+            nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+            resGangYa.add(nextStepTemplate);
+        }
+        return resGangYa;
+
+    }
+    public static List<FiveStepTemplate> JunGang1TemplateTest(List<QuanCheng> quanChengs){
+        /*
+          按照一般的来说就是肯定是先平，或者先升来着。
+          平与升或降交替变换。
+          其次刚开始设置为默认的为平。
+          当平或者升都需要通过3s来验证。
+         */
+        int flag_float = 0;
+        List<FiveStepTemplate> resJunGang1 = new ArrayList<>();
+        //两个进行交替
+        FiveStepTemplate stepTemplate = new FiveStepTemplate();
+        FiveStepTemplate nextStepTemplate = new FiveStepTemplate();
+        //0设置为平。
+        stepTemplate.setIsStable(0);
+        stepTemplate.setStart(quanChengs.get(0).getXuHao());
+        stepTemplate.setStartTime(quanChengs.get(0).getDateTime());
+        stepTemplate.setStartStress(quanChengs.get(0).getJunGang1().intValue());
+        int length = quanChengs.size();
+        for (int i =1;i<length-3;i++){
+            //分为两种情况，一种是出于平的时候，一种是出于升降的时候。
+            if (flag_float==0){
+                //当出于平的时候，flag_float是为0，而这个时候寻找到连续的几个升降点。
+                if (Math.abs(quanChengs.get(i).getJunGang1()-quanChengs.get(i+1).getJunGang1())>=20
+                        &&Math.abs(quanChengs.get(i).getJunGang1()-quanChengs.get(i+2).getJunGang1())>=30
+                        &&Math.abs(quanChengs.get(i).getJunGang1()-quanChengs.get(i+3).getJunGang1())>=30 ){
+                    //连续的时候超出了一定的数值，就开始判断
+
+                    stepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
+                    stepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
+                    stepTemplate.setEndStress(quanChengs.get(i-1).getJunGang1().intValue());
+                    stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+
+                    if (quanChengs.get(i).getJunGang1()>quanChengs.get(i).getJunGang1()){
+                        //下一段相对于自己来说是升还是降，1为升，-1为降。
+                        stepTemplate.setNextStart(1);
+                    }else {
+                        stepTemplate.setNextStart(-1);
+                    }
+                    //设置下一个节点
+                    nextStepTemplate = new FiveStepTemplate();
+                    stepTemplate.setNext(nextStepTemplate);
+                    resJunGang1.add(stepTemplate);
+                    nextStepTemplate.setStartStress(quanChengs.get(i).getJunGang1().intValue());
+                    //向前走三步，看是升，还是降。
+                    if(quanChengs.get(i).getJunGang1()>quanChengs.get(i+1).getJunGang1() &&
+                            quanChengs.get(i+1).getJunGang1()>quanChengs.get(i+2).getJunGang1()){
+                        nextStepTemplate.setIsStable(-1);
+                    }else {
+                        nextStepTemplate.setIsStable(1);
+                    }
+                    flag_float = 1;
+                    nextStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
+                    nextStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
+                }
+            }else if (flag_float==1){
+                //当出于上升或者下降的时候。
+                if (Math.abs(quanChengs.get(i).getJunGang1()-quanChengs.get(i+1).getJunGang1())<=20
+                        &&Math.abs(quanChengs.get(i).getJunGang1()-quanChengs.get(i+2).getJunGang1())<=20
+                        &&Math.abs(quanChengs.get(i).getJunGang1()-quanChengs.get(i+3).getJunGang1())<=20 ){
+                    //设置该节点
+                    nextStepTemplate.setEnd(quanChengs.get(i).getXuHao());
+                    nextStepTemplate.setEndTime(quanChengs.get(i).getDateTime());
+                    nextStepTemplate.setEndStress(quanChengs.get(i).getJunGang1().intValue());
+                    flag_float = 0;
+                    nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+                    stepTemplate = new FiveStepTemplate();
+                    stepTemplate.setIsStable(0);
+                    stepTemplate.setStartTime(quanChengs.get(i).getDateTime());
+                    stepTemplate.setStart(quanChengs.get(i).getXuHao());
+                    stepTemplate.setStartStress(quanChengs.get(i).getJunGang1().intValue());
+                    nextStepTemplate.setNext(stepTemplate);
+                    resJunGang1.add(nextStepTemplate);
+                }
+            }
+        }
+        //把最后一段加上
+        if(nextStepTemplate.getEnd()==null){
+            stepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            stepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            stepTemplate.setEndStress(quanChengs.get(length-1).getJunGang1().intValue());
+            stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+            resJunGang1.add(stepTemplate);
+        }else {
+            nextStepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            nextStepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            nextStepTemplate.setEndStress(quanChengs.get(length-1).getJunGang1().intValue());
+            nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+            resJunGang1.add(nextStepTemplate);
+        }
+        return resJunGang1;
+
+    }
+    public static List<FiveStepTemplate> JunGang2TemplateTest(List<QuanCheng> quanChengs){
+        /*
+          按照一般的来说就是肯定是先平，或者先升来着。
+          平与升或降交替变换。
+          其次刚开始设置为默认的为平。
+          当平或者升都需要通过3s来验证。
+         */
+        int flag_float = 0;
+        List<FiveStepTemplate> resJunGang2 = new ArrayList<>();
+        //两个进行交替
+        FiveStepTemplate stepTemplate = new FiveStepTemplate();
+        FiveStepTemplate nextStepTemplate = new FiveStepTemplate();
+        //0设置为平。
+        stepTemplate.setIsStable(0);
+        stepTemplate.setStart(quanChengs.get(0).getXuHao());
+        stepTemplate.setStartTime(quanChengs.get(0).getDateTime());
+        stepTemplate.setStartStress(quanChengs.get(0).getJunGang2().intValue());
+        int length = quanChengs.size();
+        for (int i =1;i<length-3;i++){
+            //分为两种情况，一种是出于平的时候，一种是出于升降的时候。
+            if (flag_float==0){
+                //当出于平的时候，flag_float是为0，而这个时候寻找到连续的几个升降点。
+                if (Math.abs(quanChengs.get(i).getJunGang2()-quanChengs.get(i+1).getJunGang2())>=20
+                        &&Math.abs(quanChengs.get(i).getJunGang2()-quanChengs.get(i+2).getJunGang2())>=30
+                        &&Math.abs(quanChengs.get(i).getJunGang2()-quanChengs.get(i+3).getJunGang2())>=30 ){
+                    //连续的时候超出了一定的数值，就开始判断
+
+                    stepTemplate.setEndTime(quanChengs.get(i-1).getDateTime());
+                    stepTemplate.setEnd(quanChengs.get(i-1).getXuHao());
+                    stepTemplate.setEndStress(quanChengs.get(i-1).getJunGang2().intValue());
+                    stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+
+                    if (quanChengs.get(i).getJunGang2()>quanChengs.get(i).getJunGang2()){
+                        //下一段相对于自己来说是升还是降，1为升，-1为降。
+                        stepTemplate.setNextStart(1);
+                    }else {
+                        stepTemplate.setNextStart(-1);
+                    }
+                    //设置下一个节点
+                    nextStepTemplate = new FiveStepTemplate();
+                    stepTemplate.setNext(nextStepTemplate);
+                    resJunGang2.add(stepTemplate);
+                    nextStepTemplate.setStartStress(quanChengs.get(i).getJunGang2().intValue());
+                    //向前走三步，看是升，还是降。
+                    if(quanChengs.get(i).getJunGang2()>quanChengs.get(i+1).getJunGang2() &&
+                            quanChengs.get(i+1).getJunGang2()>quanChengs.get(i+2).getJunGang2()){
+                        nextStepTemplate.setIsStable(-1);
+                    }else {
+                        nextStepTemplate.setIsStable(1);
+                    }
+                    flag_float = 1;
+                    nextStepTemplate.setStart(quanChengs.get(i-1).getXuHao());
+                    nextStepTemplate.setStartTime(quanChengs.get(i-1).getDateTime());
+                }
+            }else if (flag_float==1){
+                //当出于上升或者下降的时候。
+                if (Math.abs(quanChengs.get(i).getJunGang2()-quanChengs.get(i+1).getJunGang2())<=20
+                        &&Math.abs(quanChengs.get(i).getJunGang2()-quanChengs.get(i+2).getJunGang2())<=20
+                        &&Math.abs(quanChengs.get(i).getJunGang2()-quanChengs.get(i+3).getJunGang2())<=20 ){
+                    //设置该节点
+                    nextStepTemplate.setEnd(quanChengs.get(i).getXuHao());
+                    nextStepTemplate.setEndTime(quanChengs.get(i).getDateTime());
+                    nextStepTemplate.setEndStress(quanChengs.get(i).getJunGang2().intValue());
+                    flag_float = 0;
+                    nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+                    stepTemplate = new FiveStepTemplate();
+                    stepTemplate.setIsStable(0);
+                    stepTemplate.setStartTime(quanChengs.get(i).getDateTime());
+                    stepTemplate.setStart(quanChengs.get(i).getXuHao());
+                    stepTemplate.setStartStress(quanChengs.get(i).getJunGang2().intValue());
+                    nextStepTemplate.setNext(stepTemplate);
+                    resJunGang2.add(nextStepTemplate);
+                }
+            }
+        }
+        //把最后一段加上
+        if(nextStepTemplate.getEnd()==null){
+            stepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            stepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            stepTemplate.setEndStress(quanChengs.get(length-1).getJunGang2().intValue());
+            stepTemplate.setContinueTime((int) ((stepTemplate.getEndTime().getTime()-stepTemplate.getStartTime().getTime())/1000));
+            resJunGang2.add(stepTemplate);
+        }else {
+            nextStepTemplate.setEndTime(quanChengs.get(length-1).getDateTime());
+            nextStepTemplate.setEnd(quanChengs.get(length-1).getXuHao());
+            nextStepTemplate.setEndStress(quanChengs.get(length-1).getJunGang2().intValue());
+            nextStepTemplate.setContinueTime((int) ((nextStepTemplate.getEndTime().getTime()-nextStepTemplate.getStartTime().getTime())/1000));
+            resJunGang2.add(nextStepTemplate);
+        }
+        return resJunGang2;
+
     }
 }
