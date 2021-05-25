@@ -11,23 +11,48 @@
         <if test="templateId!=null">
             template_id,
         </if>
-        <if test="continueTime!=null">
-            continue_time,
+
+        <if test="stressName!=null">
+            stress_name,
         </if>
-        <if test="startNumber!=null">
-            start_number,
+        <if test="maxStress!=null">
+            max_stress,
         </if>
-        <if test="endNumber!=null">
-            end_number,
+        <if test="minStress!=null">
+            min_stress,
+        </if>
+        <if test="maxTime!=null">
+            max_time,
+        </if>
+        <if test="minTime!=null">
+            min_time,
+        </if>
+        <if test="guanSort!=null and guanSort != ''">
+            guan_sort,
+        </if>
+        <if test="isEnd!=null">
+            is_end,
+        </if>
+        <if test="stateEnter!=null">
+            state_enter,
+        </if>
+        <if test="stateOut!=null">
+            state_out,
+        </if>
+        <if test="isStable!=null">
+            is_stable,
         </if>
         <if test="priorNumber!=null">
             prior_number,
         </if>
-    <if test="selectId!=null">
-        select_id,
-    </if>
-        <if test="stressName!=null and stressName!=''">
-            stress_name,
+        <if test="isDepend!=null">
+            is_depend,
+        </if>
+        <if test="startId!=null">
+            start_id,
+        </if>
+        <if test="endID!=null">
+            end_iD,
         </if>
     </trim>
 </sql>
@@ -38,23 +63,48 @@
             <if test="templateId!=null">
                 #{templateId},
             </if>
-            <if test="continueTime!=null">
-                #{continueTime},
+
+            <if test="stressName!=null">
+                #{stressName},
             </if>
-            <if test="startNumber!=null">
-                #{startNumber},
+            <if test="maxStress!=null">
+                #{maxStress},
             </if>
-            <if test="endNumber!=null">
-                #{endNumber},
+            <if test="minStress!=null">
+                #{minStress},
+            </if>
+            <if test="maxTime!=null">
+                #{maxTime},
+            </if>
+            <if test="minTime!=null">
+                #{minTime},
+            </if>
+            <if test="guanSort!=null and guanSort != ''">
+                #{guanSort},
+            </if>
+            <if test="isEnd!=null">
+                #{isEnd},
+            </if>
+            <if test="stateEnter!=null">
+                #{stateEnter},
+            </if>
+            <if test="stateOut!=null">
+                #{stateOut},
+            </if>
+            <if test="isStable!=null">
+                #{isStable},
             </if>
             <if test="priorNumber!=null">
                 #{priorNumber},
             </if>
-            <if test="selectId!=null">
-                #{selectId},
+            <if test="isDepend!=null">
+                #{isDepend},
             </if>
-            <if test="stressName!=null and stressName!=''">
-                #{stressName},
+            <if test="startId!=null">
+                #{startId},
+            </if>
+            <if test="endID!=null">
+                #{endID},
             </if>
         </trim>
     </sql>

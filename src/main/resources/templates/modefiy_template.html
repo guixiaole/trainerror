@@ -30,8 +30,8 @@
     li {
       display: block;
       background-color: #28aedd;
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 240px;
       float: left;
     }
     li span {
@@ -58,7 +58,7 @@
     .add_template {
       display: none;
       width: 200px;
-      height: 220px;
+      height: 280px;
       background-color: #28aedd;
       position: absolute;
       top: 150px;
@@ -92,7 +92,9 @@
           <span>管压</span>
           <span>最大值：[[${guanya.startNumber}]]</span>
           <span>最小值 [[${guanya.endNumber}]]</span>
-          <span> 持续时间：[[${guanya.continueTime}]]s </span>
+          <span> 最小时间：[[${guanya.minTime}]]s </span>
+          <span> 最大时间：[[${guanya.maxTime}]]s </span>
+          <span class="is_stable">[[${guanya.isStable}]]</span>
           <span class="gangyatongbu">同步压力：</span>
         </li>
         <span class="jiantou1"></span>
@@ -105,7 +107,9 @@
           <span>管压</span>
           <span>最大值：[[${gangya.startNumber}]]</span>
           <span>最小值 [[${gangya.endNumber}]]</span>
-          <span> 持续时间：[[${gangya.continueTime}]]s </span>
+          <span> 最小时间：[[${gangya.minTime}]]s </span>
+          <span> 最大时间：[[${gangya.maxTime}]]s </span>
+          <span class="is_stable">[[${gangya.isStable}]]</span>
           <span class="guanyatongbu">同步压力：</span>
         </li>
       </ul>
@@ -117,7 +121,9 @@
           <span>管压</span>
           <span>最大值：[[${jungang.startNumber}]]</span>
           <span>最小值 [[${jungang.endNumber}]]</span>
-          <span> 持续时间：[[${jungang.continueTime}]]s </span>
+          <span> 最小时间：[[${jungang.minTime}]]s </span>
+          <span> 最大时间：[[${jungang.maxTime}]]s </span>
+          <span class="is_stable">[[${jungang.isStable}]]</span>
           <span class="jungangtongbu">同步压力：</span>
         </li>
       </ul>
@@ -133,8 +139,19 @@
         </span>
         <span> 最大值 <input type="text" name="startNumber"/> </span>
         <span>最小值<input type="text" name="endNumber"/> </span>
-        <span> 持续时间<input type="number" name="continueTime"/></span>
+        <span> 最小时间<input type="number" name="minTime"/></span>
+        <span> 最大时间<input type="number" name="maxTime"/></span>
         <input type="hidden" th:value="${templateId}" name="templateId">
+        <span>
+         曲线程度
+          <select class="select_nandu" name="isStable">
+              <option value="0">平</option>
+              <option value="1">上升</option>
+              <option value="-1">下降</option>
+
+          </select>
+        </span>
+
         <span>
           同步压力
           <select class="select_nandu" name="tongbu">
@@ -150,6 +167,18 @@
     </div>
   </body>
   <script type="text/javascript" th:inline="javascript">
+    var is_stable = document.getElementsByClassName('is_stable')
+    for (let i = 0;i<is_stable.length;i++){
+      console.log(is_stable[i].innerText)
+      if (is_stable[i].innerText ==0){
+        is_stable[i].innerText = "曲线趋势：平稳"
+      }else if(is_stable[i].innerText ==1){
+        is_stable[i].innerText = "曲线趋势：上升"
+      }else {
+        is_stable[i].innerText = "曲线趋势：下降"
+      }
+    }
+
     for (let i = 1; i <= 3; i++) {
       let jiantou = document.getElementsByClassName('jiantou' + i)
       if(jiantou.length>=1){

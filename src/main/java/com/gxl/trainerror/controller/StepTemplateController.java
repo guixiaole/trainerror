@@ -41,34 +41,35 @@ public class StepTemplateController {
         model.addAttribute("templateId",id);
         return"modefiy_template";
     }
-    @RequestMapping("addTemplateSelect")
-    public String addTemplateSelect(StepSelect select,
-                                    @RequestParam("tongbu")String tongBustressName,
-                                    @RequestParam("tongbuNumber")Integer tongBuPrior,
-                                    Model model){
-        if (!tongBustressName.equals("无")){
-            System.out.println(tongBustressName.equals("无"));
-         StepSelect tongbu =  stepSelectService.selectIdPriorName(select.getTemplateId(),tongBustressName,tongBuPrior);
-         select.setSelectId(tongbu.getTemplateId());
-        }
-        Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
-        select.setPriorNumber(prior+1);
-        if(Math.abs(select.getStartNumber()-select.getEndNumber())<=20){
-            select.setIsStable(0);
-        }else if(select.getStartNumber()>select.getEndNumber()){
-            select.setIsStable(-1);
-        }else {
-            select.setIsStable(1);
-        }
-        stepSelectService.insertStepSelect(select);
-        List<StepSelect> guanya = stepSelectService.selectByIdAndName(select.getTemplateId(),"管压");
-        List<StepSelect> gangya = stepSelectService.selectByIdAndName(select.getTemplateId(),"缸压");
-        List<StepSelect> jungang = stepSelectService.selectByIdAndName(select.getTemplateId(),"均缸");
-        model.addAttribute("guanyas",guanya);
-        model.addAttribute("gangyas",gangya);
-        model.addAttribute("jungangs",jungang);
-        model.addAttribute("templateId",select.getTemplateId());
+//    @RequestMapping("addTemplateSelect")
+//   public String addTemplateSelect(StepSelect select,
+//                                    @RequestParam("tongbu")String tongBustressName,
+//                                     @RequestParam("tongbuNumber")Integer tongBuPrior,
+//                                    Model model){
+//        if (!tongBustressName.equals("无")){
+//            System.out.println(tongBustressName.equals("无"));
+//         StepSelect tongbu =  stepSelectService.selectIdPriorName(select.getTemplateId(),tongBustressName,tongBuPrior);
+//         select.setSelectId(tongbu.getTemplateId());
+//        }
+//        Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
+//        select.setPriorNumber(prior+1);
+//        if(select.getMaxTime()==null){
+//            //如果没有设置就设置成 一个特别大的值
+//            select.setMaxTime(100000);
+//        }
+//        if(select.getMinTime()==null){
+//            select.setMinTime(0);
+//        }
+//        stepSelectService.insertStepSelect(select);
+//        List<StepSelect> guanya = stepSelectService.selectByIdAndName(select.getTemplateId(),"管压");
+//        List<StepSelect> gangya = stepSelectService.selectByIdAndName(select.getTemplateId(),"缸压");
+//        List<StepSelect> jungang = stepSelectService.selectByIdAndName(select.getTemplateId(),"均缸");
+//        model.addAttribute("guanyas",guanya);
+//        model.addAttribute("gangyas",gangya);
+//        model.addAttribute("jungangs",jungang);
+//        model.addAttribute("templateId",select.getTemplateId());
+//
+//        return  "modefiy_template";
+//    }
 
-        return  "modefiy_template";
-    }
 }

@@ -15,24 +15,29 @@ public class StepSelect {
     private Integer id;
     //模板id
     private Integer templateId;
-    //持续的时间
-    private Integer continueTime;
-    //开始的压力
-    private Integer startNumber;
-    //结束的压力
-    private Integer endNumber;
-    //优先权的处理
-    private Integer priorNumber;
-    //需要的压力名字
+    //压力名字
     private String stressName;
-    //需要同步的时候，
-    private Integer selectId;
-    //0为这段稳定，1为这段上升，-1为这段下降。
-    private Integer isStable;
-    //一对一查询
-    private StepSelect select;
-    //最大最小世间。当最大时间默认为最大的数据
+    //高低范围
+    private Integer maxStress;
+    private Integer minStress;
+    //长短范围
     private Integer maxTime;
-    //最小时间，默认的为0；
     private Integer minTime;
+    //压力排序
+    private String guanSort;
+    //是否结束
+    private Integer isEnd;
+    //以什么样的状态进入与出去
+    private Integer stateEnter;
+    private Integer stateOut;
+    //该线段处于什么状态
+    private Integer isStable;
+    //关于在同类中的优先权
+    private Integer priorNumber;
+    //是否依赖其它压力 都默认为-1
+    private Integer isDepend;
+    private Integer startId;
+    private Integer endID;
+    private Integer sortNumber;
+
 }

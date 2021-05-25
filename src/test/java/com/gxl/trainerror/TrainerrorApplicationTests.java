@@ -55,7 +55,7 @@ class TrainerrorApplicationTests {
         stepSelects.add(guanya);
         stepSelects.add(gangya);
         stepSelects.add(jungang);
-        FiveStepTemplate fiveStepTemplate = StepTemplateUtil.stepFinder(quanChengs1,fiveStep,stepSelects);
-        System.out.println(fiveStepTemplate);
+//        FiveStepTemplate fiveStepTemplate = StepTemplateUtil.stepFinder(quanChengs1,fiveStep,stepSelects);
+//        System.out.println(fiveStepTemplate);
     }
 }

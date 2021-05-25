@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class AllTemplate {
     private Integer id;
     private String templateName;
+    //压力排序
+    private String guanSort;
 }
