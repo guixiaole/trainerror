@@ -20,4 +20,9 @@ public class AllTemplateServiceImpl implements AllTemplateService {
     public Integer insert(AllTemplate allTemplate) {
         return allTemplateMapper.insertTemplate(allTemplate);
     }
+
+    @Override
+    public AllTemplate selectById(Integer id) {
+        return allTemplateMapper.selectById(id);
+    }
 }

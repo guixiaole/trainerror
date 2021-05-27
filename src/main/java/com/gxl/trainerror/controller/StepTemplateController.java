@@ -19,6 +19,7 @@ public class StepTemplateController {
     private AllTemplateService allTemplateService;
     @Autowired
     private StepSelectService stepSelectService;
+
     @RequestMapping("/templateIndex")
     public String TmeplateIndex(Model model){
         List<AllTemplate> allTemplates =allTemplateService.index();
@@ -41,26 +42,49 @@ public class StepTemplateController {
         model.addAttribute("templateId",id);
         return"modefiy_template";
     }
-//    @RequestMapping("addTemplateSelect")
-//   public String addTemplateSelect(StepSelect select,
-//                                    @RequestParam("tongbu")String tongBustressName,
-//                                     @RequestParam("tongbuNumber")Integer tongBuPrior,
-//                                    Model model){
-//        if (!tongBustressName.equals("无")){
-//            System.out.println(tongBustressName.equals("无"));
-//         StepSelect tongbu =  stepSelectService.selectIdPriorName(select.getTemplateId(),tongBustressName,tongBuPrior);
-//         select.setSelectId(tongbu.getTemplateId());
-//        }
-//        Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
-//        select.setPriorNumber(prior+1);
-//        if(select.getMaxTime()==null){
-//            //如果没有设置就设置成 一个特别大的值
-//            select.setMaxTime(100000);
-//        }
-//        if(select.getMinTime()==null){
-//            select.setMinTime(0);
-//        }
-//        stepSelectService.insertStepSelect(select);
+    @RequestMapping("addTemplateSelect")
+   public String addTemplateSelect(StepSelect select,
+                                    Model model){
+        if(select.getIsDepend()!=-1 ){
+            String dependStress = "管";
+            if(select.getIsDepend()==2){
+                dependStress = "缸";
+            }else if(select.getIsDepend()==3){
+                dependStress = "均";
+            }
+            if (dependStress.equals(select.getStressName())){
+                select.setIsDepend(-1);
+            }else {
+                int allCount = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
+                if (select.getStartId()>select.getEndID()){
+                    int temp= select.getStartId();
+                    select.setStartId(select.getEndID());
+                    select.setEndID(temp);
+                }
+                if (select.getStartId()>allCount || select.getEndID()>allCount){
+                    select.setStartId(-1);
+                    select.setEndID(-1);
+                }
+            }
+        }
+        AllTemplate allTemplate = allTemplateService.selectById(select.getTemplateId());
+        select.setGuanSort(allTemplate.getGuanSort());
+        Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
+        select.setPriorNumber(prior+1);
+        if(select.getMaxTime()==null){
+            //如果没有设置就设置成 一个特别大的值
+            select.setMaxTime(100000);
+        }
+        if(select.getMinTime()==null){
+            select.setMinTime(0);
+        }
+        if(select.getMaxStress()<select.getMinStress()){
+            int max = select.getMaxStress();
+            int min = select.getMinStress();
+            select.setMaxStress(min);
+            select.setMinStress(max);
+        }
+        stepSelectService.insertStepSelect(select);
 //        List<StepSelect> guanya = stepSelectService.selectByIdAndName(select.getTemplateId(),"管压");
 //        List<StepSelect> gangya = stepSelectService.selectByIdAndName(select.getTemplateId(),"缸压");
 //        List<StepSelect> jungang = stepSelectService.selectByIdAndName(select.getTemplateId(),"均缸");
@@ -68,8 +92,8 @@ public class StepTemplateController {
 //        model.addAttribute("gangyas",gangya);
 //        model.addAttribute("jungangs",jungang);
 //        model.addAttribute("templateId",select.getTemplateId());
-//
-//        return  "modefiy_template";
-//    }
+
+        return  "redirect:/modefiyTemplate?id="+select.getTemplateId();
+    }
 
 }

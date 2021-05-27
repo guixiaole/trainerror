@@ -28,6 +28,7 @@ public class StepSelect {
     //是否结束
     private Integer isEnd;
     //以什么样的状态进入与出去
+    //1是高。-1是低
     private Integer stateEnter;
     private Integer stateOut;
     //该线段处于什么状态

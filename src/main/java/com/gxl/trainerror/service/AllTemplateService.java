@@ -9,4 +9,5 @@ import java.util.List;
 public interface AllTemplateService {
     public List<AllTemplate> index();
     public Integer insert(AllTemplate allTemplate);
+    public AllTemplate selectById(Integer id);
 }

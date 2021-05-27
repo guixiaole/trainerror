@@ -137,30 +137,36 @@
             <option value="均缸">均缸</option>
           </select>
         </span>
-        <span> 最大值 <input type="text" name="startNumber"/> </span>
-        <span>最小值<input type="text" name="endNumber"/> </span>
+        <span> 最大值 <input type="text" name="maxStress"/> </span>
+        <span>最小值<input type="text" name="minStress"/> </span>
         <span> 最小时间<input type="number" name="minTime"/></span>
         <span> 最大时间<input type="number" name="maxTime"/></span>
         <input type="hidden" th:value="${templateId}" name="templateId">
         <span>
-         曲线程度
-          <select class="select_nandu" name="isStable">
-              <option value="0">平</option>
-              <option value="1">上升</option>
-              <option value="-1">下降</option>
-
-          </select>
-        </span>
-
+          高低进入
+        <select class="select_nandu" name="stateEnter">
+          <option value="0">无</option>
+          <option value="1">高</option>
+          <option value="-1">低</option>
+        </select>
+          </span>
+        <span>
+          高低离开
+        <select class="select_nandu" name="stateOut">
+          <option value="0">无</option>
+          <option value="1">高</option>
+          <option value="-1">低</option>
+        </select>
+          </span>
         <span>
           同步压力
-          <select class="select_nandu" name="tongbu">
-              <option value="无">无</option>
-              <option value="管压">管压</option>
-              <option value="缸压">缸压</option>
-              <option value="均缸">均缸</option>
+          <select class="select_nandu" name="isDepend">
+              <option value="-1">无</option>
+              <option value="1">管压</option>
+              <option value="2">缸压</option>
+              <option value="3">均缸</option>
           </select>
-          <span>压力顺序<input type="number" name="tongbuNumber" value="0"/></span>
+          <span>同步开始<input type="number" name="tongbuNumber" value="0"/></span>
         </span>
         <button class="add_btn">增加</button>
       </form>
