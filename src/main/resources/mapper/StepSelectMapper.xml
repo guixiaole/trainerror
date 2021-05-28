@@ -54,6 +54,9 @@
         <if test="endID!=null">
             end_iD,
         </if>
+        <if test="sortNumber!=null">
+            sort_number,
+        </if>
     </trim>
 </sql>
 
@@ -105,6 +108,9 @@
             </if>
             <if test="endID!=null">
                 #{endID},
+            </if>
+            <if test="sortNumber!=null">
+                #{sortNumber},
             </if>
         </trim>
     </sql>

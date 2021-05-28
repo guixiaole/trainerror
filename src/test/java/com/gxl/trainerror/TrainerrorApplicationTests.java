@@ -1,9 +1,6 @@
 package com.gxl.trainerror;
 
-import com.gxl.trainerror.bean.FileInfo;
-import com.gxl.trainerror.bean.FiveStepTemplate;
-import com.gxl.trainerror.bean.QuanCheng;
-import com.gxl.trainerror.bean.StepSelect;
+import com.gxl.trainerror.bean.*;
 import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
 import com.gxl.trainerror.service.StepSelectService;
@@ -57,5 +54,23 @@ class TrainerrorApplicationTests {
         stepSelects.add(jungang);
 //        FiveStepTemplate fiveStepTemplate = StepTemplateUtil.stepFinder(quanChengs1,fiveStep,stepSelects);
 //        System.out.println(fiveStepTemplate);
+    }
+    @Test
+    void TestStepUtil(){
+        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1237);
+        List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
+        List<StepSelect> guanya = stepSelectService.selectByIdAndName(1,"管");
+        List<StepSelect> gangya = stepSelectService.selectByIdAndName(1,"列");
+        List<StepSelect> jungang = stepSelectService.selectByIdAndName(1,"均");
+        List<List<StepSelect>> stepSelects = new ArrayList<>();
+        stepSelects.add(guanya);
+        stepSelects.add(gangya);
+        stepSelects.add(jungang);
+        List<List<ZhuanDian>> res = StepTemplateUtil.stepFinder("管均列",stepSelects,quanChengs1);
+        for (List<ZhuanDian> re : res) {
+            for (ZhuanDian zhuanDian : re) {
+                System.out.println(zhuanDian);
+            }
+        }
     }
 }

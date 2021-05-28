@@ -33,9 +33,9 @@ public class StepTemplateController {
     }
     @RequestMapping("modefiyTemplate")
     public  String modefiyTemplate(@RequestParam("id")Integer id,Model model){
-        List<StepSelect> guanya = stepSelectService.selectByIdAndName(id,"管压");
-        List<StepSelect> gangya = stepSelectService.selectByIdAndName(id,"缸压");
-        List<StepSelect> jungang = stepSelectService.selectByIdAndName(id,"均缸");
+        List<StepSelect> guanya = stepSelectService.selectByIdAndName(id,"管");
+        List<StepSelect> gangya = stepSelectService.selectByIdAndName(id,"列");
+        List<StepSelect> jungang = stepSelectService.selectByIdAndName(id,"均");
         model.addAttribute("guanyas",guanya);
         model.addAttribute("gangyas",gangya);
         model.addAttribute("jungangs",jungang);
@@ -71,6 +71,13 @@ public class StepTemplateController {
         select.setGuanSort(allTemplate.getGuanSort());
         Integer prior = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
         select.setPriorNumber(prior+1);
+        if(select.getStressName().charAt(0)==allTemplate.getGuanSort().charAt(0)){
+            select.setSortNumber(1);
+        }else if (select.getStressName().charAt(0)==allTemplate.getGuanSort().charAt(1)){
+            select.setSortNumber(2);
+        }else {
+            select.setSortNumber(3);
+        }
         if(select.getMaxTime()==null){
             //如果没有设置就设置成 一个特别大的值
             select.setMaxTime(100000);

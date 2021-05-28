@@ -90,8 +90,8 @@
       <ul th:each="guanya :${guanyas}">
         <li>
           <span>管压</span>
-          <span>最大值：[[${guanya.startNumber}]]</span>
-          <span>最小值 [[${guanya.endNumber}]]</span>
+          <span>最大值：[[${guanya.maxStress}]]</span>
+          <span>最小值 [[${guanya.minStress}]]</span>
           <span> 最小时间：[[${guanya.minTime}]]s </span>
           <span> 最大时间：[[${guanya.maxTime}]]s </span>
           <span class="is_stable">[[${guanya.isDepend}]]</span>
@@ -105,11 +105,11 @@
       <ul th:each="gangya :${gangyas}">
         <li>
           <span>管压</span>
-          <span>最大值：[[${gangya.startNumber}]]</span>
-          <span>最小值 [[${gangya.endNumber}]]</span>
+          <span>最大值：[[${gangya.maxStress}]]</span>
+          <span>最小值 [[${gangya.minStress}]]</span>
           <span> 最小时间：[[${gangya.minTime}]]s </span>
           <span> 最大时间：[[${gangya.maxTime}]]s </span>
-          <span class="is_stable">[[${gangya.isStable}]]</span>
+          <span class="is_stable">[[${gangya.isDepend}]]</span>
           <span class="guanyatongbu">同步压力：</span>
         </li>
       </ul>
@@ -119,11 +119,11 @@
       <ul th:each="jungang :${jungangs}">
         <li>
           <span>管压</span>
-          <span>最大值：[[${jungang.startNumber}]]</span>
-          <span>最小值 [[${jungang.endNumber}]]</span>
+          <span>最大值：[[${jungang.maxStress}]]</span>
+          <span>最小值 [[${jungang.minStress}]]</span>
           <span> 最小时间：[[${jungang.minTime}]]s </span>
           <span> 最大时间：[[${jungang.maxTime}]]s </span>
-          <span class="is_stable">[[${jungang.isStable}]]</span>
+          <span class="is_stable">[[${jungang.isDepend}]]</span>
           <span class="jungangtongbu">同步压力：</span>
         </li>
       </ul>
@@ -132,9 +132,9 @@
     <div class="add_template" id="template_div">
       <form action="addTemplateSelect" method="post">
         <span> 压力 <select class="select_nandu" name="stressName">
-            <option value="管压">管压</option>
-            <option value="缸压">缸压</option>
-            <option value="均缸">均缸</option>
+            <option value="管">管压</option>
+            <option value="列">缸压</option>
+            <option value="均">均缸</option>
           </select>
         </span>
         <span> 最大值 <input type="text" name="maxStress"/> </span>
@@ -166,24 +166,15 @@
               <option value="2">缸压</option>
               <option value="3">均缸</option>
           </select>
-          <span>同步开始<input type="number" name="tongbuNumber" value="0"/></span>
+          <span>同步开始<input type="number" name="startId" value="0"/></span>
+          <span>同步结束<input type="number" name="endID" value="0"/></span>
         </span>
         <button class="add_btn">增加</button>
       </form>
     </div>
   </body>
   <script type="text/javascript" th:inline="javascript">
-    var is_stable = document.getElementsByClassName('is_stable')
-    for (let i = 0;i<is_stable.length;i++){
-      console.log(is_stable[i].innerText)
-      if (is_stable[i].innerText ==0){
-        is_stable[i].innerText = "曲线趋势：平稳"
-      }else if(is_stable[i].innerText ==1){
-        is_stable[i].innerText = "曲线趋势：上升"
-      }else {
-        is_stable[i].innerText = "曲线趋势：下降"
-      }
-    }
+
 
     for (let i = 1; i <= 3; i++) {
       let jiantou = document.getElementsByClassName('jiantou' + i)

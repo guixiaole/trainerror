@@ -39,6 +39,6 @@ public class StepSelect {
     private Integer isDepend;
     private Integer startId;
     private Integer endID;
+    //设置各管的优先序列
     private Integer sortNumber;
-
 }

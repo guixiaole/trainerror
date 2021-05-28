@@ -61,6 +61,9 @@ public class StepTemplateUtil {
 
                             //等于上一秒的时候
 //                            tempdate.setTime(tempdate);
+                            if (i>386){
+                                System.out.println(i);
+                            }
                             Date temp = null;
                             temp = (Date) lastDate.clone();
                             temp.setTime(temp.getTime()+1000);
@@ -284,7 +287,7 @@ public class StepTemplateUtil {
                 List<List<Integer>> guanyaStep = FirstShaiXuan(quanChengs,guanya.get(0));
                 if (guanyaStep.size()>0 && guanya.size()>1){
                    List<List<Integer>>res = getStartAndEnd(quanChengs,guanyaStep,guanya.get(1));
-                   int flag = 1;
+                   int flag = 2;
                    while (flag<guanya.size()){
                       res = getStartAndEnd(quanChengs,res,guanya.get(flag));
                       flag++;
@@ -326,9 +329,21 @@ public class StepTemplateUtil {
                 }
                 if (resAll.size()>0){
                     resZhuanDian = getZhuanDian(resAll,quanChengs,gangya);
+                    //这里得到的转点都是反方向的。
+
                 }
             }
         }
+        //因为之前是反转的。所以再将其反转回来。
+        List<List<ZhuanDian>> resTemp = new ArrayList<>();
+        for(int i = 0;i<resZhuanDian.size();i++){
+            List<ZhuanDian> temp = new ArrayList<>();
+            for (int j=resZhuanDian.get(i).size()-1;j>=0;j--){
+                temp.add(resZhuanDian.get(i).get(j));
+            }
+            resTemp.add(temp);
+        }
+        resZhuanDian = resTemp;
         List<List<ZhuanDian>> secondZhuanDian = new ArrayList<>();
         if(resAll.size()>0){
             //假设第一步已经获得了一些步骤。此时可以通过进行回溯找到相对应的步骤。已解决
@@ -779,7 +794,7 @@ public class StepTemplateUtil {
                 &&end-startAndEnd.get(1)<=stepSelect.getMaxTime()){
                 List<Integer> temps = new ArrayList<>();
                 temps.add(startAndEnd.get(1)+1);
-                temps.add(end);
+                temps.add(end-1);
                 res.add(temps);
             }
         }
@@ -911,13 +926,14 @@ public class StepTemplateUtil {
             List<ZhuanDian>zhuanDians = new ArrayList<>();
             //获取结束的标记
             Integer end = res.get(i).get(1);
-            for (int j = stepSelects.size();j>0;j--){
+            for (int j = stepSelects.size()-1;j>=0;j--){
                 //从后往前开始推。
                 StepSelect stepSelect = stepSelects.get(j);
                 ZhuanDian zhuanDian = new ZhuanDian();
                 if (j!=stepSelects.size()-1){
                     //当他不等于最后一个的时候，就可以进行相对应的截取的点
                     zhuanDian.setEndTime(quanChengs.get(end).getDateTime());
+                    zhuanDian.setEndPos(end);
                     zhuanDian.setRightStress(getStressNumber(quanChengs.get(end),stepSelect));
                     zhuanDian.setStepSelectId(stepSelect.getId());
                 }
@@ -947,8 +963,11 @@ public class StepTemplateUtil {
                     zhuanDian.setEndTime(quanChengs.get(startFirst).getDateTime());
                     zhuanDian.setRightStress(getStressNumber(quanChengs.get(startFirst),stepSelect));
                     zhuanDian.setStepSelectId(stepSelect.getId());
+                    zhuanDian.setEndPos(startFirst);
+               //要在这里加一个startpos 和endpos
                 }
                 zhuanDian.setStartTime(quanChengs.get(start).getDateTime());
+                zhuanDian.setStartPos(start);
                 zhuanDian.setLeftStress(getStressNumber(quanChengs.get(start),stepSelect));
                 zhuanDian.setMaxTime(maxTime);
                 zhuanDian.setMinTime(minTime);
@@ -962,9 +981,9 @@ public class StepTemplateUtil {
         return zhuanDianRes;
     }
     public static Integer getStressNumber(QuanCheng quanCheng,StepSelect stepSelect){
-        if(stepSelect.getStressName().equals('管')){
+        if(stepSelect.getStressName().equals("管")){
             return quanCheng.getGuanYa();
-        }else if (stepSelect.getStressName().equals('均')){
+        }else if (stepSelect.getStressName().equals("均")){
             return quanCheng.getJunGang1();
         }else {
             return quanCheng.getGangYa();
@@ -974,11 +993,11 @@ public class StepTemplateUtil {
         /*
         判断是否属于这个区间之内。
         */
-        if(select.getStressName().equals('管')){
+        if(select.getStressName().equals("管")){
             if (quanCheng.getGuanYa()>=select.getMinStress()&&quanCheng.getGuanYa()<=select.getMaxStress()){
                 return true;
             }
-        }else if (select.getStressName().equals('均')){
+        }else if (select.getStressName().equals("均")){
             if (quanCheng.getJunGang1()>=select.getMinStress()&&quanCheng.getJunGang1()<=select.getMaxStress()){
                 return true;
             }
@@ -994,26 +1013,27 @@ public class StepTemplateUtil {
             //如果有依靠
             int start = select.getStartId();
             int end = select.getEndID();
-            ZhuanDian startZhuanDian =null;
-            ZhuanDian endZhuanDian = null;
-            for (ZhuanDian zhuanDian : zhuanDians) {
-                if (start==zhuanDian.getStepSelectId()){
-                    startZhuanDian = zhuanDian;
-                }
-                if (end==zhuanDian.getStepSelectId()){
-                    endZhuanDian=zhuanDian;
-                }
-            }
+            ZhuanDian startZhuanDian =zhuanDians.get(start-1);
+            ZhuanDian endZhuanDian = zhuanDians.get(end-1);
+//            for (ZhuanDian zhuanDian : zhuanDians) {
+//                if (start==zhuanDian.getStepSelectId()){
+//                    startZhuanDian = zhuanDian;
+//                }
+//                if (end==zhuanDian.getStepSelectId()){
+//                    endZhuanDian=zhuanDian;
+//                }
+//            }
             int flag = 1;
             for(int p = startZhuanDian.getStartPos();p<=endZhuanDian.getEndPos();p++){
                 if (getStressNumber(quanChengs.get(p),select)>select.getMaxStress()
                         || getStressNumber(quanChengs.get(p),select)<select.getMinStress()) {
                     //如果在这里面就没关系。
-                    if (getStressNumber(quanChengs.get(p),select)-select.getMaxStress()<20||
-                            select.getMinStress()-getStressNumber(quanChengs.get(p),select)<20){
+                    if (Math.abs(getStressNumber(quanChengs.get(p),select)-select.getMaxStress())<20||
+                            Math.abs(select.getMinStress()-getStressNumber(quanChengs.get(p),select))<20){
                         flag=1;
                     }else {
                         flag = 0;
+                        break;
                     }
 
                 }
