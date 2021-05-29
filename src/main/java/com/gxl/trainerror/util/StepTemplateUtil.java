@@ -974,9 +974,23 @@ public class StepTemplateUtil {
                 zhuanDian.setMaxStress(maxStress);
                 zhuanDian.setMinStress(minStress);
                 //将其进行存储，带出去。
+                //还有关于全程文件的fileid
+                zhuanDian.setFileId(quanChengs.get(0).getFileId());
                 zhuanDians.add(zhuanDian);
             }
             zhuanDianRes.add(zhuanDians);
+        }
+        //在每个转点这里应该设置一个优先级。以此后面可进行判断。
+        //数字越小，优先级越高
+        int duan_prior = 0;
+        for(int i=0;i<zhuanDianRes.size();i++){
+            int flag_prior = 1;
+            duan_prior++;
+            for (int j=0;j<zhuanDianRes.get(i).size();j++){
+                zhuanDianRes.get(i).get(j).setPriorNumber(flag_prior);
+                zhuanDianRes.get(i).get(j).setDuanPrior(duan_prior);
+                flag_prior++;
+            }
         }
         return zhuanDianRes;
     }
@@ -1023,7 +1037,7 @@ public class StepTemplateUtil {
 //                    endZhuanDian=zhuanDian;
 //                }
 //            }
-            int flag = 1;
+            int flag = 0;
             for(int p = startZhuanDian.getStartPos();p<=endZhuanDian.getEndPos();p++){
                 if (getStressNumber(quanChengs.get(p),select)>select.getMaxStress()
                         || getStressNumber(quanChengs.get(p),select)<select.getMinStress()) {
@@ -1035,6 +1049,9 @@ public class StepTemplateUtil {
                         flag = 0;
                         break;
                     }
+
+                }else {
+                    flag=1;
 
                 }
             }

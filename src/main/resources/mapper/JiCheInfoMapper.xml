@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxl.trainerror.mapper.JiCheInfoMapper">
+
+    <!--    public Account getAcct(Long id); -->
+
+    <!--    public Account getAcct(Long id); -->
+    <sql id="jiCheInfoKey">
+        <trim suffixOverrides=",">
+            <if test="jiXing!=null and jiXing!=''">
+                ji_xing,
+            </if>
+            <if test="jiXingHao!=null">
+                ji_xing_hao,
+            </if>
+            <if test="jiCheHao!=null">
+                ji_che_hao,
+            </if>
+            <if test="danShuangDuan!=null">
+                dan_shuang_duan,
+            </if>
+            <if test="otherJiCheHao!=null">
+                other_ji_che_hao,
+            </if>
+            <if test="zhiDongJiName!=null and zhiDongJiName!=''">
+            zhi_dong_ji_name,
+            </if>
+            <if test="zhiDongJiHao!=null">
+                zhi_dong_ji_hao,
+            </if>
+            <if test="lieZhiRatio!=null">
+                lie_zhi_ratio,
+            </if>
+            <if test="stepCiXuId!=null">
+                step_ci_xu_id,
+            </if>
+            <if test="eventChangeId!=null">
+                event_change_id,
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="jiCheInfoValues">
+        <trim suffixOverrides=",">
+            <if test="jiXing!=null and jiXing!=''">
+                #{jiXing},
+            </if>
+            <if test="jiXingHao!=null">
+                #{jiXingHao},
+            </if>
+            <if test="jiCheHao!=null">
+                #{jiCheHao},
+            </if>
+            <if test="danShuangDuan!=null">
+                #{danShuangDuan},
+            </if>
+            <if test="otherJiCheHao!=null">
+                #{otherJiCheHao},
+            </if>
+            <if test="zhiDongJiName!=null and zhiDongJiName!=''">
+                #{zhiDongJiName},
+            </if>
+            <if test="zhiDongJiHao!=null">
+                #{zhiDongJiHao},
+            </if>
+            <if test="lieZhiRatio!=null">
+                #{lieZhiRatio},
+            </if>
+            <if test="stepCiXuId!=null">
+                #{stepCiXuId},
+            </if>
+            <if test="eventChangeId!=null">
+                #{eventChangeId},
+            </if>
+
+        </trim>
+    </sql>
+    <insert id="insertZhuanDian" useGeneratedKeys="true" keyProperty="id">
+        insert into ji_che_info (<include refid="jiCheInfoKey" />)
+        values (<include refid="jiCheInfoValues" />)
+    </insert>
+
+</mapper>

@@ -8,15 +8,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JiCheInfo {
+    //返回的是哪个id;
     private Integer id;
     private String jiXing;
-    private String jiXingHao;
+    private Integer jiXingHao;
     private Integer jiCheHao;
-    private Integer DanShuangDuan;
+    private Integer danShuangDuan;
     private Integer otherJiCheHao;
     private String zhiDongJiName;
     private Integer zhiDongJiHao;
     private Double lieZhiRatio;
-    private Integer StepCiXuId;
+    private Integer stepCiXuId;
     private Integer eventChangeId;
 }

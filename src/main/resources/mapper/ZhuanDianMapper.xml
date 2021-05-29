@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxl.trainerror.mapper.ZhuanDianMapper">
+
+    <!--    public Account getAcct(Long id); -->
+<sql id="zhuanDianKey">
+    <trim suffixOverrides=",">
+
+        <if test="startTime!=null">
+            start_time,
+        </if>
+        <if test="endTime!=null">
+            end_time,
+        </if>
+        <if test="maxTime!=null">
+            max_time,
+        </if>
+        <if test="maxStress!=null">
+            max_stress,
+        </if>
+        <if test="minStress!=null">
+            min_stress,
+        </if>
+        <if test="minTime!=null">
+            min_time,
+        </if>
+        <if test="leftStress!=null">
+            left_stress,
+        </if>
+        <if test="rightStress!=null">
+            right_stress,
+        </if>
+        <if test="stepSelectId!=null">
+            step_select_id,
+        </if>
+        <if test="fileId!=null">
+            file_id,
+        </if>
+        <if test="stressName!=null and stressName != ''" >
+            stress_name,
+        </if>
+        <if test="startPos!=null">
+            start_pos,
+        </if>
+        <if test="endPos!=null">
+            end_pos,
+        </if>
+        <if test="priorNumber!=null">
+            prior_number,
+        </if>
+    </trim>
+</sql>
+
+    <sql id="zhuanDianValues">
+        <trim suffixOverrides=",">
+            <if test="startTime!=null">
+               #{startTime},
+            </if>
+            <if test="endTime!=null">
+                #{endTime},
+            </if>
+            <if test="maxTime!=null">
+                #{maxTime},
+            </if>
+            <if test="maxStress!=null">
+                #{maxStress},
+            </if>
+            <if test="minStress!=null">
+                #{minStress},
+            </if>
+            <if test="minTime!=null">
+                #{minTime},
+            </if>
+            <if test="leftStress!=null">
+                #{leftStress},
+            </if>
+            <if test="rightStress!=null">
+                #{rightStress},
+            </if>
+            <if test="stepSelectId!=null">
+                #{stepSelectId},
+            </if>
+            <if test="fileId!=null">
+                #{fileId},
+            </if>
+            <if test="stressName!=null and stressName != ''" >
+                #{stressName},
+            </if>
+            <if test="startPos!=null">
+                #{startPos},
+            </if>
+            <if test="endPos!=null">
+                #{endPos},
+            </if>
+            <if test="priorNumber!=null">
+                #{priorNumber},
+            </if>
+
+        </trim>
+    </sql>
+    <insert id="insertZhuanDian" useGeneratedKeys="true" keyProperty="id">
+        insert into zhuan_dian (<include refid="zhuanDianKey" />)
+        values (<include refid="zhuanDianValues" />)
+    </insert>
+
+</mapper>

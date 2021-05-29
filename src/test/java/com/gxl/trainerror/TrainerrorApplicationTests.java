@@ -4,6 +4,7 @@ import com.gxl.trainerror.bean.*;
 import com.gxl.trainerror.service.FileInfoService;
 import com.gxl.trainerror.service.QuanChengService;
 import com.gxl.trainerror.service.StepSelectService;
+import com.gxl.trainerror.service.ZhuanDianService;
 import com.gxl.trainerror.util.StepTemplateUtil;
 import com.gxl.trainerror.util.TimeCal;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,8 @@ class TrainerrorApplicationTests {
     private QuanChengService quanChengService;
     @Autowired
     private StepSelectService stepSelectService;
+    @Autowired
+    private ZhuanDianService zhuanDianService;
     @Test
     void contextLoads() {
 //        Date date = TimeCal.backDate(30);
@@ -69,7 +72,7 @@ class TrainerrorApplicationTests {
         List<List<ZhuanDian>> res = StepTemplateUtil.stepFinder("管均列",stepSelects,quanChengs1);
         for (List<ZhuanDian> re : res) {
             for (ZhuanDian zhuanDian : re) {
-                System.out.println(zhuanDian);
+               zhuanDianService.insertZhuanDian(zhuanDian);
             }
         }
     }

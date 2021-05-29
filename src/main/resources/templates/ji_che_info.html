@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/ji_che_hao.css" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <span class="info">机车信息设置表</span>
+
+    <table cellpadding="0" cellspacing="0" id="table_quancheng">
+      <thead>
+        <tr>
+          <th>机型</th>
+          <th>机型代号</th>
+          <th>机车号</th>
+          <th>单双端</th>
+          <th>车组其它车号</th>
+          <th>制动机型号</th>
+          <th>列制比</th>
+          <th>五步闸次序</th>
+          <th>对应列</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbody_quancheng">
+        <tr>
+          <td>122</td>
+          <td>233</td>
+          <td>233</td>
+          <td>233</td>
+          <td>233</td>
+          <td>233</td>
+          <td>233</td>
+          <td>233</td>
+          <td>233</td>
+          <td>删除</td>
+        </tr>
+      </tbody>
+    </table>
+    <span class="add_btn" id="add_btn">增加</span>
+    <div class="add_template" id="template_div">
+      <form action="">
+        <span> 机型 <input type="text" /></span>
+        <span> 机车号 <input type="text" /></span>
+        <span> 单双端 <input type="text" /></span>
+        <span> 车组其它车号 <input type="text" /></span>
+        <span> 制动机型号 <input type="text" /></span>
+        <span> 列制比<input type="text" /></span>
+        <span>
+          五步闸次序
+          <select class="select_nandu">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="4">5</option>
+          </select>
+        </span>
+        <span>
+          对应列<select class="select_nandu">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="4">5</option>
+          </select>
+        </span>
+        <button>提交</button>
+      </form>
+    </div>
+  </body>
+  <script>
+    function e(obj) {
+      return document.getElementById(obj)
+    }
+    e('add_btn').onclick = function (event) {
+      e('template_div').style.display = 'block'
+      stopBubble(event)
+      document.onclick = function () {
+        e('template_div').style.display = 'none'
+        document.onclick = null
+      }
+    }
+    e('template_div').onclick = function (event) {
+      //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+      stopBubble(event)
+    }
+    function stopBubble(e) {
+      if (e && e.stopPropagation) {
+        e.stopPropagation() //w3c
+      } else {
+        window.event.cancelBubble = true //IE
+      }
+    }
+  </script>
+</html>

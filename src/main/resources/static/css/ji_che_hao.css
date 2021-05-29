@@ -1,0 +1,114 @@
+/* 滚动条宽度 */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+/* 滚动条颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: #27314d;
+}
+
+table {
+  float: left;
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: collapse;
+  margin-right: 0px;
+}
+
+table caption {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 50px;
+}
+
+table th,
+table td {
+  height: 30px;
+  text-align: center;
+  border: 1px solid #f9f9f9;
+  font-size: 12px;
+}
+
+table thead {
+  color: #000000;
+}
+
+table tbody {
+  display: block;
+  width: calc(100% + 8px); /*这里的8px是滚动条的宽度*/
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table tfoot {
+  background-color: #71ea71;
+}
+
+table thead tr,
+table tbody tr,
+table tfoot tr {
+  box-sizing: border-box;
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+
+table tbody tr td {
+  border-bottom: none;
+}
+.info {
+  display: block;
+  height: 50px;
+  font-size: 32px;
+  text-align: center;
+  line-height: 50px;
+}
+ul li {
+  list-style-type: none;
+}
+ul {
+  display: flex;
+}
+ul li {
+  flex: 1;
+}
+.add_btn {
+  display: block;
+  height: 50px;
+  width: 200px;
+  margin-top: 200px;
+  text-align: center;
+  margin-left: calc(50% - 100px);
+  font-size: 32px;
+  line-height: 50px;
+  background-color: #28a0ed;
+  border-radius: 10px;
+}
+.add_template {
+  display: none;
+  width: 240px;
+  height: 280px;
+  background-color: #28aedd;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 30px;
+}
+.add_template span {
+  display: block;
+}
+input {
+  width: 100px;
+}
+select {
+  width: 100px;
+}
+button {
+  margin: 0;
+  width: 80px;
+  margin-left: 70px;
+}
