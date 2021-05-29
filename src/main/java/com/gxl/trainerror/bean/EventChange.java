@@ -12,6 +12,7 @@ public class EventChange {
         当改变某个相对应的列的时候，而进行相对应的改变。
      */
     private Integer id;
+    private String name;
     private Integer event;
     private Integer dateTime;
     private Integer gongLiBiao;

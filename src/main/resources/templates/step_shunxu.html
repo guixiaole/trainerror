@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .info {
+        display: block;
+        height: 50px;
+        font-size: 32px;
+        text-align: center;
+        line-height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="info">五步闸顺序</span>
+    <form action="">
+      <div class="event_div">
+        <span
+          ><span>第1步</span>
+          <select name="oneStep" id="oneStep">
+            <option th:each="all:${alls}" th:selected="${all.id}==${one.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+          </select>
+        </span>
+        <span
+          ><span>第2步</span>
+          <select name="twoStep" id="twoStep">
+           <option th:each="all:${alls}" th:selected="${all.id}==${two.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+
+          </select>
+        </span>
+        <span
+          ><span>第3步</span>
+         <select name="threeStep" id="threeStep">
+          <option th:each="all:${alls}" th:selected="${all.id}==${three.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+            <option value=""></option>
+          </select>
+        </span>
+        <span
+          ><span>第4步</span>
+        <select name="fourStep" id="fourStep">
+          <option th:each="all:${alls}" th:selected="${all.id}==${four.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+
+          </select>
+        </span>
+        <span
+          ><span>第5步</span>
+           <select name="fiveStep" id="fiveStep">
+           <option th:each="all:${alls}" th:selected="${all.id}==${five.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+
+          </select>
+        </span>
+        <span
+          ><span>第6步</span>
+          <select name="sixStep" id="sixStep">
+           <option th:each="all:${alls}" th:selected="${all.id}==${six.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+
+          </select>
+        </span>
+        <span
+          ><span>第7步</span>
+          <select name="sevenStep" id="sevenStep">
+          <option th:each="all:${alls}" th:selected="${all.id}==${seven.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+
+          </select>
+        </span>
+        <span
+          ><span>第8步</span>
+          <select name="eightStep" id="eightStep">
+         <option th:each="all:${alls}" th:selected="${all.id}==${eight.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+
+          </select>
+        </span>
+        <span
+          ><span>第9步</span>
+          <select name="nineStep" id="nineStep">
+         <option th:each="all:${alls}" th:selected="${all.id}==${nine.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+          </select>
+        </span>
+      </div>
+    </form>
+  </body>
+</html>

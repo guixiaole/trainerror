@@ -7,4 +7,5 @@ import java.util.List;
 public interface JiCheInfoService {
     public Integer insertJiChe(JiCheInfo jiCheInfo);
     public List<JiCheInfo> selectAll();
+    public Integer deleteById(Integer id);
 }

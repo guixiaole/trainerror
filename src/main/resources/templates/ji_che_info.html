@@ -28,46 +28,41 @@
       </thead>
 
       <tbody id="tbody_quancheng">
-        <tr>
-          <td>122</td>
-          <td>233</td>
-          <td>233</td>
-          <td>233</td>
-          <td>233</td>
-          <td>233</td>
-          <td>233</td>
-          <td>233</td>
-          <td>233</td>
+        <tr th:each="jiche:${jiches}">
+          <td>[[${jiche.jiXing}]]</td>
+          <td>[[${jiche.jiXingHao}]]</td>
+          <td>[[${jiche.jiCheHao}]]</td>
+          <td>[[${jiche.danShuangDuan}]]</td>
+          <td>[[${jiche.otherJiCheHao}]]</td>
+          <td>[[${jiche.zhiDongJiName}]]</td>
+          <td>[[${jiche.lieZhiRatio}]]</td>
+
+          <td th:onclick="'javascript:stepshunxu('+${jiche.id}+','+${jiche.stepShunXuId}+')'">[[${jiche.stepShunXu.name}]]</td>
+          <td th:onclick="'javascript:eventchange('+${jiche.id}+','+${jiche.eventChangeId}+')'">[[${jiche.eventChange.name}]]</td>
           <td>删除</td>
         </tr>
       </tbody>
     </table>
     <span class="add_btn" id="add_btn">增加</span>
     <div class="add_template" id="template_div">
-      <form action="">
-        <span> 机型 <input type="text" /></span>
-        <span> 机车号 <input type="text" /></span>
-        <span> 单双端 <input type="text" /></span>
-        <span> 车组其它车号 <input type="text" /></span>
-        <span> 制动机型号 <input type="text" /></span>
-        <span> 列制比<input type="text" /></span>
+      <form th:action="@{/insertJiChe}" method="post">
+        <span> 机型 <input type="text" name="jiXing" /></span>
+        <span> 机车号 <input type="text" name="jiCheHao" /></span>
+        <span> 单双端 <input type="text" name="danShuangDuan" /></span>
+        <span> 车组其它车号 <input type="text" name="otherJiCheHao" /></span>
+        <span> 制动机型号 <input type="text" name="zhiDongJiName" /></span>
+        <span> 列制比<input type="text" name="lieZhiRatio" /></span>
         <span>
           五步闸次序
-          <select class="select_nandu">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="4">5</option>
+          <select class="select_nandu" name="stepShuXuId">
+            <option th:each="shunxu:${stepShunXu}" th:value="${shunxu.id}"
+            th:text="${shunxu.name}"
+            ></option>
           </select>
         </span>
         <span>
-          对应列<select class="select_nandu">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="4">5</option>
+          对应列<select class="select_nandu" name="eventChangeId">
+            <option value="1">标准列</option>
           </select>
         </span>
         <button>提交</button>
@@ -96,6 +91,12 @@
       } else {
         window.event.cancelBubble = true //IE
       }
+    }
+    function stepshunxu(id,shunxuId){
+     window.location="../stepShunXuIndex?id="+id+"&shunxuId="+shunxuId;
+    }
+    function eventchange(id,eventId){
+      window.location="../stepShunXuIndex?id="+id+"&eventId="+eventId;
     }
   </script>
 </html>

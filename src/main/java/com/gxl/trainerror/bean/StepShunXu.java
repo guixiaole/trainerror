@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StepShunXU {
+public class StepShunXu {
     /*
         该类为五步闸顺序类。其中连接的应该是关于AllTemplate中的模板
      */
     private Integer id;
+    private String name;
     private Integer oneStep;
     private Integer twoStep;
     private Integer threeStep;
@@ -21,4 +22,14 @@ public class StepShunXU {
     private Integer sevenStep;
     private Integer eightStep;
     private Integer nineStep;
+    private AllTemplate one;
+    private AllTemplate two;
+    private AllTemplate three;
+    private AllTemplate four;
+    private AllTemplate five;
+    private AllTemplate six;
+    private AllTemplate seven;
+    private AllTemplate eight;
+    private AllTemplate nine;
+
 }

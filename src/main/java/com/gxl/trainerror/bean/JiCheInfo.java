@@ -18,6 +18,8 @@ public class JiCheInfo {
     private String zhiDongJiName;
     private Integer zhiDongJiHao;
     private Double lieZhiRatio;
-    private Integer stepCiXuId;
+    private Integer stepShunXuId;
     private Integer eventChangeId;
+    private StepShunXu stepShunXu;
+    private EventChange eventChange;
 }

@@ -21,4 +21,9 @@ public class JiCheInfoServiceImpl implements JiCheInfoService {
     public List<JiCheInfo> selectAll() {
         return jiCheInfoMapper.selectAll();
     }
+
+    @Override
+    public Integer deleteById(Integer id) {
+        return jiCheInfoMapper.deleteById(id);
+    }
 }
