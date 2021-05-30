@@ -13,74 +13,116 @@
         text-align: center;
         line-height: 50px;
       }
+      .event_div {
+        display: flex;
+      }
+      .event_div span {
+        flex: 1;
+      }
+      button {
+        display: block;
+        height: 50px;
+        width: 200px;
+        margin-top: 200px;
+        text-align: center;
+        margin-left: calc(50% - 100px);
+        font-size: 32px;
+        line-height: 50px;
+        background-color: #28a0ed;
+        border-radius: 10px;
+      }
+      select {
+        width: 120px;
+      }
     </style>
   </head>
   <body>
     <span class="info">五步闸顺序</span>
-    <form action="">
+    <form action="updatestep" method="post">
       <div class="event_div">
         <span
           ><span>第1步</span>
           <select name="oneStep" id="oneStep">
-            <option th:each="all:${alls}" th:selected="${all.id}==${one.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+            <option th:each="all:${alls}" th:if="${steps.one}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.one}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.one}!=null" th:selected="${all.id}==${steps.one.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
           </select>
         </span>
         <span
           ><span>第2步</span>
           <select name="twoStep" id="twoStep">
-           <option th:each="all:${alls}" th:selected="${all.id}==${two.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+           <option th:each="all:${alls}" th:if="${steps.two}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.two}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.two}!=null" th:selected="${all.id}==${steps.two.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
         <span
           ><span>第3步</span>
          <select name="threeStep" id="threeStep">
-          <option th:each="all:${alls}" th:selected="${all.id}==${three.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+           <option th:each="all:${alls}" th:if="${steps.three}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.three}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.three}!=null" th:selected="${all.id}==${steps.three.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option value=""></option>
           </select>
         </span>
         <span
           ><span>第4步</span>
         <select name="fourStep" id="fourStep">
-          <option th:each="all:${alls}" th:selected="${all.id}==${four.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+          <option th:each="all:${alls}" th:if="${steps.four}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.four}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.four}!=null" th:selected="${all.id}==${steps.four.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
         <span
           ><span>第5步</span>
            <select name="fiveStep" id="fiveStep">
-           <option th:each="all:${alls}" th:selected="${all.id}==${five.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+           <option th:each="all:${alls}" th:if="${steps.five}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.five}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.five}!=null" th:selected="${all.id}==${steps.five.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
         <span
           ><span>第6步</span>
           <select name="sixStep" id="sixStep">
-           <option th:each="all:${alls}" th:selected="${all.id}==${six.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+          <option th:each="all:${alls}" th:if="${steps.six}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.six}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.six}!=null" th:selected="${all.id}==${steps.six.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
         <span
           ><span>第7步</span>
           <select name="sevenStep" id="sevenStep">
-          <option th:each="all:${alls}" th:selected="${all.id}==${seven.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+           <option th:each="all:${alls}" th:if="${steps.seven}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.seven}==null"  selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.seven}!=null" th:selected="${all.id}==${steps.seven.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
         <span
           ><span>第8步</span>
           <select name="eightStep" id="eightStep">
-         <option th:each="all:${alls}" th:selected="${all.id}==${eight.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+          <option th:each="all:${alls}" th:if="${steps.eight}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.eight}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.eight}!=null" th:selected="${all.id}==${steps.eight.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
         <span
           ><span>第9步</span>
           <select name="nineStep" id="nineStep">
-         <option th:each="all:${alls}" th:selected="${all.id}==${nine.id}" th:value="${all.id}" th:text="${all.name}" ></option>
+         <option th:each="all:${alls}" th:if="${steps.nine}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
+            <option  th:if="${steps.nine}==null" selected="selected" th:value="0" th:text="无"></option>
+            <option th:each="all:${alls}"th:if="${steps.nine}!=null" th:selected="${all.id}==${steps.nine.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
           </select>
         </span>
       </div>
+      <input type="hidden" th:value="${jicheid}" name="jicheId">
+      <button>提交</button>
     </form>
   </body>
+
 </html>

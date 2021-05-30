@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxl.trainerror.mapper.StepShunXuMapper">
+
+    <!--    public Account getAcct(Long id); -->
+<sql id="stepShunXuKey">
+    <trim suffixOverrides=",">
+
+        <if test="name!=null and name!=''">
+            'name',
+        </if>
+        <if test="oneStep!=null">
+            one_step,
+        </if>
+        <if test="twoStep!=null">
+            two_step,
+        </if>
+        <if test="threeStep!=null">
+            three_step,
+        </if>
+        <if test="fourStep!=null">
+            four_step,
+        </if>
+        <if test="fiveStep!=null">
+            five_step,
+        </if>
+        <if test="sixStep!=null">
+            six_step,
+        </if>
+        <if test="sevenStep!=null">
+            seven_step,
+        </if>
+        <if test="eightStep!=null">
+            eight_step,
+        </if>
+        <if test="nineStep!=null">
+            nine_step,
+        </if>
+    </trim>
+</sql>
+
+    <sql id="stepShunXuValues">
+        <trim suffixOverrides=",">
+            <if test="name!=null and name!=''">
+                #{name},
+            </if>
+            <if test="oneStep!=null">
+                #{oneStep},
+            </if>
+            <if test="twoStep!=null">
+                #{twoStep},
+            </if>
+            <if test="threeStep!=null">
+                #{threeStep},
+            </if>
+            <if test="fourStep!=null">
+                #{fourStep},
+            </if>
+            <if test="fiveStep!=null">
+                #{fiveStep},
+            </if>
+            <if test="sixStep!=null">
+                #{sixStep},
+            </if>
+            <if test="sevenStep!=null">
+                #{sevenStep},
+            </if>
+            <if test="eightStep!=null">
+                #{eightStep},
+            </if>
+            <if test="nineStep!=null">
+                #{nineStep},
+            </if>
+
+        </trim>
+    </sql>
+    <insert id="insertStepShunXu" useGeneratedKeys="true" keyProperty="id">
+        insert into step_shun_xu (<include refid="stepShunXuKey" />)
+        values (<include refid="stepShunXuValues" />)
+    </insert>
+
+</mapper>

@@ -28,4 +28,8 @@ public interface JiCheInfoMapper {
     public Integer insertJiChe(JiCheInfo jiCheInfo);
     @Delete("DELETE FROM ji_che_info WHERE id = #{id}")
     public Integer deleteById(Integer id);
+    @Update("update ji_che_info set step_shun_xu_id =#{stepShunXuId} where id = #{id}")
+    public Integer updateStepShunXuById(Integer id,Integer stepShunXuId);
+    @Update("update ji_che_info set event_change_id =#{eventChangeId} where id = #{id}")
+    public Integer updateEventChangeById(Integer id,Integer eventChangeId);
 }

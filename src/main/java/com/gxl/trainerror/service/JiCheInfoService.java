@@ -8,4 +8,6 @@ public interface JiCheInfoService {
     public Integer insertJiChe(JiCheInfo jiCheInfo);
     public List<JiCheInfo> selectAll();
     public Integer deleteById(Integer id);
+    public Integer updateStepShunXuById(Integer id,Integer stepShunXu);
+    public Integer updateEventChangeId(Integer id,Integer eventChange);
 }

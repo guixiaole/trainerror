@@ -20,4 +20,9 @@ public class StepShunXuServiceImpl implements StepShunXuService {
     public StepShunXu selectByid(Integer id) {
         return stepShunXuMapper.selectById(id);
     }
+
+    @Override
+    public Integer insertStepShunXu(StepShunXu stepShunXu) {
+        return stepShunXuMapper.insertStepShunXu(stepShunXu);
+    }
 }

@@ -16,9 +16,12 @@
       }
       .event_div {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
       .event_div span {
-        flex: 1;
+        margin-top: 20px;
+        width: 12%;
       }
       button{
         display: block;
@@ -32,11 +35,12 @@
         background-color: #28a0ed;
         border-radius: 10px;
       }
+
     </style>
   </head>
   <form>
     <span class="info">机车对应列修改</span>
-    <form action=""></form>
+    <form action="" method="post"></form>
     <div class="event_div">
       <span>
         <span>事件</span>
@@ -63,372 +67,374 @@
       <span>
         <span>时间</span>
         <select>
-          <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+          <option value="1" th:selected="${eventChange.dateTime}==1">事件</option>
+          <option value="2" th:selected="${eventChange.dateTime}==2">时间</option>
+          <option value="3"th:selected="${eventChange.dateTime}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.dateTime}==4">其它</option>
+          <option value="5"th:selected="${eventChange.dateTime}==5">距离</option>
+          <option value="6"th:selected="${eventChange.dateTime}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.dateTime}==7">信号</option>
+          <option value="8"th:selected="${eventChange.dateTime}==8">速度</option>
+          <option value="9"th:selected="${eventChange.dateTime}==9">限速</option>
+          <option value="10"th:selected="${eventChange.dateTime}==10">零位</option>
+          <option value="11"th:selected="${eventChange.dateTime}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.dateTime}==12">前后</option>
+          <option value="13"th:selected="${eventChange.dateTime}==13">列管</option>
+          <option value="14"th:selected="${eventChange.dateTime}==14">制管</option>
+          <option value="15"th:selected="${eventChange.dateTime}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.dateTime}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.dateTime}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>公里标</span>
         <select>
-          <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+         <option value="1" th:selected="${eventChange.gongLiBiao}==1">事件</option>
+          <option value="2" th:selected="${eventChange.gongLiBiao}==2">时间</option>
+          <option value="3"th:selected="${eventChange.gongLiBiao}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.gongLiBiao}==4">其它</option>
+          <option value="5"th:selected="${eventChange.gongLiBiao}==5">距离</option>
+          <option value="6"th:selected="${eventChange.gongLiBiao}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.gongLiBiao}==7">信号</option>
+          <option value="8"th:selected="${eventChange.gongLiBiao}==8">速度</option>
+          <option value="9"th:selected="${eventChange.gongLiBiao}==9">限速</option>
+          <option value="10"th:selected="${eventChange.gongLiBiao}==10">零位</option>
+          <option value="11"th:selected="${eventChange.gongLiBiao}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.gongLiBiao}==12">前后</option>
+          <option value="13"th:selected="${eventChange.gongLiBiao}==13">列管</option>
+          <option value="14"th:selected="${eventChange.gongLiBiao}==14">制管</option>
+          <option value="15"th:selected="${eventChange.gongLiBiao}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.gongLiBiao}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.gongLiBiao}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>其它</span>
         <select>
-            <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+            <option value="1" th:selected="${eventChange.other}==1">事件</option>
+          <option value="2" th:selected="${eventChange.other}==2">时间</option>
+          <option value="3"th:selected="${eventChange.other}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.other}==4">其它</option>
+          <option value="5"th:selected="${eventChange.other}==5">距离</option>
+          <option value="6"th:selected="${eventChange.other}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.other}==7">信号</option>
+          <option value="8"th:selected="${eventChange.other}==8">速度</option>
+          <option value="9"th:selected="${eventChange.other}==9">限速</option>
+          <option value="10"th:selected="${eventChange.other}==10">零位</option>
+          <option value="11"th:selected="${eventChange.other}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.other}==12">前后</option>
+          <option value="13"th:selected="${eventChange.other}==13">列管</option>
+          <option value="14"th:selected="${eventChange.other}==14">制管</option>
+          <option value="15"th:selected="${eventChange.other}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.other}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.other}==17">均缸2</option>
 
         </select>
       </span>
+
       <span>
         <span>距离</span>
         <select>
-           <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+            <option value="1" th:selected="${eventChange.distance}==1">事件</option>
+          <option value="2" th:selected="${eventChange.distance}==2">时间</option>
+          <option value="3"th:selected="${eventChange.distance}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.distance}==4">其它</option>
+          <option value="5"th:selected="${eventChange.distance}==5">距离</option>
+          <option value="6"th:selected="${eventChange.distance}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.distance}==7">信号</option>
+          <option value="8"th:selected="${eventChange.distance}==8">速度</option>
+          <option value="9"th:selected="${eventChange.distance}==9">限速</option>
+          <option value="10"th:selected="${eventChange.distance}==10">零位</option>
+          <option value="11"th:selected="${eventChange.distance}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.distance}==12">前后</option>
+          <option value="13"th:selected="${eventChange.distance}==13">列管</option>
+          <option value="14"th:selected="${eventChange.distance}==14">制管</option>
+          <option value="15"th:selected="${eventChange.distance}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.distance}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.distance}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>信号机</span>
         <select>
-            <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+          <option value="1" th:selected="${eventChange.signalMachine}==1">事件</option>
+          <option value="2" th:selected="${eventChange.signalMachine}==2">时间</option>
+          <option value="3"th:selected="${eventChange.signalMachine}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.signalMachine}==4">其它</option>
+          <option value="5"th:selected="${eventChange.signalMachine}==5">距离</option>
+          <option value="6"th:selected="${eventChange.signalMachine}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.signalMachine}==7">信号</option>
+          <option value="8"th:selected="${eventChange.signalMachine}==8">速度</option>
+          <option value="9"th:selected="${eventChange.signalMachine}==9">限速</option>
+          <option value="10"th:selected="${eventChange.signalMachine}==10">零位</option>
+          <option value="11"th:selected="${eventChange.signalMachine}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.signalMachine}==12">前后</option>
+          <option value="13"th:selected="${eventChange.signalMachine}==13">列管</option>
+          <option value="14"th:selected="${eventChange.signalMachine}==14">制管</option>
+          <option value="15"th:selected="${eventChange.signalMachine}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.signalMachine}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.signalMachine}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>信号</span>
         <select>
-          <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+           <option value="1" th:selected="${eventChange.xinHao}==1">事件</option>
+          <option value="2" th:selected="${eventChange.xinHao}==2">时间</option>
+          <option value="3"th:selected="${eventChange.xinHao}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.xinHao}==4">其它</option>
+          <option value="5"th:selected="${eventChange.xinHao}==5">距离</option>
+          <option value="6"th:selected="${eventChange.xinHao}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.xinHao}==7">信号</option>
+          <option value="8"th:selected="${eventChange.xinHao}==8">速度</option>
+          <option value="9"th:selected="${eventChange.xinHao}==9">限速</option>
+          <option value="10"th:selected="${eventChange.xinHao}==10">零位</option>
+          <option value="11"th:selected="${eventChange.xinHao}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.xinHao}==12">前后</option>
+          <option value="13"th:selected="${eventChange.xinHao}==13">列管</option>
+          <option value="14"th:selected="${eventChange.xinHao}==14">制管</option>
+          <option value="15"th:selected="${eventChange.xinHao}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.xinHao}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.xinHao}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>速度</span>
         <select>
-           <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+           <option value="1" th:selected="${eventChange.speed}==1">事件</option>
+          <option value="2" th:selected="${eventChange.speed}==2">时间</option>
+          <option value="3"th:selected="${eventChange.speed}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.speed}==4">其它</option>
+          <option value="5"th:selected="${eventChange.speed}==5">距离</option>
+          <option value="6"th:selected="${eventChange.speed}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.speed}==7">信号</option>
+          <option value="8"th:selected="${eventChange.speed}==8">速度</option>
+          <option value="9"th:selected="${eventChange.speed}==9">限速</option>
+          <option value="10"th:selected="${eventChange.speed}==10">零位</option>
+          <option value="11"th:selected="${eventChange.speed}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.speed}==12">前后</option>
+          <option value="13"th:selected="${eventChange.speed}==13">列管</option>
+          <option value="14"th:selected="${eventChange.speed}==14">制管</option>
+          <option value="15"th:selected="${eventChange.speed}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.speed}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.speed}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>限速</span>
         <select>
-           <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+            <option value="1" th:selected="${eventChange.restrictSpeed}==1">事件</option>
+          <option value="2" th:selected="${eventChange.restrictSpeed}==2">时间</option>
+          <option value="3"th:selected="${eventChange.restrictSpeed}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.restrictSpeed}==4">其它</option>
+          <option value="5"th:selected="${eventChange.restrictSpeed}==5">距离</option>
+          <option value="6"th:selected="${eventChange.restrictSpeed}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.restrictSpeed}==7">信号</option>
+          <option value="8"th:selected="${eventChange.restrictSpeed}==8">速度</option>
+          <option value="9"th:selected="${eventChange.restrictSpeed}==9">限速</option>
+          <option value="10"th:selected="${eventChange.restrictSpeed}==10">零位</option>
+          <option value="11"th:selected="${eventChange.restrictSpeed}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.restrictSpeed}==12">前后</option>
+          <option value="13"th:selected="${eventChange.restrictSpeed}==13">列管</option>
+          <option value="14"th:selected="${eventChange.restrictSpeed}==14">制管</option>
+          <option value="15"th:selected="${eventChange.restrictSpeed}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.restrictSpeed}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.restrictSpeed}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>零位</span>
         <select>
-            <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+          <option value="1" th:selected="${eventChange.lingWei}==1">事件</option>
+          <option value="2" th:selected="${eventChange.lingWei}==2">时间</option>
+          <option value="3"th:selected="${eventChange.lingWei}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.lingWei}==4">其它</option>
+          <option value="5"th:selected="${eventChange.lingWei}==5">距离</option>
+          <option value="6"th:selected="${eventChange.lingWei}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.lingWei}==7">信号</option>
+          <option value="8"th:selected="${eventChange.lingWei}==8">速度</option>
+          <option value="9"th:selected="${eventChange.lingWei}==9">限速</option>
+          <option value="10"th:selected="${eventChange.lingWei}==10">零位</option>
+          <option value="11"th:selected="${eventChange.lingWei}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.lingWei}==12">前后</option>
+          <option value="13"th:selected="${eventChange.lingWei}==13">列管</option>
+          <option value="14"th:selected="${eventChange.lingWei}==14">制管</option>
+          <option value="15"th:selected="${eventChange.lingWei}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.lingWei}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.lingWei}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>牵引</span>
         <select>
-          <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+         <option value="1" th:selected="${eventChange.qianYin}==1">事件</option>
+          <option value="2" th:selected="${eventChange.qianYin}==2">时间</option>
+          <option value="3"th:selected="${eventChange.qianYin}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.qianYin}==4">其它</option>
+          <option value="5"th:selected="${eventChange.qianYin}==5">距离</option>
+          <option value="6"th:selected="${eventChange.qianYin}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.qianYin}==7">信号</option>
+          <option value="8"th:selected="${eventChange.qianYin}==8">速度</option>
+          <option value="9"th:selected="${eventChange.qianYin}==9">限速</option>
+          <option value="10"th:selected="${eventChange.qianYin}==10">零位</option>
+          <option value="11"th:selected="${eventChange.qianYin}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.qianYin}==12">前后</option>
+          <option value="13"th:selected="${eventChange.qianYin}==13">列管</option>
+          <option value="14"th:selected="${eventChange.qianYin}==14">制管</option>
+          <option value="15"th:selected="${eventChange.qianYin}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.qianYin}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.qianYin}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>前后</span>
         <select>
-         <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+           <option value="1" th:selected="${eventChange.qianHou}==1">事件</option>
+          <option value="2" th:selected="${eventChange.qianHou}==2">时间</option>
+          <option value="3"th:selected="${eventChange.qianHou}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.qianHou}==4">其它</option>
+          <option value="5"th:selected="${eventChange.qianHou}==5">距离</option>
+          <option value="6"th:selected="${eventChange.qianHou}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.qianHou}==7">信号</option>
+          <option value="8"th:selected="${eventChange.qianHou}==8">速度</option>
+          <option value="9"th:selected="${eventChange.qianHou}==9">限速</option>
+          <option value="10"th:selected="${eventChange.qianHou}==10">零位</option>
+          <option value="11"th:selected="${eventChange.qianHou}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.qianHou}==12">前后</option>
+          <option value="13"th:selected="${eventChange.qianHou}==13">列管</option>
+          <option value="14"th:selected="${eventChange.qianHou}==14">制管</option>
+          <option value="15"th:selected="${eventChange.qianHou}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.qianHou}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.qianHou}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>列管</span>
         <select>
-           <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+           <option value="1" th:selected="${eventChange.guanYa}==1">事件</option>
+          <option value="2" th:selected="${eventChange.guanYa}==2">时间</option>
+          <option value="3"th:selected="${eventChange.guanYa}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.guanYa}==4">其它</option>
+          <option value="5"th:selected="${eventChange.guanYa}==5">距离</option>
+          <option value="6"th:selected="${eventChange.guanYa}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.guanYa}==7">信号</option>
+          <option value="8"th:selected="${eventChange.guanYa}==8">速度</option>
+          <option value="9"th:selected="${eventChange.guanYa}==9">限速</option>
+          <option value="10"th:selected="${eventChange.guanYa}==10">零位</option>
+          <option value="11"th:selected="${eventChange.guanYa}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.guanYa}==12">前后</option>
+          <option value="13"th:selected="${eventChange.guanYa}==13">列管</option>
+          <option value="14"th:selected="${eventChange.guanYa}==14">制管</option>
+          <option value="15"th:selected="${eventChange.guanYa}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.guanYa}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.guanYa}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>制管</span>
         <select>
-         <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+         <option value="1" th:selected="${eventChange.gangYa}==1">事件</option>
+          <option value="2" th:selected="${eventChange.gangYa}==2">时间</option>
+          <option value="3"th:selected="${eventChange.gangYa}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.gangYa}==4">其它</option>
+          <option value="5"th:selected="${eventChange.gangYa}==5">距离</option>
+          <option value="6"th:selected="${eventChange.gangYa}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.gangYa}==7">信号</option>
+          <option value="8"th:selected="${eventChange.gangYa}==8">速度</option>
+          <option value="9"th:selected="${eventChange.gangYa}==9">限速</option>
+          <option value="10"th:selected="${eventChange.gangYa}==10">零位</option>
+          <option value="11"th:selected="${eventChange.gangYa}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.gangYa}==12">前后</option>
+          <option value="13"th:selected="${eventChange.gangYa}==13">列管</option>
+          <option value="14"th:selected="${eventChange.gangYa}==14">制管</option>
+          <option value="15"th:selected="${eventChange.gangYa}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.gangYa}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.gangYa}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>转速电流</span>
         <select>
-        <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+        <option value="1" th:selected="${eventChange.zhuanSuDianLiu}==1">事件</option>
+          <option value="2" th:selected="${eventChange.zhuanSuDianLiu}==2">时间</option>
+          <option value="3"th:selected="${eventChange.zhuanSuDianLiu}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.zhuanSuDianLiu}==4">其它</option>
+          <option value="5"th:selected="${eventChange.zhuanSuDianLiu}==5">距离</option>
+          <option value="6"th:selected="${eventChange.zhuanSuDianLiu}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.zhuanSuDianLiu}==7">信号</option>
+          <option value="8"th:selected="${eventChange.zhuanSuDianLiu}==8">速度</option>
+          <option value="9"th:selected="${eventChange.zhuanSuDianLiu}==9">限速</option>
+          <option value="10"th:selected="${eventChange.zhuanSuDianLiu}==10">零位</option>
+          <option value="11"th:selected="${eventChange.zhuanSuDianLiu}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.zhuanSuDianLiu}==12">前后</option>
+          <option value="13"th:selected="${eventChange.zhuanSuDianLiu}==13">列管</option>
+          <option value="14"th:selected="${eventChange.zhuanSuDianLiu}==14">制管</option>
+          <option value="15"th:selected="${eventChange.zhuanSuDianLiu}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.zhuanSuDianLiu}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.zhuanSuDianLiu}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>均缸</span>
         <select>
-          <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+          <option value="1" th:selected="${eventChange.junGang1}==1">事件</option>
+          <option value="2" th:selected="${eventChange.junGang1}==2">时间</option>
+          <option value="3"th:selected="${eventChange.junGang1}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.junGang1}==4">其它</option>
+          <option value="5"th:selected="${eventChange.junGang1}==5">距离</option>
+          <option value="6"th:selected="${eventChange.junGang1}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.junGang1}==7">信号</option>
+          <option value="8"th:selected="${eventChange.junGang1}==8">速度</option>
+          <option value="9"th:selected="${eventChange.junGang1}==9">限速</option>
+          <option value="10"th:selected="${eventChange.junGang1}==10">零位</option>
+          <option value="11"th:selected="${eventChange.junGang1}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.junGang1}==12">前后</option>
+          <option value="13"th:selected="${eventChange.junGang1}==13">列管</option>
+          <option value="14"th:selected="${eventChange.junGang1}==14">制管</option>
+          <option value="15"th:selected="${eventChange.junGang1}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.junGang1}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.junGang1}==17">均缸2</option>
 
         </select>
       </span>
       <span>
         <span>均缸2</span>
         <select>
-          <option value="1" th:selected="${eventChange.event}==1">事件</option>
-          <option value="2" th:selected="${eventChange.event}==2">时间</option>
-          <option value="3"th:selected="${eventChange.event}==3" >公里标</option>
-          <option value="4"th:selected="${eventChange.event}==4">其它</option>
-          <option value="5"th:selected="${eventChange.event}==5">距离</option>
-          <option value="6"th:selected="${eventChange.event}==6">信号机</option>
-          <option value="7"th:selected="${eventChange.event}==7">信号</option>
-          <option value="8"th:selected="${eventChange.event}==8">速度</option>
-          <option value="9"th:selected="${eventChange.event}==9">限速</option>
-          <option value="10"th:selected="${eventChange.event}==10">零位</option>
-          <option value="11"th:selected="${eventChange.event}==11">牵引</option>
-          <option value="12"th:selected="${eventChange.event}==12">前后</option>
-          <option value="13"th:selected="${eventChange.event}==13">列管</option>
-          <option value="14"th:selected="${eventChange.event}==14">制管</option>
-          <option value="15"th:selected="${eventChange.event}==15">转速电流</option>
-          <option value="16"th:selected="${eventChange.event}==16">均缸</option>
-          <option value="17"th:selected="${eventChange.event}==17">均缸2</option>
+          <option value="1" th:selected="${eventChange.junGang2}==1">事件</option>
+          <option value="2" th:selected="${eventChange.junGang2}==2">时间</option>
+          <option value="3"th:selected="${eventChange.junGang2}==3" >公里标</option>
+          <option value="4"th:selected="${eventChange.junGang2}==4">其它</option>
+          <option value="5"th:selected="${eventChange.junGang2}==5">距离</option>
+          <option value="6"th:selected="${eventChange.junGang2}==6">信号机</option>
+          <option value="7"th:selected="${eventChange.junGang2}==7">信号</option>
+          <option value="8"th:selected="${eventChange.junGang2}==8">速度</option>
+          <option value="9"th:selected="${eventChange.junGang2}==9">限速</option>
+          <option value="10"th:selected="${eventChange.junGang2}==10">零位</option>
+          <option value="11"th:selected="${eventChange.junGang2}==11">牵引</option>
+          <option value="12"th:selected="${eventChange.junGang2}==12">前后</option>
+          <option value="13"th:selected="${eventChange.junGang2}==13">列管</option>
+          <option value="14"th:selected="${eventChange.junGang2}==14">制管</option>
+          <option value="15"th:selected="${eventChange.junGang2}==15">转速电流</option>
+          <option value="16"th:selected="${eventChange.junGang2}==16">均缸</option>
+          <option value="17"th:selected="${eventChange.junGang2}==17">均缸2</option>
 
         </select>
       </span>
     </div>
+    <input type="hidden" th:value="${eventChange.id}" name="oldEventId">
     <button>提交</button>  
   </form>
   </body>

@@ -33,4 +33,5 @@ public interface StepShunXuMapper {
             @Result(property = "nine",column = "nine_step",one = @One(select = "com.gxl.trainerror.mapper.AllTemplateMapper.selectById",fetchType = FetchType.EAGER))
     })
     public StepShunXu selectById(Integer id);
+    public Integer insertStepShunXu(StepShunXu stepShunXu);
 }

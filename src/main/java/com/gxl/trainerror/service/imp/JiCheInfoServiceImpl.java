@@ -26,4 +26,14 @@ public class JiCheInfoServiceImpl implements JiCheInfoService {
     public Integer deleteById(Integer id) {
         return jiCheInfoMapper.deleteById(id);
     }
+
+    @Override
+    public Integer updateStepShunXuById(Integer id, Integer stepShunXu) {
+        return jiCheInfoMapper.updateStepShunXuById(id,stepShunXu);
+    }
+
+    @Override
+    public Integer updateEventChangeId(Integer id, Integer eventChange) {
+        return jiCheInfoMapper.updateEventChangeById(id,eventChange);
+    }
 }

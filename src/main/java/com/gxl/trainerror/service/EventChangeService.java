@@ -7,4 +7,5 @@ import java.util.List;
 public interface EventChangeService {
     public List<EventChange> selectAll();
     public EventChange selectByID(Integer ID);
+    public Integer insertEventChange(EventChange eventChange);
 }

@@ -12,4 +12,5 @@ public interface EventChangeMapper {
     public List<EventChange> selectAll();
     @Select("select * from event_change where id = #{id}")
     public EventChange selectById(Integer id);
+    public Integer insertEventChange(EventChange eventChange);
 }

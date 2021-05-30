@@ -21,4 +21,9 @@ public class EventChangeServiceImpl implements EventChangeService {
     public EventChange selectByID(Integer ID) {
         return eventChangeMapper.selectById(ID);
     }
+
+    @Override
+    public Integer insertEventChange(EventChange eventChange) {
+        return eventChangeMapper.insertEventChange(eventChange);
+    }
 }
