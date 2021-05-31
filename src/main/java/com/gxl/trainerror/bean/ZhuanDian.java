@@ -30,7 +30,10 @@ public class ZhuanDian {
     private String stressName;
     //在格式化之后的全程文件的位子。
     private Integer startPos;
+    private Integer startXuHao;
+
     private Integer endPos;
+    private Integer endXuHao;
     //关于优先级，数字越小，优先级越高。
     private Integer priorNumber;
     //关于单双端的优先级，数字越小，优先级越高。

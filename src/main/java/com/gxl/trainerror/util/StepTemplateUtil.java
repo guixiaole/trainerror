@@ -1062,4 +1062,38 @@ public class StepTemplateUtil {
         }
         return false;
     }
+
+    public static List<List<QuanCheng>> spliteQuanCheng(List<QuanCheng> quanChengs){
+        /*
+            分割全程记录,根据单双端检测。
+         */
+        List<List<QuanCheng>>  res = new ArrayList<>();
+        //在前面进来的时候是确实要判断是不是双端。
+        int length = res.size();
+        //取一半左右。
+        int flag = length/2 - 1;
+        for (int i = length/2;i<length;i++){
+            if (quanChengs.get(i).getEvent().contains("巡检")){
+                flag = i;
+                break;
+            }
+        }
+        if (flag != (length/2-1)){
+            List<QuanCheng> firstQuanCheng = new ArrayList<>();
+            List<QuanCheng> secondQuanCheng = new ArrayList<>();
+            for (int j = 0;j<length;j++ ){
+                if (j<flag+10){
+                    firstQuanCheng.add(quanChengs.get(j));
+                }else {
+                    secondQuanCheng.add(quanChengs.get(j));
+                }
+            }
+            res.add(firstQuanCheng);
+            res.add(secondQuanCheng);
+            return res;
+        }else {
+            res.add(quanChengs);
+            return res;
+        }
+    }
 }

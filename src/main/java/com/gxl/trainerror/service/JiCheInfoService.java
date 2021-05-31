@@ -10,4 +10,5 @@ public interface JiCheInfoService {
     public Integer deleteById(Integer id);
     public Integer updateStepShunXuById(Integer id,Integer stepShunXu);
     public Integer updateEventChangeId(Integer id,Integer eventChange);
+    public JiCheInfo selectByJiXingJiChe(String  jiXing,String jiChe);
 }

@@ -36,7 +36,7 @@ class TrainerrorApplicationTests {
 //        for (FileInfo info : fileInfos) {
 //            System.out.println(info);
 //        }
-        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1216);
+        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1242);
         List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
 
         List<FiveStepTemplate> guanYaTemplateAnalysis = StepTemplateUtil.GuanYaTemplateTest(quanChengs1);
@@ -60,7 +60,7 @@ class TrainerrorApplicationTests {
     }
     @Test
     void TestStepUtil(){
-        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1237);
+        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1242);
         List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
         List<StepSelect> guanya = stepSelectService.selectByIdAndName(1,"管");
         List<StepSelect> gangya = stepSelectService.selectByIdAndName(1,"列");

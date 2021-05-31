@@ -20,6 +20,46 @@
         <if test="fiveStep!=null ">
             five_step =#{fiveStep},
         </if>
+        <if test="sixStep!=null ">
+            six_step =#{sixStep},
+        </if>
+        <if test="sevenStep!=null ">
+            seven_step =#{sevenStep},
+        </if>
+        <if test="eightStep!=null ">
+            eight_step =#{eightStep},
+        </if>
+        <if test="nineStep!=null ">
+            nine_step =#{nineStep},
+        </if>
+        <if test="shuangOneStep!=null ">
+            shuang_one_step =#{shuangOneStep},
+        </if>
+        <if test="shuangTwoStep!=null ">
+            shuang_two_step =#{shuangTwoStep},
+        </if>
+        <if test="shuangThreeStep!=null ">
+            shuang_three_step =#{shuangThreeStep},
+        </if>
+        <if test="shuangFourStep!=null ">
+            shuang_four_step =#{shuangFourStep},
+        </if>
+        <if test="shuangFiveStep!=null ">
+            shuang_five_step =#{shuangFiveStep},
+        </if>
+        <if test="shuangSixStep!=null ">
+            shuang_six_step =#{shuangSixStep},
+        </if>
+        <if test="shuangSevenStep!=null ">
+            shuang_seven_step =#{shuangSevenStep},
+        </if>
+        <if test="shuangEightStep!=null ">
+            shuang_eight_step =#{shuangEightStep},
+        </if>
+        <if test="shuangNineStep!=null ">
+            shuang_nine_step =#{shuangNineStep},
+        </if>
+
         id = #{id}
         where id =#{id}
     </update>

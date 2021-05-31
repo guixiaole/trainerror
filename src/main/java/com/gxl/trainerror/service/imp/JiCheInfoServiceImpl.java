@@ -36,4 +36,9 @@ public class JiCheInfoServiceImpl implements JiCheInfoService {
     public Integer updateEventChangeId(Integer id, Integer eventChange) {
         return jiCheInfoMapper.updateEventChangeById(id,eventChange);
     }
+
+    @Override
+    public JiCheInfo selectByJiXingJiChe(String jiXing, String jiChe) {
+        return jiCheInfoMapper.selectByJiXingJiChe(jiXing,jiChe);
+    }
 }

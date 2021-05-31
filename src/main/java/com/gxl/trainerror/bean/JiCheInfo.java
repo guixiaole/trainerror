@@ -13,6 +13,7 @@ public class JiCheInfo {
     private String jiXing;
     private Integer jiXingHao;
     private Integer jiCheHao;
+    //单双端还是要看1还是2
     private Integer danShuangDuan;
     private Integer otherJiCheHao;
     private String zhiDongJiName;

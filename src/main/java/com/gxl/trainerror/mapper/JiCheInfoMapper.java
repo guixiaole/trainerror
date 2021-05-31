@@ -32,4 +32,7 @@ public interface JiCheInfoMapper {
     public Integer updateStepShunXuById(Integer id,Integer stepShunXuId);
     @Update("update ji_che_info set event_change_id =#{eventChangeId} where id = #{id}")
     public Integer updateEventChangeById(Integer id,Integer eventChangeId);
+    @Select("select * from ji_che_info where ji_xing_hao = #{jixing} and ji_che_hao = #{jiche} ")
+    @ResultMap(value = "jicheInfoAll")
+    public JiCheInfo selectByJiXingJiChe(String jixing,String jiche);
 }
