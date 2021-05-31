@@ -97,6 +97,7 @@ public class JiCheInfoController {
         if (stepShunXu.getNineStep()==0){
             stepShunXu.setNineStep(null);
         }
+        stepShunXu.setName("新"+stepShunXu.getName());
         Integer newShunXuId = stepShunXuService.insertStepShunXu(stepShunXu);
         jiCheInfoService.updateStepShunXuById(jicheid,newShunXuId);
         //返回到相对应的界面去
@@ -132,7 +133,7 @@ public class JiCheInfoController {
                 return "messege";
             }
         }
-        
+        eventChange.setName("新"+eventChange.getName());
         Integer neweventChangeId = eventChangeService.insertEventChange(eventChange);
 
         jiCheInfoService.updateEventChangeId(jicheid,neweventChangeId);
