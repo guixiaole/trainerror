@@ -44,8 +44,11 @@ public class QuXianController {
         List<Integer> zhuanSuDianLiu = new ArrayList<>();
         String timeLast=sdf.format(quanCheng.get(0).getDateTime());
         List<String> finalTimes = new ArrayList<>();
+
         List<QuanCheng> timeQuanCheng = StepTemplateUtil.TimeTemplate(quanCheng);
         for (QuanCheng cheng : timeQuanCheng) {
+            String timeNow=sdf.format(cheng.getDateTime());
+            finalTimes.add(timeNow);
             times.add(sdf.format(cheng.getDateTime()));
             guanya.add(cheng.getGuanYa());
             gangya.add(cheng.getGangYa());
@@ -71,6 +74,7 @@ public class QuXianController {
 //                    zhuanSuDianLiu.add(cheng.getZhuanSuDianLiu());
 //                }
 //
+
 //
 //            }
 //            timeLast = timeNow;

@@ -307,8 +307,8 @@ public class StepTemplateUtil {
                 List<List<Integer>> jungangStep = FirstShaiXuan(quanChengs,jungang.get(0));
                 if (jungangStep.size()>0 && jungang.size()>1){
                     List<List<Integer>>res = getStartAndEnd(quanChengs,jungangStep,jungang.get(1));
-                    int flag = 1;
-                    while (flag<guanya.size()){
+                    int flag = 2;
+                    while (flag<jungang.size()){
                         res = getStartAndEnd(quanChengs,res,jungang.get(flag));
                         flag++;
                     }
@@ -324,8 +324,8 @@ public class StepTemplateUtil {
                 List<List<Integer>> gangyaStep = FirstShaiXuan(quanChengs,gangya.get(0));
                 if (gangyaStep.size()>0 && jungang.size()>1){
                     List<List<Integer>>res = getStartAndEnd(quanChengs,gangyaStep,gangya.get(1));
-                    int flag = 1;
-                    while (flag<guanya.size()){
+                    int flag = 2;
+                    while (flag<gangya.size()){
                         res = getStartAndEnd(quanChengs,res,gangya.get(flag));
                         flag++;
                     }
@@ -814,6 +814,9 @@ public class StepTemplateUtil {
         if (first.getStressName().equals("管")){
 
             while (i<length){
+                if(quanChengs.get(i).getXuHao()>=465){
+                    System.out.println(i);
+                }
                 if (quanChengs.get(i).getGuanYa()<=first.getMaxStress() &&
                         quanChengs.get(i).getGuanYa()>=first.getMinStress()){
                     //假设在这个区间
@@ -940,6 +943,8 @@ public class StepTemplateUtil {
                     zhuanDian.setEndPos(end);
                     zhuanDian.setRightStress(getStressNumber(quanChengs.get(end),stepSelect));
                     zhuanDian.setStepSelectId(stepSelect.getId());
+                    zhuanDian.setStressName(stepSelect.getStressName());
+                    zhuanDian.setEndXuHao(quanChengs.get(end).getXuHao().intValue());
                 }
                 int maxStress = getStressNumber(quanChengs.get(end),stepSelect);
                 Date maxTime = quanChengs.get(end).getDateTime();
@@ -968,6 +973,8 @@ public class StepTemplateUtil {
                     zhuanDian.setRightStress(getStressNumber(quanChengs.get(startFirst),stepSelect));
                     zhuanDian.setStepSelectId(stepSelect.getId());
                     zhuanDian.setEndPos(startFirst);
+                    zhuanDian.setStressName(stepSelect.getStressName());
+                    zhuanDian.setEndXuHao(quanChengs.get(startFirst).getXuHao().intValue());
                //要在这里加一个startpos 和endpos
                 }
                 zhuanDian.setStartTime(quanChengs.get(start).getDateTime());
@@ -977,6 +984,7 @@ public class StepTemplateUtil {
                 zhuanDian.setMinTime(minTime);
                 zhuanDian.setMaxStress(maxStress);
                 zhuanDian.setMinStress(minStress);
+                zhuanDian.setStartXuHao(quanChengs.get(start).getXuHao());
                 //将其进行存储，带出去。
                 //还有关于全程文件的fileid
                 zhuanDian.setFileId(quanChengs.get(0).getFileId());

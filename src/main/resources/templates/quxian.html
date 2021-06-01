@@ -185,7 +185,17 @@
       title: {
         text: '全程记录',
       },
-      tooltip: {},
+
+      tooltip: {
+        trigger:'axis',
+        triggerOn:"mousemove",
+        showContent: true,
+        alwaysShowContent: true,
+        showDelay: 0,
+        position:['80%','10%']
+
+
+      },
       legend: {
         data: [
           {
@@ -285,7 +295,16 @@
         text: '全程记录',
       },
       color:['blue','red','gray'],
-      tooltip: {},
+      tooltip: {
+        trigger:'axis',
+        triggerOn:"mousemove",
+        showContent: true,
+        alwaysShowContent: true,
+        showDelay: 0,
+        position:['80%','10%']
+
+
+      },
       legend: {
         data: [
           {
@@ -477,8 +496,8 @@
           var step_int = [[${shuang_five}]]
         }
       }
+    console.log(step)
 
-      console.log(step_int.startXiangDian)
 
       if (step==null){
         alert("并没有此步闸")
@@ -543,7 +562,7 @@
           var end1 = start1+30
         }else {
           start1=start1-10
-          var end1 = start1+20
+          var end1 = start1+10
         }
 
         console.log(start1)

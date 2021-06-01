@@ -60,7 +60,7 @@ class TrainerrorApplicationTests {
     }
     @Test
     void TestStepUtil(){
-        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1242);
+        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1251);
         List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
         List<StepSelect> guanya = stepSelectService.selectByIdAndName(1,"管");
         List<StepSelect> gangya = stepSelectService.selectByIdAndName(1,"列");
@@ -69,7 +69,7 @@ class TrainerrorApplicationTests {
         stepSelects.add(guanya);
         stepSelects.add(gangya);
         stepSelects.add(jungang);
-        List<List<ZhuanDian>> res = StepTemplateUtil.stepFinder("管均列",stepSelects,quanChengs1);
+        List<List<ZhuanDian>> res = StepTemplateUtil.stepFinder("均管列",stepSelects,quanChengs1);
         for (List<ZhuanDian> re : res) {
             for (ZhuanDian zhuanDian : re) {
                zhuanDianService.insertZhuanDian(zhuanDian);

@@ -155,13 +155,13 @@ public class DLLCaptureController {
 
                                     //进行插入操作
                                     if (id >= 0){
-                                        StepAnalysis stepAnalysis =new StepAnalysis(id);
+                                        StepAnalysis stepAnalysis1 =new StepAnalysis(id);
                                         //插入五步闸的信息
-                                        stepAnalysisService.insertOnlyFileID(stepAnalysis);
+                                        stepAnalysisService.insertOnlyFileID(stepAnalysis1);
                                         quanChengService.insertQuanCheng(lists, id);
                                         //在插入的时候，就应该去
                                         //当主键插入进去的时候，再进行插入。
-
+                                        StepAnalysis stepAnalysis = stepAnalysisService.selectStepInfoByFileId(id);
                                         FileInfo newFileInfo = fileInfoService.selectFileInfoById(id);
                                         if (newFileInfo.getJiXing()!=null && newFileInfo.getJiCheHao()!=null){
                                             List<QuanCheng> quanChengs = quanChengService.selectByFileAscXuhao(id);
@@ -390,6 +390,6 @@ public class DLLCaptureController {
             stepInfo.setStartXiangDian(one.get(0));
             stepInfo.setEndXiangDian(one.get(1));
             Integer id = stepInfoService.insertStartEnd(stepInfo);
-            return id;
+            return stepInfo.getId();
     }
 }
