@@ -68,7 +68,11 @@ public class StepTemplateUtil {
                             temp = (Date) lastDate.clone();
                             temp.setTime(temp.getTime()+1000);
                             QuanCheng lastQuanCheng = resQuanCheng.get(resQuanCheng.size()-1);
+                            //除了序号还可以做别的。
                             QuanCheng quanChengTemp = new QuanCheng(temp,lastQuanCheng.getGuanYa().intValue(),lastQuanCheng.getGangYa().intValue(),lastQuanCheng.getJunGang1().intValue(),lastQuanCheng.getJunGang2().intValue(),lastQuanCheng.getXuHao().intValue());
+                            quanChengTemp.setRestrictSpeed(lastQuanCheng.getRestrictSpeed().intValue());
+                            quanChengTemp.setSpeed(lastQuanCheng.getSpeed().intValue());
+                            quanChengTemp.setZhuanSuDianLiu(lastQuanCheng.getZhuanSuDianLiu().intValue());
                             resQuanCheng.add(quanChengTemp);
                             timeMinus--;
                             lastDate = (Date) temp.clone();
