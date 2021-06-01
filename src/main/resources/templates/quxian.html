@@ -438,29 +438,50 @@
 
 
       var finalTimes =[[${finalTimes}]]
-
-      if (s==1){
-        var step = [[${one_times}]]
-        var step_int = [[${one}]]
-        console.log(step)
-        console.log(step_int)
-      }else if(s==2){
-        var step = [[${two_times}]]
-        var step_int = [[${two}]]
-      }else if(s==3){
-        var step =  [[${three_times}]]
-        var step_int = [[${three}]]
-      }else if(s==4){
-        var step =[[${four_times}]]
-        var step_int = [[${four}]]
+      if (duankou==1){
+        if (s==1){
+          var step = [[${one_times}]]
+          var step_int = [[${one}]]
+          console.log(step)
+          console.log(step_int)
+        }else if(s==2){
+          var step = [[${two_times}]]
+          var step_int = [[${two}]]
+        }else if(s==3){
+          var step =  [[${three_times}]]
+          var step_int = [[${three}]]
+        }else if(s==4){
+          var step =[[${four_times}]]
+          var step_int = [[${four}]]
+        }else {
+          var step = [[${five_times}]]
+          var step_int = [[${five}]]
+        }
       }else {
-        var step = [[${five_times}]]
-        var step_int = [[${five}]]
+        if (s==1){
+          var step = [[${shaung_one_times}]]
+          var step_int = [[${shuang_one}]]
+          console.log(step)
+          console.log(step_int)
+        }else if(s==2){
+          var step = [[${shuang_two_times}]]
+          var step_int = [[${shuang_two}]]
+        }else if(s==3){
+          var step =  [[${shuang_three_times}]]
+          var step_int = [[${shuang_three}]]
+        }else if(s==4){
+          var step =[[${shuang_four_times}]]
+          var step_int = [[${shuang_four}]]
+        }else {
+          var step = [[${shuang_five_times}]]
+          var step_int = [[${shuang_five}]]
+        }
       }
+
       console.log(step_int.startXiangDian)
 
       if (step==null){
-        alert("此步闸并没有错误")
+        alert("并没有此步闸")
       }else {
         myChart.setOption(
                 {
