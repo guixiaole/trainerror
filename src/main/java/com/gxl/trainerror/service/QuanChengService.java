@@ -14,4 +14,5 @@ public interface QuanChengService {
 
     public  Integer insertQuanCheng(ArrayList<String>[] lists,Integer fileId) throws ParseException;
     public List<QuanCheng> selectByFileAscXuhao(Integer id);
+    public void insertQuanChengByList(List<QuanCheng> quanCheng);
 }

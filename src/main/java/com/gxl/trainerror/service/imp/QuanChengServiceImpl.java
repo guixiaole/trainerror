@@ -199,4 +199,11 @@ public class QuanChengServiceImpl implements QuanChengService {
     public List<QuanCheng> selectByFileAscXuhao(Integer id) {
         return quanChengMapper.selectByFileAscXuhao(id);
     }
+
+    @Override
+    public void insertQuanChengByList(List<QuanCheng> quanCheng) {
+        for (QuanCheng cheng : quanCheng) {
+            quanChengMapper.insertQuanCheng(cheng);
+        }
+    }
 }
