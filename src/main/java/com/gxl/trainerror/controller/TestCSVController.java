@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,7 @@ public class TestCSVController {
     @Autowired
     private StepInfoService stepInfoService;
     @Scheduled(cron = "0/10 * * * * ?")
-    public void testCsvStepAnalysis() throws IOException {
+    public void testCsvStepAnalysis() throws IOException, ParseException {
         /*
             此方法只是为了读取excel文件，然后进行存储。
             然后进行读取文件。
