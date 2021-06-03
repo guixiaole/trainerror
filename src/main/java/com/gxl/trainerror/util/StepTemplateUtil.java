@@ -784,8 +784,8 @@ public class StepTemplateUtil {
             int start = startAndEnd.get(0);
             int end = startAndEnd.get(1)+1;
             while (end<length){
-                if (quanChengs.get(end).getGuanYa()>=stepSelect.getMinStress()
-                &&quanChengs.get(end).getGuanYa()<=stepSelect.getMaxStress()){
+                if (getStressNumber( quanChengs.get(end),stepSelect)>=stepSelect.getMinStress()
+                &&getStressNumber( quanChengs.get(end),stepSelect)<=stepSelect.getMaxStress()){
                     end++;
                 }
                 else {

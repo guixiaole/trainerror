@@ -38,6 +38,11 @@ public class JiCheInfoServiceImpl implements JiCheInfoService {
     }
 
     @Override
+    public JiCheInfo selectByJiXingHaoJiCheHao(String jiXing, String jiChe) {
+        return null;
+    }
+
+    @Override
     public JiCheInfo selectByJiXingJiChe(String jiXing, String jiChe) {
         return jiCheInfoMapper.selectByJiXingJiChe(jiXing,jiChe);
     }

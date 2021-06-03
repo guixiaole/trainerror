@@ -113,10 +113,10 @@ public class QuanChengServiceImpl implements QuanChengService {
                         if (file1.equals("机车号")){
                             fieldInfo.setCheHao(lists[4].get(i));
                         }
-                        if (file1.equals("司机号1")){
+                        if (file1.equals("司机号1")|| file1.equals("司机名")){
                             fieldInfo.setSiJiName(lists[4].get(i));
                         }
-                        if (file1.equals("司机号2")){
+                        if (file1.equals("司机号2")|| file1.equals("副司机")){
                             fieldInfo.setFuSiJiName(lists[4].get(i));
                         }
                         if (file1.equals("计长")){
@@ -201,9 +201,42 @@ public class QuanChengServiceImpl implements QuanChengService {
     }
 
     @Override
-    public void insertQuanChengByList(List<QuanCheng> quanCheng) {
-        for (QuanCheng cheng : quanCheng) {
-            quanChengMapper.insertQuanCheng(cheng);
+    public void insertQuanChengByList(List<QuanCheng> quanCheng,FileInfo fieldInfo) {
+        for (int i = 0;i<quanCheng.size();i++) {
+            quanChengMapper.insertQuanCheng(quanCheng.get(i));
+            String file1 = quanCheng.get(i).getEvent();
+            if (file1.equals("车次")){
+                fieldInfo.setCheCi(quanCheng.get(i).getOther());
+            }
+            //机型没有找到,版本号也没有修改
+            if (file1.equals("机车号")){
+                int chehao = (int) Double.parseDouble(quanCheng.get(i).getOther());
+                fieldInfo.setCheHao(String.valueOf(chehao));
+            }
+            if (file1.equals("司机号1") || file1.equals("司机名")){
+                fieldInfo.setSiJiName(quanCheng.get(i).getOther());
+            }
+            if (file1.equals("司机号2")|| file1.equals("副司机")){
+                fieldInfo.setFuSiJiName(quanCheng.get(i).getOther());
+            }
+            if (file1.equals("计长")){
+                fieldInfo.setJiChang(quanCheng.get(i).getOther());
+            }
+            if (file1.equals("数据交路号")){
+                fieldInfo.setJiaoLuHao(quanCheng.get(i).getOther());
+            }
+            if (file1.equals("车站号")){
+                fieldInfo.setStartStation(quanCheng.get(i).getOther());
+            }
+            if (file1.contains("机") && file1.contains("型")){
+                fieldInfo.setJiXing(quanCheng.get(i).getOther());
+            }
+            if (file1.equals("机车号")){
+                int chehao = (int) Double.parseDouble(quanCheng.get(i).getOther());
+                fieldInfo.setJiCheHao(String.valueOf(chehao));
+            }
         }
+        fileInfoMapper.updateWhenInsertQuancheg(fieldInfo);
+
     }
 }

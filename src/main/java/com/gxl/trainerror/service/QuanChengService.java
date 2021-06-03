@@ -1,5 +1,6 @@
 package com.gxl.trainerror.service;
 
+import com.gxl.trainerror.bean.FileInfo;
 import com.gxl.trainerror.bean.QuanCheng;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,5 +15,5 @@ public interface QuanChengService {
 
     public  Integer insertQuanCheng(ArrayList<String>[] lists,Integer fileId) throws ParseException;
     public List<QuanCheng> selectByFileAscXuhao(Integer id);
-    public void insertQuanChengByList(List<QuanCheng> quanCheng);
+    public void insertQuanChengByList(List<QuanCheng> quanCheng, FileInfo fileInfo);
 }

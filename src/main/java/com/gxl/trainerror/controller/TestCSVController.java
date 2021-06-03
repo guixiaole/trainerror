@@ -53,8 +53,10 @@ public class TestCSVController {
                     fileInfoService.insertFileInfoStart(fileInfo);
                     int id = fileInfo.getId();
                     if(id>=0){
+                        StepAnalysis stepAnalysis1 =new StepAnalysis(id);
+                        stepAnalysisService.insertOnlyFileID(stepAnalysis1);
                         List<QuanCheng> quanChengsList = CSVRead.CscReader(filiReadName,id);
-                        quanChengService.insertQuanChengByList(quanChengsList);
+                        quanChengService.insertQuanChengByList(quanChengsList,fileInfo);
                         StepAnalysis stepAnalysis = stepAnalysisService.selectStepInfoByFileId(id);
                         FileInfo newFileInfo = fileInfoService.selectFileInfoById(id);
                         if (newFileInfo.getJiXing()!=null && newFileInfo.getJiCheHao()!=null){
@@ -64,6 +66,9 @@ public class TestCSVController {
 
                             //分别插入，无论是单端还是双端。
                             JiCheInfo jiCheInfo = jiCheInfoService.selectByJiXingJiChe(newFileInfo.getJiXing(),newFileInfo.getJiCheHao());
+                            if(jiCheInfo==null){
+                                jiCheInfo = jiCheInfoService.selectByJiXingHaoJiCheHao(newFileInfo.getJiXing(),newFileInfo.getJiCheHao());
+                            }
                             StepShunXu stepShunXu = jiCheInfo.getStepShunXu();
                             //单双端怎么检测啊？
                             if(jiCheInfo.getDanShuangDuan()==1){

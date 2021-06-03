@@ -60,7 +60,7 @@ class TrainerrorApplicationTests {
     }
     @Test
     void TestStepUtil(){
-        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1251);
+        List<QuanCheng>quanChengs = quanChengService.selectByFileAscXuhao(1263);
         List<QuanCheng> quanChengs1 =  StepTemplateUtil.TimeTemplate(quanChengs);
         List<StepSelect> guanya = stepSelectService.selectByIdAndName(1,"管");
         List<StepSelect> gangya = stepSelectService.selectByIdAndName(1,"列");
