@@ -15,22 +15,22 @@
                xu_hao,
             </if>
             <if test="event!=null and event!=''">
-                event,
+               event,
             </if>
             <if test="dateTime!=null">
                 date_time,
             </if>
             <if test="gongLiBiao!=null and gongLiBiao!=''">
-                gong_li_biao,
+              gong_li_biao,
             </if>
             <if test="other!=null and other!=''">
-                other,
+            other,
             </if>
             <if test="distance!=null ">
-                distance,
+              distance,
             </if>
             <if test="signalMachine!=null and signalMachine!=''">
-                signal_machine,
+            signal_machine,
             </if>
             <if test="xinHao!=null and xinHao!=''">
                 xin_hao,
@@ -42,10 +42,10 @@
                 restrict_speed,
             </if>
             <if test="lingWei!=null and lingWei!=''">
-                ling_wei,
+           ling_wei,
             </if>
             <if test="qianYin!=null and qianYin!=''">
-                qian_yin,
+               qian_yin,
             </if>
             <if test="qianHou!=null and qianHou!=''">
                 qian_hou,
@@ -134,5 +134,18 @@
         insert into quan_cheng (<include refid="quanchengkey" />)
         values (<include refid="quanchengvalues" />)
   </insert>
-
+    <insert id="insertListQuanCheng">
+        insert  into quan_cheng (
+        file_id, xu_hao, event,date_time,  gong_li_biao,other,distance,signal_machine,
+        xin_hao, speed,restrict_speed, ling_wei,qian_yin,qian_hou, guan_ya, gang_ya,
+        zhuan_su_dian_liu,   jun_gang1,  jun_gang2
+        )
+        values
+            <foreach collection="list" item="quanCheng" separator=",">
+             (#{quanCheng.fileId},#{quanCheng.xuHao},#{quanCheng.event},#{quanCheng.dateTime},#{quanCheng.gongLiBiao},#{quanCheng.other},#{quanCheng.distance},
+              #{quanCheng.signalMachine},#{quanCheng.xinHao},#{quanCheng.speed},#{quanCheng.restrictSpeed},
+              #{quanCheng.lingWei},#{quanCheng.qianYin},
+            #{quanCheng.qianHou},#{quanCheng.guanYa},#{quanCheng.gangYa},#{quanCheng.zhuanSuDianLiu},#{quanCheng.junGang1},#{quanCheng.junGang2})
+            </foreach>
+    </insert>
 </mapper>

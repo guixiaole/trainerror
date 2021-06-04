@@ -202,8 +202,9 @@ public class QuanChengServiceImpl implements QuanChengService {
 
     @Override
     public void insertQuanChengByList(List<QuanCheng> quanCheng,FileInfo fieldInfo) {
+        quanChengMapper.insertListQuanCheng(quanCheng);
         for (int i = 0;i<quanCheng.size();i++) {
-            quanChengMapper.insertQuanCheng(quanCheng.get(i));
+//            quanChengMapper.insertQuanCheng(quanCheng.get(i));
             String file1 = quanCheng.get(i).getEvent();
             if (file1.equals("车次")){
                 fieldInfo.setCheCi(quanCheng.get(i).getOther());
