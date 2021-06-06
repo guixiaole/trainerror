@@ -38,7 +38,7 @@ public class StepSelect {
     //是否依赖其它压力 都默认为-1
     private Integer isDepend;
     private Integer startId;
-    private Integer endID;
+    private Integer endId;
     //设置各管的优先序列
     private Integer sortNumber;
 }

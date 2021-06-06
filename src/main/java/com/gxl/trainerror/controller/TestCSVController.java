@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +77,7 @@ public class TestCSVController {
                                 storeStep(quanChengsTemplate,stepShunXu,1,stepAnalysis);
                             }else {
                                 List<List<QuanCheng>> shuangQuanchengs = StepTemplateUtil.spliteQuanCheng(quanChengsTemplate);
-                                if (shuangQuanchengs.size()>2){
+                                if (shuangQuanchengs.size()>=2){
                                     storeStep(shuangQuanchengs.get(0),stepShunXu,1,stepAnalysis);
                                     storeStep(shuangQuanchengs.get(1),stepShunXu,2,stepAnalysis);
                                 }else {
@@ -87,6 +89,7 @@ public class TestCSVController {
                         }
                     }
                 }
+                Files.move(Paths.get("D:\\test" + "\\" + file1.getName()), Paths.get("D:\\test\\newFile" + "\\" + file1.getName()));
             }
         }
 

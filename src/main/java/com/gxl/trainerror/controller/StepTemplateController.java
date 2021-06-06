@@ -56,14 +56,14 @@ public class StepTemplateController {
                 select.setIsDepend(-1);
             }else {
                 int allCount = stepSelectService.selectCountPrior(select.getTemplateId(),select.getStressName());
-                if (select.getStartId()>select.getEndID()){
+                if (select.getStartId()>select.getEndId()){
                     int temp= select.getStartId();
-                    select.setStartId(select.getEndID());
-                    select.setEndID(temp);
+                    select.setStartId(select.getEndId());
+                    select.setEndId(temp);
                 }
-                if (select.getStartId()>allCount || select.getEndID()>allCount){
+                if (select.getStartId()>allCount || select.getEndId()>allCount){
                     select.setStartId(-1);
-                    select.setEndID(-1);
+                    select.setEndId(-1);
                 }
             }
         }
@@ -102,5 +102,10 @@ public class StepTemplateController {
 
         return  "redirect:/modefiyTemplate?id="+select.getTemplateId();
     }
-
+    @RequestMapping("updateyali")
+    public String updateyali(StepSelect select
+                            ){
+        stepSelectService.updateStepSelectById(select);
+        return "redirect:/modefiyTemplate?id="+select.getTemplateId();
+     }
 }

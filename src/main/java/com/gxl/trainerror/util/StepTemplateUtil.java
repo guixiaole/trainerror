@@ -1038,7 +1038,7 @@ public class StepTemplateUtil {
         if (select.getIsDepend()!=-1){
             //如果有依靠
             int start = select.getStartId();
-            int end = select.getEndID();
+            int end = select.getEndId();
             ZhuanDian startZhuanDian =zhuanDians.get(start-1);
             ZhuanDian endZhuanDian = zhuanDians.get(end-1);
 //            for (ZhuanDian zhuanDian : zhuanDians) {
@@ -1081,16 +1081,20 @@ public class StepTemplateUtil {
          */
         List<List<QuanCheng>>  res = new ArrayList<>();
         //在前面进来的时候是确实要判断是不是双端。
-        int length = res.size();
+        int length = quanChengs.size();
         //取一半左右。
-        int flag = length/2 - 1;
-        for (int i = length/2;i<length;i++){
-            if (quanChengs.get(i).getEvent().contains("巡检")){
-                flag = i;
-                break;
+        int flag = length;
+        for (int i = length-1;i>0;i--){
+            //有几个关键字可以选。随意写，事件记录里可以任意搜
+            if (quanChengs.get(i).getEvent()!=null){
+                if (quanChengs.get(i).getEvent().contains("巡检")){
+                    flag = i;
+                    break;
+                }
             }
+
         }
-        if (flag != (length/2-1)){
+        if (flag != length){
             List<QuanCheng> firstQuanCheng = new ArrayList<>();
             List<QuanCheng> secondQuanCheng = new ArrayList<>();
             for (int j = 0;j<length;j++ ){

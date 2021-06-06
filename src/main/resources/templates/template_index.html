@@ -44,7 +44,7 @@
       left: 50%;
       transform: translateX(-50%);
       width: 200px;
-      height: 100px;
+      height: 200px;
       background-color: #28a0ed;
       text-align: center;
     }
@@ -60,6 +60,9 @@
     .show input {
       width: 100px;
     }
+    select{
+      width: 150px;
+    }
   </style>
   <body>
     <div class="index">
@@ -74,7 +77,16 @@
     <div class="show" id="show">
       <form th:action="@{/addTemplate}" method="post">
         <div class="show_div"><span>闸名</span> <input type="text" th:id="templateName" name="templateName" /></div>
-        <div class="show_div"><span>排列顺序</span> <input type="text" th:id="guanSort" name="templateName" /></div>
+        <div class="show_div"><span>排列顺序</span>
+          <select th:id="guanSort" name="guanSort" >
+            <option value="管均列" >管均列</option>
+            <option value="均管列" >均管列</option>
+            <option value="管列均" >管列均</option>
+            <option value="均列管" >均列管</option>
+            <option value="列管均" >列管均</option>
+            <option value="列均管" >列均管</option>
+          </select>
+
 
         <button>提交</button>
       </form>

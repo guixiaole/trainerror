@@ -30,4 +30,9 @@ public class StepSelectServiceImpl implements StepSelectService {
     public Integer selectCountPrior(Integer templateId, String stressName) {
         return stepSelectMapper.selectCount(templateId,stressName);
     }
+
+    @Override
+    public void updateStepSelectById(StepSelect select) {
+        stepSelectMapper.updateStepSelectByID(select);
+    }
 }

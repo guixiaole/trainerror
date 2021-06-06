@@ -17,4 +17,6 @@ public interface StepSelectMapper {
     public Integer insertStepSelect(StepSelect select);
     @Select("select count(*) from step_select where template_id =#{templateId} and stress_name = #{stressName}")
     public Integer selectCount(Integer templateId,String stressName);
+
+    public  void updateStepSelectByID(StepSelect select);
 }

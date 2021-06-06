@@ -37,8 +37,11 @@
           <td>[[${jiche.zhiDongJiName}]]</td>
           <td>[[${jiche.lieZhiRatio}]]</td>
 
-          <td th:onclick="'javascript:stepshunxu('+${jiche.id}+','+${jiche.stepShunXuId}+')'">[[${jiche.stepShunXu.name}]]</td>
-          <td th:onclick="'javascript:eventchange('+${jiche.id}+','+${jiche.eventChangeId}+')'">[[${jiche.eventChange.name}]]</td>
+          <td th:if="${jiche.stepShunXu!=null}" th:onclick="'javascript:stepshunxu('+${jiche.id}+','+${jiche.stepShunXuId}+')'">[[${jiche.stepShunXu.name}]]</td>
+          <td th:if="${jiche.stepShunXu==null}"  th:onclick="'javascript:stepshunxu('+${jiche.id}+','+${jiche.stepShunXuId}+')'">无</td>
+
+          <td th:if="${jiche.eventChange!=null}" th:onclick="'javascript:eventchange('+${jiche.id}+','+${jiche.eventChangeId}+')'">[[${jiche.eventChange.name}]]</td>
+          <td th:if="${jiche.eventChange==null}" th:onclick="'javascript:eventchange('+${jiche.id}+','+${jiche.eventChangeId}+')'">无</td>
           <td>删除</td>
         </tr>
       </tbody>
@@ -93,9 +96,21 @@
       }
     }
     function stepshunxu(id,shunxuId){
+      if (id ==null){
+        id = "1"
+      }
+      if(shunxuId==null){
+        shunxuId="1"
+      }
      window.location="../stepShunXuIndex?id="+id+"&shunxuId="+shunxuId;
     }
     function eventchange(id,eventId){
+      if (id ==null){
+        id = "1"
+      }
+      if(eventId==null){
+        eventId="1"
+      }
       window.location="../eventChangeIndex?id="+id+"&eventId="+eventId;
     }
   </script>

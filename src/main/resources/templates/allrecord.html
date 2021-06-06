@@ -272,16 +272,34 @@
         }
       }
       var stepAnalysis = [[${stepAnalysis}]]
-      if (s==1){
+      if (flag_s==1){
         var step = stepAnalysis.one
-      }else if(s==2){
+      }else if(flag_s==2){
         var step = stepAnalysis.two
-      }else if(s==3){
+      }else if(flag_s==3){
         var step =  stepAnalysis.three
-      }else if(s==4){
+      }else if(flag_s==4){
         var step =stepAnalysis.four
-      }else {
+      }else if (flag_s==5){
         var step = stepAnalysis.five
+      }else if (flag_s==6){
+        var step = stepAnalysis.six
+      }else if (flag_s==7){
+        var step = stepAnalysis.seven
+      }else if (flag_s==8){
+        var step = stepAnalysis.shuangOne
+      }else if (flag_s==9){
+        var step = stepAnalysis.shuangTwo
+      }else if (flag_s==10){
+        var step = stepAnalysis.shuangThree
+      }else if (flag_s==11){
+        var step = stepAnalysis.shuangFour
+      }else if (flag_s==12){
+        var step = stepAnalysis.shuangFive
+      }else if (flag_s==13){
+        var step = stepAnalysis.shuangSix
+      }else {
+        var step = stepAnalysis.shuangSeven
       }
       console.log("+++++")
       if (step==null){

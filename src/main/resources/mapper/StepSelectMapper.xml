@@ -106,11 +106,65 @@
             <if test="startId!=null">
                 #{startId},
             </if>
-            <if test="endID!=null">
-                #{endID},
+            <if test="endId!=null">
+                #{endId},
             </if>
             <if test="sortNumber!=null">
                 #{sortNumber},
+            </if>
+        </trim>
+    </sql>
+    <sql id="updateStepSelectKey">
+        <trim suffixOverrides=",">
+
+            <if test="templateId!=null">
+                template_id = #{templateId},
+            </if>
+
+            <if test="stressName!=null">
+                stress_name = #{stressName},
+            </if>
+            <if test="maxStress!=null">
+                max_stress= #{maxStress},
+            </if>
+            <if test="minStress!=null">
+                min_stress= #{minStress},
+            </if>
+            <if test="maxTime!=null">
+                max_time= #{maxTime},
+            </if>
+            <if test="minTime!=null">
+                min_time= #{minTime},
+            </if>
+            <if test="guanSort!=null and guanSort != ''">
+                guan_sort= #{guanSort},
+            </if>
+            <if test="isEnd!=null">
+                is_end= #{isEnd},
+            </if>
+            <if test="stateEnter!=null">
+                state_enter= #{stateEnter},
+            </if>
+            <if test="stateOut!=null">
+                state_out= #{stateOut},
+            </if>
+            <if test="isStable!=null">
+                is_stable= #{isStable},
+            </if>
+            <if test="priorNumber!=null">
+                prior_number= #{priorNumber},
+            </if>
+            <if test="isDepend!=null">
+                is_depend= #{isDepend},
+            </if>
+            <if test="startId!=null">
+                start_id= #{startId},
+            </if>
+            <if test="endID!=null">
+                end_iD= #{endID},
+            </if>
+            <if test="sortNumber!=null">
+                sort_number= #{sortNumber},
             </if>
         </trim>
     </sql>
@@ -118,5 +172,55 @@
         insert into step_select (<include refid="stepSelectKey" />)
         values (<include refid="stepSelectValues" />)
     </insert>
+     <update id="updateStepSelectByID">
+         update step_select
+                set
+                <if test="maxStress!=null">
+                    max_stress= #{maxStress},
+                </if>
+                <if test="stressName!=null and stressName != '' ">
+                    stress_name = #{stressName},
+                </if>
+                <if test="minStress!=null">
+                    min_stress= #{minStress},
+                </if>
+                <if test="maxTime!=null">
+                    max_time= #{maxTime},
+                </if>
+                <if test="minTime!=null">
+                    min_time= #{minTime},
+                </if>
+                <if test="guanSort!=null and guanSort != ''">
+                    guan_sort= #{guanSort},
+                </if>
+                <if test="isEnd!=null">
+                    is_end= #{isEnd},
+                </if>
+                <if test="stateEnter!=null">
+                    state_enter= #{stateEnter},
+                </if>
+                <if test="stateOut!=null">
+                    state_out= #{stateOut},
+                </if>
+                <if test="isStable!=null">
+                    is_stable= #{isStable},
+                </if>
+                <if test="priorNumber!=null">
+                    prior_number= #{priorNumber},
+                </if>
+                <if test="isDepend!=null">
+                    is_depend= #{isDepend},
+                </if>
+                <if test="startId!=null">
+                    start_id= #{startId},
+                </if>
+                <if test="endId!=null">
+                    end_iD= #{endId},
+                </if>
+                <if test="sortNumber!=null">
+                    sort_number= #{sortNumber},
+                </if>
 
+                id = #{id} where id = #{id} and template_id = #{templateId}
+     </update>
 </mapper>

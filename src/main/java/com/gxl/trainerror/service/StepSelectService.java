@@ -9,4 +9,5 @@ public interface StepSelectService {
     public StepSelect selectIdPriorName(Integer templateId,String stressName,Integer prior);
     public Integer insertStepSelect(StepSelect select);
     public Integer selectCountPrior(Integer templateId,String stressName);
+    public void updateStepSelectById(StepSelect select);
 }

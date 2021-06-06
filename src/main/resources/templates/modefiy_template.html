@@ -31,7 +31,7 @@
       display: block;
       background-color: #28aedd;
       width: 200px;
-      height: 240px;
+      height: 280px;
       float: left;
     }
     li span {
@@ -51,14 +51,16 @@
       margin-top: 50px;
       margin-left: 5px;
     }
-    button {
+    #add_template1,
+    #add_template2,
+    #add_template3{
       height: 20px;
       margin-top: 65px;
     }
     .add_template {
       display: none;
       width: 200px;
-      height: 280px;
+      height: 320px;
       background-color: #28aedd;
       position: absolute;
       top: 150px;
@@ -84,48 +86,66 @@
       width: 100%;
       margin-top: 10px;
     }
+    .button_modefiy{
+      height: 20px;
+      }
   </style>
   <body>
     <div class="template_div clearfix">
-      <ul th:each="guanya :${guanyas}">
+      <ul th:each="guanya,state :${guanyas}">
+<!--        th:onclick="'modeify_input(this.id,0,'+${state.index}+');'"-->
         <li>
+          <div th:id="li+${guanya.id}">
           <span>管压</span>
           <span>最大值：[[${guanya.maxStress}]]</span>
           <span>最小值 [[${guanya.minStress}]]</span>
           <span> 最小时间：[[${guanya.minTime}]]s </span>
           <span> 最大时间：[[${guanya.maxTime}]]s </span>
-          <span class="is_stable">[[${guanya.isDepend}]]</span>
-          <span class="gangyatongbu">同步压力：</span>
+          <span class="guanya_is_stable">[[${guanya.isDepend}]]</span>
+            <span class="guanyatongbu1"></span>
+            <span class="guanyatongbu2"></span>
+          </div>
+          <span  style="display: block" th:class="guanya+${state.index}"  th:id="guanya+${guanya.id}"><button class="button_modefiy" >修改模板</button></span>
         </li>
-        <span class="jiantou1"></span>
+        <span class="jiantou1" ></span>
       </ul>
       <button id="add_template1">增加模板</button>
     </div>
     <div class="template_div clearfix">
-      <ul th:each="gangya :${gangyas}">
+      <ul th:each="gangya,state :${gangyas}">
         <li>
-          <span>管压</span>
+          <div th:id="li+${gangya.id}">
+          <span>缸压</span>
           <span>最大值：[[${gangya.maxStress}]]</span>
           <span>最小值 [[${gangya.minStress}]]</span>
           <span> 最小时间：[[${gangya.minTime}]]s </span>
           <span> 最大时间：[[${gangya.maxTime}]]s </span>
-          <span class="is_stable">[[${gangya.isDepend}]]</span>
-          <span class="guanyatongbu">同步压力：</span>
+          <span class="gangya_is_stable">[[${gangya.isDepend}]]</span>
+            <span class="gangyatongbu1"></span>
+            <span class="gangyatongbu2"></span>
+          </div>
+          <span  style="display: block" th:class="gangya+${state.index}"  th:id="gangya+${gangya.id}"><button class="button_modefiy" >修改模板</button></span>
         </li>
+        <span class="jiantou2"></span>
       </ul>
       <button id="add_template2">增加模板</button>
     </div>
     <div class="template_div clearfix">
-      <ul th:each="jungang :${jungangs}">
+      <ul th:each="jungang,state :${jungangs}">
         <li>
-          <span>管压</span>
+          <div th:id="li+${jungang.id}">
+          <span>均缸</span>
           <span>最大值：[[${jungang.maxStress}]]</span>
           <span>最小值 [[${jungang.minStress}]]</span>
           <span> 最小时间：[[${jungang.minTime}]]s </span>
           <span> 最大时间：[[${jungang.maxTime}]]s </span>
-          <span class="is_stable">[[${jungang.isDepend}]]</span>
-          <span class="jungangtongbu">同步压力：</span>
+          <span class="jungang_is_stable">[[${jungang.isDepend}]]</span>
+          <span class="jungangtongbu1"></span>
+          <span class="jungangtongbu2"></span>
+          </div>
+          <span  style="display: block" th:class="jungang+${state.index}"  th:id="jungang+${jungang.id}"><button class="button_modefiy" >修改模板</button></span>
         </li>
+        <span class="jiantou3"></span>
       </ul>
       <button id="add_template3">增加模板</button>
     </div>
@@ -175,7 +195,9 @@
   </body>
   <script type="text/javascript" th:inline="javascript">
 
-
+    var lastHtml = '';
+    var lastGetId = '';
+    var lastYaLi = '';
     for (let i = 1; i <= 3; i++) {
       let jiantou = document.getElementsByClassName('jiantou' + i)
       if(jiantou.length>=1){
@@ -211,24 +233,238 @@
     var guanya = [[${guanyas}]]
     var gangya = [[${gangyas}]]
     var jungang = [[${jungangs}]]
-    var guanyatongbu = document.getElementsByClassName("guanyatongbu")
-    var gangyatongbu = document.getElementsByClassName("gangyatongbu")
-    var jungangtongbu = document.getElementsByClassName("jungangtongbu")
-    for (let i = 0;i<guanyatongbu.length;i++){
-        if (guanya[i].select!=null){
-          guanyatongbu[i].innerText = guanya[i].select.stressName+guanya[i].select.priorNumber
+    var templateId = [[${templateId}]]
+    var guanyatongbu = document.getElementsByClassName("guanya_is_stable")
+    var gangyatongbu = document.getElementsByClassName("gangya_is_stable")
+    var jungangtongbu = document.getElementsByClassName("jungang_is_stable")
+    if (guanyatongbu!=null){
+      for (let i = 0;i<guanyatongbu.length;i++){
+        if (guanya[i].isDepend!=-1){
+            if(guanya[i].isDepend!=2){
+              guanyatongbu[i].innerText = "与缸压同步"
+            }else {
+              guanyatongbu[i].innerText = "与均缸同步"
+            }
+          var  tongbu1 = document.getElementsByClassName("guanyatongbu1")[0]
+          tongbu1.innerText = "同步开始："+guanya[i].startId;
+          var  tongbu2 = document.getElementsByClassName("guanyatongbu2")[0]
+          tongbu2.innerText = "同步结束："+guanya[i].endId;
+        }else {
+          guanyatongbu[i].innerText = "无同步压力"
         }
-    }
-    for (let i = 0;i<jungangtongbu.length;i++){
-      if (jungang[i].select!=null){
-        jungangtongbu[i].innerText = jungang[i].select.stressName+jungang[i].select.priorNumber
       }
     }
-    // for (let i = 0;i<gangyatongbu.length;i++){
-    //   if (gangya[i].select!=null){
-    //     gangyatongbu[i].innerText = gangya[i].select.stressName+gangya[i].select.priorNumber
-    //   }
-    // }
+    if(jungangtongbu!=null){
+      for (let i = 0;i<jungangtongbu.length;i++){
+        if (jungang[i].isDepend!=-1){
+          if(jungang[i].isDepend!=2){
+            jungangtongbu[i].innerText = "与缸压同步"
+          }else {
+            jungangtongbu[i].innerText = "与均缸同步"
+          }
+          var  tongbu1 = document.getElementsByClassName("jungangtongbu1")[0]
+          tongbu1.innerText = "同步开始："+jungang[i].startId;
+          var  tongbu2 = document.getElementsByClassName("jungangtongbu2")[0]
+          tongbu2.innerText = "同步结束："+jungang[i].endId;
+        }else {
+          jungangtongbu[i].innerText = "无同步压力"
+        }
+      }
+    }
+    if (gangyatongbu!=null){
+      for (let i = 0;i<gangyatongbu.length;i++){
+        if (gangya[i].isDepend!=-1){
+          if(gangya[i].isDepend!=2){
+            gangyatongbu[i].innerText = "与缸压同步"
+          }else {
+            gangyatongbu[i].innerText = "与均缸同步"
+          }
+          var  tongbu1 = document.getElementsByClassName("gangyatongbu1")[0]
+          tongbu1.innerText = "同步开始："+gangya[i].startId;
+          var  tongbu2 = document.getElementsByClassName("gangyatongbu2")[0]
+          tongbu2.innerText = "同步结束："+gangya[i].endId;
+        }else {
+          gangyatongbu[i].innerText = "无同步压力"
+        }
+      }
+    }
+    for (let  i = 0;i<guanya.length;i++){
+      e('guanya' + guanya[i].id).onclick = function (event) {
+          lastYaLi = guanya[i];
+          var temp = "li"+guanya[i].id;
+          var  stress = guanya[i];
+          var guanyaid = document.getElementById(temp);
+          lastGetId = guanyaid;
+          lastHtml = guanyaid.innerHTML;
+          var tempHTML = "<span>管压</span>"+
+                  "<form action='updateyali' method='post' >"+
+                  "<span>最大值" +
+                  "<input type='text' value='"+stress.maxStress+"' name='maxStress' /></span>"+
+                  "<span>最小值" +
+                  "<input type='text' value='"+stress.minStress+"' name='minStress' /></span>"+
+                  "<span>最小时间" +
+                  "<input type='text' value='"+stress.maxTime+"' name='maxTime' /></span>"+
+                  "<input type='hidden' value='"+templateId+"' name='templateId' />"+
+                  "<input type='hidden' value='"+stress.id+"' name='id' />"+
+                  "<span>最大时间" +
+                  "<input type='text' value='"+stress.minTime+"' name='minTime' /></span>";
+        if (guanya[i].isDepend!=-1){
+          tempHTML = tempHTML+"<span> 有同步压力</span>"+
+                  "<span>开始同步<input type='text' value='"+stress.startId+"' name='startId'/></span>"+
+                  "<span>结束同步<input type='text' value='"+stress.endId+"' name='endId' /></span>"
+        }else{
+          tempHTML = tempHTML+"<span> <select name='isDepend'>" +
+                  "<option  value='-1'>无</option>" +
+                  "<option value='1'>均管</option>" +
+                  "<option value='2'>缸压</option>" +
+                  "<option value='3'>均缸</option>" +
+                  "</select></span>"+
+                  "<span>开始同步<input type='text' value='"+stress.startId+"'name='startId' /></span>"+
+                  "<span>结束同步<input type='text' value='"+stress.endId+"'  name='endId' /></span>"
+        }
+          tempHTML = tempHTML+"<span><button>提交</button></span>" +
+                  "</form>"
+          guanyaid.innerHTML=tempHTML;
+          stopBubble(event)
+        document.onclick = function () {
+          lastYaLi = ''
+          var temp = "li"+guanya[i].id;
+          var guanyaid = document.getElementById(temp);
+          guanyaid.innerHTML = lastHtml
+          // let temp1 = "guanya"+guanya[i].id
+          // let but = document.getElementById(temp1);
+          // but.style.display="block"
+          console.log(1)
+          document.onclick = null
+        }
+      }
+    }
+    for (let  i = 0;i<gangya.length;i++){
+      e('gangya' + gangya[i].id).onclick = function (event) {
+        lastYaLi = gangya[i];
+        var temp = "li"+gangya[i].id;
+        var  stress = gangya[i];
+        var gangyaid = document.getElementById(temp);
+        lastGetId = gangyaid;
+        lastHtml = gangyaid.innerHTML;
+        var tempHTML = "<span>缸压</span>"+
+                "<form action='updateyali' method='post' >"+
+                "<span>最大值" +
+                "<input type='text' value='"+stress.maxStress+"' name='maxStress' /></span>"+
+                "<span>最小值" +
+                "<input type='text' value='"+stress.minStress+"' name='minStress' /></span>"+
+                "<span>最小时间" +
+                "<input type='text' value='"+stress.maxTime+"' name='maxTime' /></span>"+
+                "<input type='hidden' value='"+templateId+"' name='templateId' />"+
+                "<input type='hidden' value='"+stress.id+"' name='id' />"+
+                "<span>最大时间" +
+                "<input type='text' value='"+stress.minTime+"' name='minTime' /></span>";
+        if (gangya[i].isDepend!=-1){
+          tempHTML = tempHTML+"<span> 有同步压力</span>"+
+                  "<span>开始同步<input type='text' value='"+stress.startId+"' name='startId'/></span>"+
+                  "<span>结束同步<input type='text' value='"+stress.endId+"' name='endId' /></span>"
+        }else{
+          tempHTML = tempHTML+"<span> <select name='isDepend'>" +
+                  "<option value='-1'>无</option>" +
+                  "<option value='1'>均管</option>" +
+                  "<option value='2'>缸压</option>" +
+                  "<option value='3'>均缸</option>" +
+                  "</select></span>"+
+                  "<span>开始同步<input type='text' value='"+stress.startId+"'name='startId' /></span>"+
+                  "<span>结束同步<input type='text' value='"+stress.endId+"'  name='endId' /></span>"
+        }
+        tempHTML = tempHTML+"<span><button></button></span>" +
+                "</form>"
+        gangyaid.innerHTML=tempHTML;
+        stopBubble(event)
+        e('li'+guanya[i].id).onclick = function (event) {
+          //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+          console.log(2)
+          stopBubble(event)
+        }
+        document.onclick = function () {
+          lastYaLi = ''
+          var temp = "li"+gangya[i].id;
+          var gangyaid = document.getElementById(temp);
+          gangyaid.innerHTML = lastHtml
+          // let temp1 = "gangya"+gangya[i].id
+          // let but = document.getElementById(temp1);
+          // but.style.display="block"
+          document.onclick = null
+        }
+
+      }
+    }
+    for (let  i = 0;i<jungang.length;i++){
+      e('jungang' + jungang[i].id).onclick = function (event) {
+        lastYaLi = jungang[i];
+        var temp = "li"+jungang[i].id;
+        var  stress = jungang[i];
+        var jungangid = document.getElementById(temp);
+        lastGetId = jungangid;
+        lastHtml = jungangid.innerHTML;
+        var tempHTML = "<span>均缸</span>"+
+                "<form action='updateyali' method='post' >"+
+                "<span>最大值" +
+                "<input type='text' value='"+stress.maxStress+"' name='maxStress' /></span>"+
+                "<span>最小值" +
+                "<input type='text' value='"+stress.minStress+"' name='minStress' /></span>"+
+                "<span>最小时间" +
+                "<input type='text' value='"+stress.maxTime+"' name='maxTime' /></span>"+
+                "<input type='hidden' value='"+templateId+"' name='templateId' />"+
+                "<input type='hidden' value='"+stress.id+"' name='id' />"+
+                "<span>最大时间" +
+                "<input type='text' value='"+stress.minTime+"' name='minTime' /></span>";
+        if (jungang[i].isDepend!=-1){
+          tempHTML = tempHTML+"<span> 有同步压力</span>"+
+                  "<span>开始同步<input type='text' value='"+stress.startId+"' name='startId'/></span>"+
+                  "<span>结束同步<input type='text' value='"+stress.endId+"' name='endId' /></span>"
+        }else{
+          tempHTML = tempHTML+"<span> <select name='isDepend'>" +
+                  "<option value='-1'>无</option>" +
+                  "<option value='1'>均管</option>" +
+                  "<option value='2'>缸压</option>" +
+                  "<option value='3'>均缸</option>" +
+                  "</select></span>"+
+                  "<span>开始同步<input type='text' value='"+stress.startId+"'name='startId' /></span>"+
+                  "<span>结束同步<input type='text' value='"+stress.endId+"'  name='endId' /></span>"
+        }
+        tempHTML = tempHTML+"<span><button>提交</button></span>" +
+                "</form>"
+        jungangid.innerHTML=tempHTML;
+        stopBubble(event)
+        document.onclick = function () {
+          lastYaLi = ''
+          var temp = "li"+jungang[i].id;
+          var jungangid = document.getElementById(temp);
+          jungangid.innerHTML = lastHtml
+          // let temp1 = "jungang"+jungang[i].id
+          // let but = document.getElementById(temp1);
+          // but.style.display="block"
+          document.onclick = null
+        }
+      }
+    }
+
+    for (let i = 0;i<guanya.length;i++){
+      e('li'+guanya[i].id).onclick = function (event) {
+        //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+        console.log(2)
+        stopBubble(event)
+      }
+    }
+    for (let i = 0;i<gangya.length;i++){
+      e('li'+gangya[i].id).onclick = function (event) {
+        //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+        stopBubble(event)
+      }
+    }
+    for (let i = 0;i<jungang.length;i++){
+      e('li'+jungang[i].id).onclick = function (event) {
+        //只阻止了向上冒泡，而没有阻止向下捕获，所以点击con的内部对象时，仍然可以执行这个函数
+        stopBubble(event)
+      }
+    }
 
   </script>
 </html>
