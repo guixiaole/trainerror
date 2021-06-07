@@ -74,14 +74,14 @@ public class TestCSVController {
                             StepShunXu stepShunXu = jiCheInfo.getStepShunXu();
                             //单双端怎么检测啊？
                             if(jiCheInfo.getDanShuangDuan()==1){
-                                storeStep(quanChengsTemplate,stepShunXu,1,stepAnalysis);
+                                storeStep(quanChengsTemplate,stepShunXu,1,stepAnalysis,0);
                             }else {
                                 List<List<QuanCheng>> shuangQuanchengs = StepTemplateUtil.spliteQuanCheng(quanChengsTemplate);
                                 if (shuangQuanchengs.size()>=2){
-                                    storeStep(shuangQuanchengs.get(0),stepShunXu,1,stepAnalysis);
-                                    storeStep(shuangQuanchengs.get(1),stepShunXu,2,stepAnalysis);
+                                    storeStep(shuangQuanchengs.get(0),stepShunXu,1,stepAnalysis,0);
+                                    storeStep(shuangQuanchengs.get(1),stepShunXu,2,stepAnalysis,shuangQuanchengs.get(0).size());
                                 }else {
-                                    storeStep(quanChengsTemplate,stepShunXu,1,stepAnalysis);
+                                    storeStep(quanChengsTemplate,stepShunXu,1,stepAnalysis,0);
                                 }
                             }
 
@@ -108,13 +108,18 @@ public class TestCSVController {
             List<List<ZhuanDian>> res = StepTemplateUtil.stepFinder(template.getGuanSort(),stepSelects,quanChengs);
             if (res.size()>0){
                 //一般取最后一个
+                //取的话一般取的是1,2,3,4 分别为起始序号，结束序号，标准化起始位置，标准化结束位置
                 List<ZhuanDian> last = res.get(res.size()-1);
                 if(last.size()>1){
                     startAndEnd.add(last.get(0).getStartXuHao());
                     startAndEnd.add(last.get(last.size()-1).getEndXuHao());
+                    startAndEnd.add(last.get(0).getStartPos());
+                    startAndEnd.add(last.get(last.size()-1).getEndPos());
                 }else {
                     startAndEnd.add(last.get(0).getStartXuHao());
                     startAndEnd.add(last.get(0).getEndXuHao());
+                    startAndEnd.add(last.get(0).getStartPos());
+                    startAndEnd.add(last.get(0).getEndPos());
                 }
                 return startAndEnd;
             }else {
@@ -124,14 +129,14 @@ public class TestCSVController {
             return null;
         }
     }
-    public void storeStep(List<QuanCheng>quanChengs,StepShunXu stepShunXu,Integer danShuangDuan,StepAnalysis stepAnalysis){
+    public void storeStep(List<QuanCheng>quanChengs,StepShunXu stepShunXu,Integer danShuangDuan,StepAnalysis stepAnalysis,int lastSize){
         //存储step按照单双端分开来存储。
         if(danShuangDuan==1){
             if(stepShunXu.getOne()!=null){
 
                 List<Integer> one =  stepFinder(quanChengs,stepShunXu.getOne());
                 if (one!=null){
-                    Integer stepinfoId = insertStepInfo(one);
+                    Integer stepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setOneStep(stepinfoId);
 
                 }
@@ -140,7 +145,7 @@ public class TestCSVController {
             if (stepShunXu.getTwo()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getTwo());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setTwoStep(StepinfoId);
 
                 }
@@ -148,7 +153,7 @@ public class TestCSVController {
             if (stepShunXu.getThree()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getThree());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setThreeStep(StepinfoId);
 
                 }
@@ -156,7 +161,7 @@ public class TestCSVController {
             if (stepShunXu.getFour()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getFour());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setFourStep(StepinfoId);
 
                 }
@@ -164,7 +169,7 @@ public class TestCSVController {
             if (stepShunXu.getFive()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getFive());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setFiveStep(StepinfoId);
 
                 }
@@ -172,7 +177,7 @@ public class TestCSVController {
             if (stepShunXu.getSix()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getSix());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setSixStep(StepinfoId);
 
                 }
@@ -180,7 +185,7 @@ public class TestCSVController {
             if (stepShunXu.getSeven()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getSeven());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setSevenStep(StepinfoId);
 
                 }
@@ -188,7 +193,7 @@ public class TestCSVController {
             if (stepShunXu.getEight()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getEight());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setEightStep(StepinfoId);
 
                 }
@@ -196,7 +201,7 @@ public class TestCSVController {
             if (stepShunXu.getNine()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getNine());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setNineStep(StepinfoId);
                 }
             }
@@ -205,7 +210,7 @@ public class TestCSVController {
             if(stepShunXu.getOne()!=null){
                 List<Integer> one =  stepFinder(quanChengs,stepShunXu.getOne());
                 if (one!=null){
-                    Integer stepinfoId = insertStepInfo(one);
+                    Integer stepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangOneStep(stepinfoId);
 
                 }
@@ -214,7 +219,7 @@ public class TestCSVController {
             if (stepShunXu.getTwo()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getTwo());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangTwoStep(StepinfoId);
 
                 }
@@ -222,7 +227,7 @@ public class TestCSVController {
             if (stepShunXu.getThree()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getThree());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangThreeStep(StepinfoId);
 
                 }
@@ -230,7 +235,7 @@ public class TestCSVController {
             if (stepShunXu.getFour()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getFour());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangFourStep(StepinfoId);
 
                 }
@@ -238,7 +243,7 @@ public class TestCSVController {
             if (stepShunXu.getFive()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getFive());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangFiveStep(StepinfoId);
 
                 }
@@ -246,7 +251,7 @@ public class TestCSVController {
             if (stepShunXu.getSix()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getSix());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangSixStep(StepinfoId);
 
                 }
@@ -254,7 +259,7 @@ public class TestCSVController {
             if (stepShunXu.getSeven()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getSeven());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangSevenStep(StepinfoId);
 
                 }
@@ -262,7 +267,7 @@ public class TestCSVController {
             if (stepShunXu.getEight()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getEight());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangEightStep(StepinfoId);
 
                 }
@@ -270,7 +275,7 @@ public class TestCSVController {
             if (stepShunXu.getNine()!=null){
                 List<Integer> one = stepFinder(quanChengs,stepShunXu.getNine());
                 if (one!=null){
-                    Integer StepinfoId = insertStepInfo(one);
+                    Integer StepinfoId = insertStepInfo(one,lastSize);
                     stepAnalysis.setShuangNineStep(StepinfoId);
                 }
             }
@@ -278,10 +283,12 @@ public class TestCSVController {
         }
 
     }
-    public Integer insertStepInfo(List<Integer> one){
+    public Integer insertStepInfo(List<Integer> one,int lastSize){
         StepInfo stepInfo = new StepInfo();
         stepInfo.setStartXiangDian(one.get(0));
         stepInfo.setEndXiangDian(one.get(1));
+        stepInfo.setStartPos(one.get(2)+lastSize);
+        stepInfo.setEndPos(one.get(3)+lastSize);
         Integer id = stepInfoService.insertStartEnd(stepInfo);
         return stepInfo.getId();
     }

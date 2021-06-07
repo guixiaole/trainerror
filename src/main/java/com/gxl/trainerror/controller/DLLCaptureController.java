@@ -219,9 +219,15 @@ public class DLLCaptureController {
                     if(last.size()>1){
                         startAndEnd.add(last.get(0).getStartXuHao());
                         startAndEnd.add(last.get(last.size()-1).getEndXuHao());
+                        startAndEnd.add(last.get(0).getStartPos());
+                        startAndEnd.add(last.get(last.size()-1).getEndPos());
+
+
                     }else {
                         startAndEnd.add(last.get(0).getStartXuHao());
                         startAndEnd.add(last.get(0).getEndXuHao());
+                        startAndEnd.add(last.get(0).getStartPos());
+                        startAndEnd.add(last.get(0).getEndPos());
                     }
                     return startAndEnd;
                 }else {
@@ -389,6 +395,8 @@ public class DLLCaptureController {
             StepInfo stepInfo = new StepInfo();
             stepInfo.setStartXiangDian(one.get(0));
             stepInfo.setEndXiangDian(one.get(1));
+            stepInfo.setStartPos(one.get(2));
+            stepInfo.setEndPos(one.get(3));
             Integer id = stepInfoService.insertStartEnd(stepInfo);
             return stepInfo.getId();
     }

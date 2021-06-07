@@ -172,6 +172,7 @@
     var myChart = echarts.init(myPaint)
     var myChart1 = echarts.init(myPaint1)
     var times =  [[${times}]];
+    console.log(times)
     var guanya = [[${guanya}]]
     var gangya=[[${gangya}]]
     var speed=[[${speed}]]
@@ -460,6 +461,7 @@
       if (duankou==1){
         if (s==1){
           var step = [[${one_times}]]
+
           var step_int = [[${one}]]
           console.log(step)
           console.log(step_int)
@@ -530,7 +532,7 @@
                               coord: [step, 0],
                             },
                             {
-                              coord: [step, 600],
+                              coord: [step, 500],
                             },
                           ],
                         ],
@@ -556,13 +558,14 @@
                 }
         )
         myChart.setOption(option);
-        var start1 = (step_int.startXiangDian/finalTimes)*100
+        var start1 = (step_int.startPos/finalTimes)*100
         if (start1<10){
           start1 = 0
           var end1 = start1+30
         }else {
-          start1=start1-10
           var end1 = start1+10
+          start1=start1-10
+
         }
 
         console.log(start1)

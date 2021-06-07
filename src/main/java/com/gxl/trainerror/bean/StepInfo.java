@@ -17,6 +17,9 @@ public class StepInfo {
     private Integer id;
     private Integer startXiangDian;
     private Integer endXiangDian;
+    //关于标准化后的文件的起始和结束。
+    private Integer startPos;
+    private Integer endPos;
     private Integer xiangDianId;
     private XiangDian xiangDian;
 }
