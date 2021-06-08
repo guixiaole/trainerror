@@ -95,108 +95,145 @@ public class QuXianController {
         if (stepAnalysis.getOneStep()!=null){
             StepInfo one = stepInfoService.selectById(stepAnalysis.getOneStep());
             String one_times = finalTimes.get(one.getStartPos());
+            String one_ends = finalTimes.get(one.getEndPos());
+            model.addAttribute("one_ends",one_ends);
             model.addAttribute("one_times",one_times);
+
             model.addAttribute("one",one);
         }
         if (stepAnalysis.getTwoStep()!=null){
             StepInfo two = stepInfoService.selectById(stepAnalysis.getTwoStep());
             String two_times = finalTimes.get(two.getStartPos());
+            String one_ends = finalTimes.get(two.getEndPos());
+            model.addAttribute("two_ends",one_ends);
             model.addAttribute("two_times",two_times);
             model.addAttribute("two",two);
         }
         if (stepAnalysis.getThreeStep()!=null){
             StepInfo three = stepInfoService.selectById(stepAnalysis.getThreeStep());
             String three_times = finalTimes.get(three.getStartPos());
+            String one_ends = finalTimes.get(three.getEndPos());
+            model.addAttribute("three_ends",one_ends);
             model.addAttribute("three_times",three_times);
             model.addAttribute("three",three);
         }
         if (stepAnalysis.getFourStep()!=null){
             StepInfo four = stepInfoService.selectById(stepAnalysis.getFourStep());
             String four_times = finalTimes.get(four.getStartPos());
+            String one_ends = finalTimes.get(four.getEndPos());
+            model.addAttribute("four_ends",one_ends);
             model.addAttribute("four_times",four_times);
             model.addAttribute("four",four);
         }
         if (stepAnalysis.getFiveStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getFiveStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("five_ends",one_ends);
             model.addAttribute("five_times",five_times);
             model.addAttribute("five",five);
         }
         if (stepAnalysis.getSixStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getSixStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("six_ends",one_ends);
             model.addAttribute("six_times",five_times);
             model.addAttribute("six",five);
         }
         if (stepAnalysis.getSevenStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getSevenStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("seven_ends",one_ends);
             model.addAttribute("seven_times",five_times);
             model.addAttribute("seven",five);
         }
         if (stepAnalysis.getEightStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getEightStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("eight_ends",one_ends);
             model.addAttribute("eight_times",five_times);
             model.addAttribute("eight",five);
         }
         if (stepAnalysis.getNineStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getNineStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("nine_ends",one_ends);
             model.addAttribute("nine_times",five_times);
             model.addAttribute("nine",five);
         }
         if (stepAnalysis.getShuangOneStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangOneStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_one_ends",one_ends);
             model.addAttribute("shaung_one_times",five_times);
             model.addAttribute("shuang_one",five);
         }
         if (stepAnalysis.getShuangTwoStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangTwoStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_two_ends",one_ends);
             model.addAttribute("shuang_two_times",five_times);
             model.addAttribute("shuang_two",five);
         }
         if (stepAnalysis.getShuangThreeStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangThreeStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_three_ends",one_ends);
             model.addAttribute("shuang_three_times",five_times);
             model.addAttribute("shuang_three",five);
         }
         if (stepAnalysis.getShuangFourStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangFourStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_four_ends",one_ends);
             model.addAttribute("shuang_four_times",five_times);
             model.addAttribute("shuang_four",five);
         }
         if (stepAnalysis.getShuangFiveStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangFiveStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_five_ends",one_ends);
             model.addAttribute("shuang_five_times",five_times);
             model.addAttribute("shuang_five",five);
         }
         if (stepAnalysis.getShuangSixStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangSixStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_six_ends",one_ends);
             model.addAttribute("shuang_six_times",five_times);
             model.addAttribute("shuang_six",five);
         }
         if (stepAnalysis.getShuangSevenStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangSevenStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_seven_ends",one_ends);
             model.addAttribute("shuang_seven_times",five_times);
             model.addAttribute("shuang_seven",five);
         }
         if (stepAnalysis.getShuangEightStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangEightStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_eight_ends",one_ends);
             model.addAttribute("shuang_eight_times",five_times);
             model.addAttribute("shuang_eight",five);
         }
         if (stepAnalysis.getShuangNineStep()!=null){
             StepInfo five = stepInfoService.selectById(stepAnalysis.getShuangNineStep());
             String five_times = finalTimes.get(five.getStartPos());
+            String one_ends = finalTimes.get(five.getEndPos());
+            model.addAttribute("shuang_nine_ends",one_ends);
             model.addAttribute("shuang_nine_times",five_times);
             model.addAttribute("shuang_nine",five);
         }

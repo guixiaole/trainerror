@@ -193,7 +193,7 @@
         showContent: true,
         alwaysShowContent: true,
         showDelay: 0,
-        position:['80%','10%']
+        position:['90%','0%']
 
 
       },
@@ -461,40 +461,50 @@
       if (duankou==1){
         if (s==1){
           var step = [[${one_times}]]
+          var step_end = [[${one_ends}]]
 
           var step_int = [[${one}]]
           console.log(step)
           console.log(step_int)
         }else if(s==2){
           var step = [[${two_times}]]
+          var step_end = [[${two_ends}]]
           var step_int = [[${two}]]
         }else if(s==3){
           var step =  [[${three_times}]]
+          var step_end = [[${three_ends}]]
           var step_int = [[${three}]]
         }else if(s==4){
           var step =[[${four_times}]]
+          var step_end = [[${four_ends}]]
           var step_int = [[${four}]]
         }else {
           var step = [[${five_times}]]
+          var step_end = [[${five_ends}]]
           var step_int = [[${five}]]
         }
       }else {
         if (s==1){
           var step = [[${shaung_one_times}]]
+          var step_end = [[${shuang_one_ends}]]
           var step_int = [[${shuang_one}]]
           console.log(step)
           console.log(step_int)
         }else if(s==2){
           var step = [[${shuang_two_times}]]
+          var step_end = [[${shuang_two_ends}]]
           var step_int = [[${shuang_two}]]
         }else if(s==3){
           var step =  [[${shuang_three_times}]]
+          var step_end = [[${shuang_three_ends}]]
           var step_int = [[${shuang_three}]]
         }else if(s==4){
           var step =[[${shuang_four_times}]]
+          var step_end = [[${shuang_four_ends}]]
           var step_int = [[${shuang_four}]]
         }else {
           var step = [[${shuang_five_times}]]
+          var step_end = [[${shuang_five_ends}]]
           var step_int = [[${shuang_five}]]
         }
       }
@@ -513,30 +523,45 @@
                       smooth: false,
                       symbol: 'none',
                       data: guanya,
-                      markLine: {
-                        symbol: 'none',
-
+                      // markLine: {
+                      //   symbol: 'none',
+                      //
+                      //   itemStyle: {
+                      //     normal: {
+                      //       color: 'red',
+                      //       lineStyle:{
+                      //         width:3,//设置线条粗细
+                      //         type: 'solid'
+                      //       }
+                      //     }
+                      //   },
+                      //
+                      //   data: [
+                      //     [
+                      //       {
+                      //         coord: [step, 0],
+                      //       },
+                      //       {
+                      //         coord: [step, 500],
+                      //       },
+                      //     ],
+                      //
+                      //   ],
+                      // } ,
+                      markArea:{
                         itemStyle: {
-                          normal: {
-                            color: 'red',
-                            lineStyle:{
-                              width:3,//设置线条粗细
-                              type: 'solid'
-                            }
-                          }
+                          color: 'rgba(255, 173, 177, 0.4)'
                         },
-
-                        data: [
-                          [
-                            {
-                              coord: [step, 0],
-                            },
-                            {
-                              coord: [step, 500],
-                            },
-                          ],
-                        ],
-                      } ,
+                        data:[
+                                [
+                                  {
+                                    xAxis:step
+                                  },{
+                                    xAxis:step_end
+                                }
+                                ],
+                        ]
+                      }
 
                     },
                     {
@@ -558,39 +583,39 @@
                 }
         )
         myChart.setOption(option);
-        var start1 = (step_int.startPos/finalTimes)*100
-        if (start1<10){
-          start1 = 0
-          var end1 = start1+30
-        }else {
-          var end1 = start1+10
-          start1=start1-10
-
-        }
-
-        console.log(start1)
-        console.log(end1)
-        // option.dataZoom[0].start=start1;
-        // option.dataZoom[0].end=end1;
-        myChart.setOption({
-          dataZoom: {
-            orient: 'horizontal', // 布局方式，默认为水平布局，可选为：
-            // 'horizontal' ¦ 'vertical'
-            // x: {number},            // 水平安放位置，默认为根据grid参数适配，可选为：
-            // {number}（x坐标，单位px）
-            // y: {number},            // 垂直安放位置，默认为根据grid参数适配，可选为：
-            // {number}（y坐标，单位px）
-            // width: {number},        // 指定宽度，横向布局时默认为根据grid参数适配
-            // height: {number},       // 指定高度，纵向布局时默认为根据grid参数适配
-            backgroundColor: 'rgba(0,0,0,0)', // 背景颜色
-            dataBackgroundColor: '#eee', // 数据背景颜色
-            fillerColor: 'rgba(144,197,237,0.2)', // 填充颜色
-            handleColor: 'rgba(70,130,180,0.8)', // 手柄颜色
-            start: start1,
-            end: end1,
-          },
-        })
-        myChart.setOption(option);
+        // var start1 = (step_int.startPos/finalTimes)*100
+        // if (start1<10){
+        //   start1 = 0
+        //   var end1 = start1+30
+        // }else {
+        //   var end1 = start1+10
+        //   start1=start1-10
+        //
+        // }
+        //
+        // console.log(start1)
+        // console.log(end1)
+        // // option.dataZoom[0].start=start1;
+        // // option.dataZoom[0].end=end1;
+        // myChart.setOption({
+        //   dataZoom: {
+        //     orient: 'horizontal', // 布局方式，默认为水平布局，可选为：
+        //     // 'horizontal' ¦ 'vertical'
+        //     // x: {number},            // 水平安放位置，默认为根据grid参数适配，可选为：
+        //     // {number}（x坐标，单位px）
+        //     // y: {number},            // 垂直安放位置，默认为根据grid参数适配，可选为：
+        //     // {number}（y坐标，单位px）
+        //     // width: {number},        // 指定宽度，横向布局时默认为根据grid参数适配
+        //     // height: {number},       // 指定高度，纵向布局时默认为根据grid参数适配
+        //     backgroundColor: 'rgba(0,0,0,0)', // 背景颜色
+        //     dataBackgroundColor: '#eee', // 数据背景颜色
+        //     fillerColor: 'rgba(144,197,237,0.2)', // 填充颜色
+        //     handleColor: 'rgba(70,130,180,0.8)', // 手柄颜色
+        //     start: start1,
+        //     end: end1,
+        //   },
+        // })
+        // myChart.setOption(option);
 
       }
 
