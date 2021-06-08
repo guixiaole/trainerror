@@ -23,4 +23,5 @@ public class JiCheInfo {
     private Integer eventChangeId;
     private StepShunXu stepShunXu;
     private EventChange eventChange;
+    private String isHeGe;
 }

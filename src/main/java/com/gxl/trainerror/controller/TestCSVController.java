@@ -3,15 +3,24 @@ package com.gxl.trainerror.controller;
 import com.gxl.trainerror.bean.*;
 import com.gxl.trainerror.service.*;
 import com.gxl.trainerror.util.CSVRead;
+import com.gxl.trainerror.util.FileUtil;
 import com.gxl.trainerror.util.StepTemplateUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -292,4 +301,6 @@ public class TestCSVController {
         Integer id = stepInfoService.insertStartEnd(stepInfo);
         return stepInfo.getId();
     }
+
+
 }

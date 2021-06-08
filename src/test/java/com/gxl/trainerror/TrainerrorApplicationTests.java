@@ -1,16 +1,21 @@
 package com.gxl.trainerror;
 
 import com.gxl.trainerror.bean.*;
-import com.gxl.trainerror.service.FileInfoService;
-import com.gxl.trainerror.service.QuanChengService;
-import com.gxl.trainerror.service.StepSelectService;
-import com.gxl.trainerror.service.ZhuanDianService;
+import com.gxl.trainerror.controller.DLLCaptureController;
+import com.gxl.trainerror.service.*;
+import com.gxl.trainerror.util.FileUtil;
 import com.gxl.trainerror.util.StepTemplateUtil;
 import com.gxl.trainerror.util.TimeCal;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +30,8 @@ class TrainerrorApplicationTests {
     private StepSelectService stepSelectService;
     @Autowired
     private ZhuanDianService zhuanDianService;
+    @Autowired
+    private JiCheInfoService jiCheInfoService;
     @Test
     void contextLoads() {
 //        Date date = TimeCal.backDate(30);
@@ -75,6 +82,62 @@ class TrainerrorApplicationTests {
                zhuanDianService.insertZhuanDian(zhuanDian);
             }
         }
+    }
+    @Test
+    void LoadJiCheInfo() throws IOException {
+        /*
+            主要为了加载机车信息，一次性使用
+         */
+        String filePath = "D\\test\\";
+        File[] files = FileUtil.getCurFilesList(filePath);
+        if (files!=null&&files.length>0){
+            for (File file : files) {
+                if (file.getName().contains(".xls")){
+                    InputStream str = new FileInputStream(file);
+//        Workbook book = new HSSFWorkbook(str);
+                    Workbook book = null;
+                    try {
+                        book = new XSSFWorkbook(file);
+                    } catch (Exception ex) {
+                        try {
+                            book = new HSSFWorkbook(new FileInputStream(file));
+                        }catch (Exception ex1) {
+                            book = WorkbookFactory.create(str);
+                        }
+                    }
+
+//        XSSFWorkbook book = new XSSFWorkbook(str);
+                    Sheet sheet = book.getSheetAt(0);
+                    List<List<String>> res = new ArrayList<>();
+                    int rows = sheet.getLastRowNum();//总行数
+                    for (int i= 1;i<rows;i++){
+                        JiCheInfo jiCheInfo = new JiCheInfo();
+                        String  jiXing =String.valueOf(sheet.getRow(i).getCell(0));
+                        Integer jiXingHao =Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(1)));
+                        Integer jiCheHao =Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(2)));
+                        Integer danShuangDuan =Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(3)));
+                        Integer otherJiCheHao = Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(4)));
+                        String isHeGe = String.valueOf(sheet.getRow(i).getCell(5));
+                        String zhiDongJiName = String.valueOf(sheet.getRow(i).getCell(6));
+                        Integer zhiDongJiHao= Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(7)));
+                        Double lieZhiRatio= Double.valueOf(String.valueOf(sheet.getRow(i).getCell(8)));
+                        jiCheInfo.setJiCheHao(jiCheHao);
+                        jiCheInfo.setJiXingHao(jiXingHao);
+                        jiCheInfo.setJiXing(jiXing);
+                        jiCheInfo.setDanShuangDuan(danShuangDuan);
+                        jiCheInfo.setOtherJiCheHao(otherJiCheHao);
+                        jiCheInfo.setIsHeGe(isHeGe);
+                        jiCheInfo.setZhiDongJiName(zhiDongJiName);
+                        jiCheInfo.setZhiDongJiHao(zhiDongJiHao);
+                        jiCheInfo.setLieZhiRatio(lieZhiRatio);
+                        jiCheInfo.setEventChangeId(1);
+                        jiCheInfo.setStepShunXuId(1);
+                        jiCheInfoService.insertJiChe(jiCheInfo);
+                    }
+                }
+            }
+        }
+
     }
 
 }

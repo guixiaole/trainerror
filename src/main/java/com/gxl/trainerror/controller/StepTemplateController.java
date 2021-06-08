@@ -91,7 +91,7 @@ public class StepTemplateController {
             select.setMaxStress(min);
             select.setMinStress(max);
         }
-        stepSelectService.insertStepSelect(select);
+        Integer id  =stepSelectService.insertStepSelect(select);
 //        List<StepSelect> guanya = stepSelectService.selectByIdAndName(select.getTemplateId(),"管压");
 //        List<StepSelect> gangya = stepSelectService.selectByIdAndName(select.getTemplateId(),"缸压");
 //        List<StepSelect> jungang = stepSelectService.selectByIdAndName(select.getTemplateId(),"均缸");

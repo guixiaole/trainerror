@@ -51,8 +51,8 @@
         <if test="startId!=null">
             start_id,
         </if>
-        <if test="endID!=null">
-            end_iD,
+        <if test="endId!=null">
+            end_id,
         </if>
         <if test="sortNumber!=null">
             sort_number,
@@ -160,8 +160,8 @@
             <if test="startId!=null">
                 start_id= #{startId},
             </if>
-            <if test="endID!=null">
-                end_iD= #{endID},
+            <if test="endId!=null">
+                end_id= #{endId},
             </if>
             <if test="sortNumber!=null">
                 sort_number= #{sortNumber},
@@ -215,7 +215,7 @@
                     start_id= #{startId},
                 </if>
                 <if test="endId!=null">
-                    end_iD= #{endId},
+                    end_id= #{endId},
                 </if>
                 <if test="sortNumber!=null">
                     sort_number= #{sortNumber},

@@ -9,7 +9,7 @@
     <trim suffixOverrides=",">
 
         <if test="name!=null and name!=''">
-            'name',
+            `name`,
         </if>
         <if test="oneStep!=null">
             one_step,

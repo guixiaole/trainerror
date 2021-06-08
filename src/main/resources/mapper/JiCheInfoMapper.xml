@@ -39,6 +39,9 @@
             <if test="eventChangeId!=null">
                 event_change_id,
             </if>
+            <if test="isHeGe!=null">
+                is_he_ge,
+            </if>
         </trim>
     </sql>
 
@@ -74,7 +77,9 @@
             <if test="eventChangeId!=null">
                 #{eventChangeId},
             </if>
-
+            <if test="isHeGe!=null">
+                #{isHeGe},
+            </if>
         </trim>
     </sql>
     <insert id="insertJiChe" useGeneratedKeys="true" keyProperty="id">

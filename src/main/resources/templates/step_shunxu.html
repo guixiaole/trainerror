@@ -45,6 +45,7 @@
           <select name="oneStep" id="oneStep">
             <option th:each="all:${alls}" th:if="${steps.one}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.one}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.one}!=null"  th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.one}!=null" th:selected="${all.id}==${steps.one.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
           </select>
         </span>
@@ -53,7 +54,8 @@
           <select name="twoStep" id="twoStep">
            <option th:each="all:${alls}" th:if="${steps.two}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.two}==null" selected="selected"  th:value="0" th:text="无"></option>
-            <option th:each="all:${alls}"th:if="${steps.two}!=null" th:selected="${all.id}==${steps.two.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
+                <option  th:if="${steps.two}!=null"   th:value="0" th:text="无"></option>
+              <option th:each="all:${alls}"th:if="${steps.two}!=null" th:selected="${all.id}==${steps.two.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
         </span>
@@ -62,6 +64,7 @@
          <select name="threeStep" id="threeStep">
            <option th:each="all:${alls}" th:if="${steps.three}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.three}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.three}!=null"   th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.three}!=null" th:selected="${all.id}==${steps.three.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option value=""></option>
           </select>
@@ -71,6 +74,7 @@
         <select name="fourStep" id="fourStep">
           <option th:each="all:${alls}" th:if="${steps.four}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.four}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.four}!=null"   th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.four}!=null" th:selected="${all.id}==${steps.four.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
@@ -80,6 +84,7 @@
            <select name="fiveStep" id="fiveStep">
            <option th:each="all:${alls}" th:if="${steps.five}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.five}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.five}!=null"  th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.five}!=null" th:selected="${all.id}==${steps.five.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
@@ -89,6 +94,7 @@
           <select name="sixStep" id="sixStep">
           <option th:each="all:${alls}" th:if="${steps.six}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.six}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.six}!=null"   th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.six}!=null" th:selected="${all.id}==${steps.six.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
@@ -98,6 +104,7 @@
           <select name="sevenStep" id="sevenStep">
            <option th:each="all:${alls}" th:if="${steps.seven}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.seven}==null"  selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.seven}!=null"   th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.seven}!=null" th:selected="${all.id}==${steps.seven.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
@@ -107,6 +114,7 @@
           <select name="eightStep" id="eightStep">
           <option th:each="all:${alls}" th:if="${steps.eight}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.eight}==null" selected="selected"  th:value="0" th:text="无"></option>
+            <option  th:if="${steps.eight}!=null" th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.eight}!=null" th:selected="${all.id}==${steps.eight.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
 
           </select>
@@ -116,6 +124,7 @@
           <select name="nineStep" id="nineStep">
          <option th:each="all:${alls}" th:if="${steps.nine}==null"  th:value="${all.id}" th:text="${all.templateName}" ></option>
             <option  th:if="${steps.nine}==null" selected="selected" th:value="0" th:text="无"></option>
+            <option  th:if="${steps.nine}!=null"  th:value="0" th:text="无"></option>
             <option th:each="all:${alls}"th:if="${steps.nine}!=null" th:selected="${all.id}==${steps.nine.id}" th:value="${all.id}" th:text="${all.templateName}" ></option>
           </select>
         </span>

@@ -8,12 +8,23 @@ import com.gxl.trainerror.service.AllTemplateService;
 import com.gxl.trainerror.service.EventChangeService;
 import com.gxl.trainerror.service.JiCheInfoService;
 import com.gxl.trainerror.service.StepShunXuService;
+import com.gxl.trainerror.util.FileUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -98,10 +109,10 @@ public class JiCheInfoController {
             stepShunXu.setNineStep(null);
         }
         stepShunXu.setName("新"+stepShunXu.getName());
-        Integer newShunXuId = stepShunXuService.insertStepShunXu(stepShunXu);
-        jiCheInfoService.updateStepShunXuById(jicheid,newShunXuId);
+        stepShunXuService.insertStepShunXu(stepShunXu);
+        jiCheInfoService.updateStepShunXuById(jicheid,stepShunXu.getId());
         //返回到相对应的界面去
-        return "redirect:/stepShunXuIndex?id="+jicheid+"&shunxuId="+newShunXuId;
+        return "redirect:/stepShunXuIndex?id="+jicheid+"&shunxuId="+stepShunXu.getId();
     }
 
     public String updateEventChange(EventChange eventChange,
@@ -139,4 +150,82 @@ public class JiCheInfoController {
         jiCheInfoService.updateEventChangeId(jicheid,neweventChangeId);
         return "redirect:/eventChangeIndex?id="+jicheid+"&eventId="+neweventChangeId;
     }
+    @RequestMapping("/loadjiche")
+    public String DownloadJiChe() throws IOException {
+        String filePath = "D:\\jiche\\";
+        File[] files = FileUtil.getCurFilesList(filePath);
+        if (files!=null&&files.length>0){
+            for (File file : files) {
+                if (file.getName().contains(".xls")){
+                    InputStream str = new FileInputStream(file);
+//        Workbook book = new HSSFWorkbook(str);
+                    Workbook book = null;
+                    try {
+                        book = new XSSFWorkbook(file);
+                    } catch (Exception ex) {
+                        try {
+                            book = new HSSFWorkbook(new FileInputStream(file));
+                        }catch (Exception ex1) {
+                            book = WorkbookFactory.create(str);
+                        }
+                    }
+
+//        XSSFWorkbook book = new XSSFWorkbook(str);
+                    Sheet sheet = book.getSheetAt(0);
+                    List<List<String>> res = new ArrayList<>();
+                    int rows = sheet.getLastRowNum();//总行数
+                    for (int i= 1;i<rows;i++){
+                        JiCheInfo jiCheInfo = new JiCheInfo();
+                        try{
+                            String  jiXing =String.valueOf(sheet.getRow(i).getCell(0));
+                            Integer jiXingHao =Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(1)));
+                            Integer jiCheHao =Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(2)));
+                            Integer danShuangDuan =Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(3)));
+                            String tempOther = String.valueOf(sheet.getRow(i).getCell(4));
+                            Integer otherJiCheHao = null;
+
+                            if (!tempOther.equals("无")){
+                                try{
+                                    otherJiCheHao = (int)Double.parseDouble(tempOther);
+                                }catch (Exception er){
+                                    otherJiCheHao = Integer.valueOf(tempOther);
+                                }
+                            }
+                            String isHeGe = String.valueOf(sheet.getRow(i).getCell(5));
+                            String zhiDongJiName = String.valueOf(sheet.getRow(i).getCell(6));
+//                            Integer zhiDongJiHao= Integer.valueOf(String.valueOf(sheet.getRow(i).getCell(7)));
+                            String tempZhiDongJiHao = String.valueOf(sheet.getRow(i).getCell(7));
+                            Integer zhiDongJiHao = null;
+                            if (!tempOther.equals("无")){
+                                try{
+                                    zhiDongJiHao = (int)Double.parseDouble(tempZhiDongJiHao);
+                                }catch (Exception er){
+                                    zhiDongJiHao = Integer.valueOf(tempZhiDongJiHao);
+                                }
+                            }
+                            Double lieZhiRatio= Double.valueOf(String.valueOf(sheet.getRow(i).getCell(8)));
+                            jiCheInfo.setJiCheHao(jiCheHao);
+                            jiCheInfo.setJiXingHao(jiXingHao);
+                            jiCheInfo.setJiXing(jiXing);
+                            jiCheInfo.setDanShuangDuan(danShuangDuan);
+                            jiCheInfo.setOtherJiCheHao(otherJiCheHao);
+                            jiCheInfo.setIsHeGe(isHeGe);
+                            jiCheInfo.setZhiDongJiName(zhiDongJiName);
+                            jiCheInfo.setZhiDongJiHao(zhiDongJiHao);
+                            jiCheInfo.setLieZhiRatio(lieZhiRatio);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        jiCheInfo.setEventChangeId(1);
+                        jiCheInfo.setStepShunXuId(1);
+                        jiCheInfoService.insertJiChe(jiCheInfo);
+                    }
+                }
+
+            }
+        }
+        return"load_jiche";
+    }
+
 }
